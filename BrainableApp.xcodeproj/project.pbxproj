@@ -14,6 +14,8 @@
 		448126522A85D3BB00F70F62 /* BrainableAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448126512A85D3BB00F70F62 /* BrainableAppTests.swift */; };
 		4481265C2A85D3BB00F70F62 /* BrainableAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4481265B2A85D3BB00F70F62 /* BrainableAppUITests.swift */; };
 		4481265E2A85D3BB00F70F62 /* BrainableAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4481265D2A85D3BB00F70F62 /* BrainableAppUITestsLaunchTests.swift */; };
+		4481266D2A85D4A600F70F62 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4481266C2A85D4A600F70F62 /* WelcomeView.swift */; };
+		4481266F2A85D81C00F70F62 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4481266E2A85D81C00F70F62 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		448126572A85D3BB00F70F62 /* BrainableAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrainableAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4481265B2A85D3BB00F70F62 /* BrainableAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainableAppUITests.swift; sourceTree = "<group>"; };
 		4481265D2A85D3BB00F70F62 /* BrainableAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainableAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4481266C2A85D4A600F70F62 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		4481266E2A85D81C00F70F62 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +99,8 @@
 		4481263E2A85D3BA00F70F62 /* BrainableApp */ = {
 			isa = PBXGroup;
 			children = (
+				4481266B2A85D47000F70F62 /* Views */,
 				4481263F2A85D3BA00F70F62 /* BrainableAppApp.swift */,
-				448126412A85D3BA00F70F62 /* ContentView.swift */,
 				448126432A85D3BB00F70F62 /* Assets.xcassets */,
 				448126452A85D3BB00F70F62 /* BrainableApp.entitlements */,
 				448126462A85D3BB00F70F62 /* Preview Content */,
@@ -127,6 +131,16 @@
 				4481265D2A85D3BB00F70F62 /* BrainableAppUITestsLaunchTests.swift */,
 			);
 			path = BrainableAppUITests;
+			sourceTree = "<group>";
+		};
+		4481266B2A85D47000F70F62 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				448126412A85D3BA00F70F62 /* ContentView.swift */,
+				4481266C2A85D4A600F70F62 /* WelcomeView.swift */,
+				4481266E2A85D81C00F70F62 /* MainView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +274,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				448126422A85D3BA00F70F62 /* ContentView.swift in Sources */,
+				4481266F2A85D81C00F70F62 /* MainView.swift in Sources */,
+				4481266D2A85D4A600F70F62 /* WelcomeView.swift in Sources */,
 				448126402A85D3BA00F70F62 /* BrainableAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

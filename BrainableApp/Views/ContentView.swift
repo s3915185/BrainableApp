@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var toMain:Bool = false;
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        if (!toMain) {
+            WelcomeView(toMain: $toMain)
         }
-        .padding()
+        else {
+            MainView()
+        }
     }
 }
 
