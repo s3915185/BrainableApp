@@ -62,7 +62,7 @@ struct MainView: View {
                                     Text("Computational Capabilities")
                                 }
                             }
-                            NavigationLink (destination: Game2View()){
+                            NavigationLink (destination: Game2View(level: $levelIndex)){
                                     ZStack {
                                         Rectangle().fill(Color.green)
                                             .aspectRatio(1.0, contentMode: .fit)
