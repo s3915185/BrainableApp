@@ -32,6 +32,10 @@ struct Game1View: View {
     @State var reset:Bool = false
     @State var totalClicked:Int  = 0
     
+    @State var showLoseTab:Bool = false
+    @State var showWinTab:Bool = false
+    @State var levelUpgrade:Int = 1
+    
     @StateObject var gm:GameMode = GameMode()
     
     var body: some View {
@@ -47,9 +51,21 @@ struct Game1View: View {
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(.red)
                         }
-
                     }
                     .frame(width: CGFloat(40*life) + 20)
+                    .onChange(of: life) { _ in
+                        life == 0 ? showLoseTab = true : nil
+                    }
+                    .onChange(of: showLoseTab) { _ in
+                        if (!showLoseTab && life == 0) {
+                            resetGame()
+                        }
+                    }
+                    .onChange(of: totalClicked) { _ in
+                        if (totalClicked == ((level + levelUpgrade) * 5) * ((level + levelUpgrade) * 5)) {
+                            showWinTab = true
+                        }
+                    }
                     
                     Spacer()
                     
@@ -60,7 +76,7 @@ struct Game1View: View {
                     Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                         GridRow {
                             Text("")
-                            ForEach(0..<((level + 2) * 5)) { u in
+                            ForEach(0..<((level + levelUpgrade) * 5)) { u in
                                 VStack {
                                     Spacer()
                                     if (level == 0) {
@@ -77,21 +93,21 @@ struct Game1View: View {
                                     }
                                 }
                                 .font(.system(size: 12, weight: .regular))
-                                .frame(width:CGFloat( 50 / (level + 2)), height: 200)
+                                .frame(width:CGFloat( 50 / (level + levelUpgrade)), height: 200)
                             }
                         }
                         
-                        ForEach(0..<((level + 2) * 5)) { a in
+                        ForEach(0..<((level + levelUpgrade) * 5)) { a in
                             GridRow {
                                 if (level == 0) {
                                     HStack {
                                         Text(gm.Easy.y_dimensions[a])
                                             .font(.system(size: 12, weight: .regular))
-                                            .frame(height: CGFloat(50 / (level + 2)))
+                                            .frame(height: CGFloat(50 / (level + levelUpgrade)))
                                     }
                                     
                                     
-                                    ForEach(0..<((level + 2) * 5)) { b in
+                                    ForEach(0..<((level + levelUpgrade) * 5)) { b in
                                         if (level == 0) {
                                             let c = gm.Easy[a, b]
                                             let d = (c == 2) ? true : false
@@ -133,7 +149,7 @@ struct Game1View: View {
                                         .frame(height: CGFloat(50 / (level + 2)))
                                     
                                     
-                                    ForEach(0..<((level + 2) * 5)) { b in
+                                    ForEach(0..<((level + levelUpgrade) * 5)) { b in
                                         if (level == 0) {
                                             let c = gm.Easy[a, b]
                                             let d = (c == 2) ? true : false
@@ -175,7 +191,7 @@ struct Game1View: View {
                                         .frame(height: CGFloat(50 / (level + 2)))
                                     
                                     
-                                    ForEach(0..<((level + 2) * 5)) { b in
+                                    ForEach(0..<((level + levelUpgrade) * 5)) { b in
                                         if (level == 0) {
                                             let c = gm.Easy[a, b]
                                             let d = (c == 2) ? true : false
@@ -233,36 +249,35 @@ struct Game1View: View {
                         choice = 1
                     }
                 }
-                
-                ZStack {
-                    Button(action: {
-                        storage = [[Int]]()
-                        colorChoice = true
-                        choice = 2
-                        life = 3
-                        gm.reset()
-                        reset = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            reset = false
-                        }
-                    }, label: {
-                        Text("Reset")
-                            .foregroundColor(.black)
-                })
-                }
             }
-            if (life == 0) {
+            if (showLoseTab) {
                 ZStack {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    LoseTab()
+                    LoseTab(showLoseTab: $showLoseTab)
                 }
             }
-            if (totalClicked == ((level + 2) * 5) * ((level + 2) * 5)) {
-                print("Got to final")
-                
+            if (showWinTab) {
+                ZStack {
+                    Spacer()
+                        .frame(width: 1000, height: 1000)
+                        .background(Color.gray.opacity(0.4))
+                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset)
+                }
             }
+        }
+    }
+    
+    func resetGame() {
+        storage = [[Int]]()
+        colorChoice = true
+        choice = 2
+        life = 5
+        gm.reset()
+        reset = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            reset = false
         }
     }
 }
@@ -276,12 +291,14 @@ struct Game1View_Previews: PreviewProvider {
 }
 
 struct LoseTab: View {
+    @Binding var showLoseTab:Bool
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
             Spacer()
             Text("GAME OVER")
                 .font(.title).bold()
+                .foregroundColor(.black)
             Text("Play again?")
             Spacer()
             HStack {
@@ -296,7 +313,7 @@ struct LoseTab: View {
             })
                 Spacer()
                 Button(action: {
-                    dismiss()
+                    showLoseTab = false
                 }, label: {
                     Image(systemName: "arrow.forward.square.fill")
                         .resizable()
@@ -313,6 +330,68 @@ struct LoseTab: View {
     }
 }
 
+
+struct WinTab: View {
+    @Binding var showWinTab:Bool
+    @Binding var storage:[[Int]]
+    @Binding var colorChoice:Bool
+    @Binding var choice:Int
+    @Binding var life:Int
+    @ObservedObject var gm:GameMode
+    @Binding var reset:Bool
+    
+    
+    
+    
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        VStack {
+            Spacer()
+            Text("You've won the them")
+                .font(.title).bold()
+                .foregroundColor(.black)
+            Text("Play again?")
+            Spacer()
+            HStack {
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image(systemName: "clear.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.red)
+                        
+            })
+                Spacer()
+                Button(action: {
+                    showWinTab = false
+                    storage = [[Int]]()
+                    colorChoice = true
+                    choice = 2
+                    life = 5
+                    gm.reset()
+                    reset = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        reset = false
+                    }
+                    
+                }, label: {
+                    Image(systemName: "arrow.forward.square.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.green)
+                        
+            })
+            }
+        }
+          .frame(width: 300, height: 200)
+          .padding(20)
+          .background(Color.white)
+          .cornerRadius(10.0)
+    }
+}
+
+
 struct ColorSquare: View {
     @Binding var level: Int
     @Binding var choice: Int
@@ -325,6 +404,11 @@ struct ColorSquare: View {
     
     @State var clicked:Bool = false
     @State var rightValue: Bool = false
+    @State var valueAdded: Bool = false
+    
+    
+    @State var levelUpgrade:Int = 1
+    
     
     var borderColor:Color {
         if (clicked && !rightValue) {return .red.opacity(1)}
@@ -338,18 +422,18 @@ struct ColorSquare: View {
             let checkGray = isCorrect == 1 ? true : false
             if (checkBlue && !reset) {
                 Color.blue
-                    .frame(width:CGFloat( 65 / (level + 2)), height: CGFloat(65 / (level + 2)))
+                    .frame(width:CGFloat( 65 / (level + levelUpgrade)), height: CGFloat(65 / (level + levelUpgrade)))
                     .border(borderColor)
             }
             else if (checkGray && !reset){
                 Color.gray.opacity(0.3)
-                    .frame(width:CGFloat( 65 / (level + 2)), height: CGFloat(65 / (level + 2)))
+                    .frame(width:CGFloat( 65 / (level + levelUpgrade)), height: CGFloat(65 / (level + levelUpgrade)))
                     .border(borderColor)
 
             }
             else {
                 Color.white
-                    .frame(width:CGFloat( 65 / (level + 2)), height: CGFloat(65 / (level + 2)))
+                    .frame(width:CGFloat( 65 / (level + levelUpgrade)), height: CGFloat(65 / (level + levelUpgrade)))
                     .border(borderColor)
 
             }
@@ -359,10 +443,6 @@ struct ColorSquare: View {
                 clicked = true
                 print("is clicked = true, total clicked =  \(totalClicked)")
                 
-            }
-            
-            if (rightValue) {
-                totalClicked += 1
             }
             isCorrect = choice
             if (level == 0) {
@@ -394,9 +474,19 @@ struct ColorSquare: View {
                     
                 }
             }
+            if (!valueAdded) {
+                totalClicked+=1
+                valueAdded = true
+            }
+        
+  
         }
         .onChange(of: reset) { _ in
-            reset ? isCorrect = 0 : nil
+           if reset {
+               isCorrect = 0
+               clicked = false
+               rightValue = false
+           }
         }
     }
 }
@@ -414,27 +504,29 @@ struct ColorSquareController: View {
 }
 
 class NonogramEasy {
+    @State var levelUpgrade:Int = 1
+    
     var level:Int = 0
     var storage = [[Int]]()
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
     init() {
-        for _ in 0..<((level + 2) * 5) {
+        for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
-                    for _ in 0..<((level + 2) * 5) {
+                    for _ in 0..<((level + levelUpgrade) * 5) {
                         subArray.append(0)
                     }
                     valueGrid.append(subArray)
                 }
         
-        for h in 0..<((level + 2) * 5) {
+        for h in 0..<((level + levelUpgrade) * 5) {
             var subArray = [Int]()
             var y_dimension = 0
             var y_string = ""
             var subY = [Int]()
-            for j in 0..<((level + 2) * 5) {
-                if (Int.random(in: 1...100) == 1) {
+            for j in 0..<((level + levelUpgrade) * 5) {
+                if (Int.random(in: 1...3) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
@@ -460,11 +552,11 @@ class NonogramEasy {
             storage.append(subArray)
         }
         
-        for a in 0..<((level + 2) * 5) {
+        for a in 0..<((level + levelUpgrade) * 5) {
             var x_dimension = 0
             var x_string = ""
             var subX = [Int]()
-            for b in 0..<((level + 2) * 5) {
+            for b in 0..<((level + levelUpgrade) * 5) {
                 let value = storage[b][a]
                 if (value == 1) {
                     if (x_dimension != 0) {
@@ -499,26 +591,28 @@ class NonogramEasy {
 }
 
 class NonogramIntermediate {
+    @State var levelUpgrade:Int = 1
+    
     @State var level:Int = 1
     var storage = [[Int]]()
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
     init() {
-        for _ in 0..<((level + 2) * 5) {
+        for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
-                    for _ in 0..<((level + 2) * 5) {
+                    for _ in 0..<((level + levelUpgrade) * 5) {
                         subArray.append(0)
                     }
                     valueGrid.append(subArray)
                 }
         
-        for h in 0..<((level + 2) * 5) {
+        for h in 0..<((level + levelUpgrade) * 5) {
             var subArray = [Int]()
             var y_dimension = 0
             var y_string = ""
             var subY = [Int]()
-            for j in 0..<((level + 2) * 5) {
+            for j in 0..<((level + levelUpgrade) * 5) {
                 if (Int.random(in: 1...3) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
@@ -545,11 +639,11 @@ class NonogramIntermediate {
             storage.append(subArray)
         }
         
-        for a in 0..<((level + 2) * 5) {
+        for a in 0..<((level + levelUpgrade) * 5) {
             var x_dimension = 0
             var x_string = ""
             var subX = [Int]()
-            for b in 0..<((level + 2) * 5) {
+            for b in 0..<((level + levelUpgrade) * 5) {
                 var value = storage[b][a]
                 if (value == 1) {
                     if (x_dimension != 0) {
@@ -584,25 +678,26 @@ class NonogramIntermediate {
 }
 
 class NonogramHard {
+    @State var levelUpgrade:Int = 1
     @State var level:Int = 2
     var storage = [[Int]]()
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
     init() {
-        for _ in 0..<((level + 2) * 5) {
+        for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
-                    for _ in 0..<((level + 2) * 5) {
+                    for _ in 0..<((level + levelUpgrade) * 5) {
                         subArray.append(0)
                     }
                     valueGrid.append(subArray)
                 }
-        for h in 0..<((level + 2) * 5) {
+        for h in 0..<((level + levelUpgrade) * 5) {
             var subArray = [Int]()
             var y_dimension = 0
             var y_string = ""
             var subY = [Int]()
-            for j in 0..<((level + 2) * 5) {
+            for j in 0..<((level + levelUpgrade) * 5) {
                 if (Int.random(in: 1...3) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
@@ -629,11 +724,11 @@ class NonogramHard {
             storage.append(subArray)
         }
         
-        for a in 0..<((level + 2) * 5) {
+        for a in 0..<((level + levelUpgrade) * 5) {
             var x_dimension = 0
             var x_string = ""
             var subX = [Int]()
-            for b in 0..<((level + 2) * 5) {
+            for b in 0..<((level + levelUpgrade) * 5) {
                 var value = storage[b][a]
                 if (value == 1) {
                     if (x_dimension != 0) {
