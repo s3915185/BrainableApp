@@ -61,32 +61,7 @@ struct MainView: View {
                                         .frame(width: geometry.size.width * 0.6)
                                     Text("Computational Capabilities")
                                 }
-                            }
-                            NavigationLink (destination: Game2View(level: $levelIndex)){
-                                    ZStack {
-                                        Rectangle().fill(Color.green)
-                                            .aspectRatio(1.0, contentMode: .fit)
-                                            .frame(width: geometry.size.width * 0.6)
-                                        Text("Logical Reasoning")
-                                    }
-                                }
-                            NavigationLink (destination: Game3View()){
-                                ZStack {
-                                    Rectangle().fill(Color.blue)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .frame(width: geometry.size.width * 0.6)
-                                    Text("Color Accurate")
-                                }
-                            }
-                            NavigationLink (destination: Game4View()){
-                                ZStack {
-                                    Rectangle().fill(Color.yellow)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .frame(width: geometry.size.width * 0.6)
-                                    Text("Attentions")
-                                }
-                            }
-                        } header: {
+                            }                        } header: {
                             Text("Category")
                         }
                     }.listStyle(.inset)

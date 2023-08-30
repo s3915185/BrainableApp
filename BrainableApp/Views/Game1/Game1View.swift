@@ -8,171 +8,206 @@
 import Foundation
 import SwiftUI
 
+
+class GameMode: ObservableObject {
+    @Published var Easy = NonogramEasy()
+    @Published var Intermediate = NonogramIntermediate()
+    @Published var Hard = NonogramHard()
+    
+    
+    func reset () {
+        Easy = NonogramEasy()
+        Intermediate = NonogramIntermediate()
+        Hard = NonogramHard()
+    }
+}
+
 struct Game1View: View {
     @Binding var level:Int
     @State var storage = [[Int]]()
     @State var colorChoice:Bool = true
+    @State var choice:Int = 2
+    @State var life:Int = 5
     
-    var Easy = NonogramEasy()
-    var Intermediate = NonogramIntermediate()
-    var Hard = NonogramHard()
+    @State var reset:Bool = false
+    @State var totalClicked:Int  = 0
+    
+    @StateObject var gm:GameMode = GameMode()
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("Got Here")
-            }
-            HStack {
-                Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                    GridRow {
-                        Text("")
-                        ForEach(0..<((level + 2) * 5)) { u in
-                            VStack {
-                                Spacer()
+        ZStack {
+            VStack {
+                HStack {
+                    Spacer()
+
+                    HStack (spacing: 8) {
+                        ForEach(1..<life+1) { i in
+                            Image(systemName: life >= i ? "heart.fill" : "heart")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.red)
+                        }
+
+                    }
+                    .frame(width: CGFloat(40*life) + 20)
+                    
+                    Spacer()
+                    
+                  
+                    
+                }
+                HStack {
+                    Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                        GridRow {
+                            Text("")
+                            ForEach(0..<((level + 2) * 5)) { u in
+                                VStack {
+                                    Spacer()
+                                    if (level == 0) {
+                                        Text(gm.Easy.x_dimensions[u])
+                                            .padding(.bottom, 4)
+                                    }
+                                    else if (level == 1) {
+                                        Text(gm.Intermediate.x_dimensions[u])
+                                            .padding(.bottom, 4)
+                                    }
+                                    else {
+                                        Text(gm.Hard.x_dimensions[u])
+                                            .padding(.bottom, 4)
+                                    }
+                                }
+                                .font(.system(size: 12, weight: .regular))
+                                .frame(width:CGFloat( 50 / (level + 2)), height: 200)
+                            }
+                        }
+                        
+                        ForEach(0..<((level + 2) * 5)) { a in
+                            GridRow {
                                 if (level == 0) {
-                                    Text(Easy.x_dimensions[u])
-                                        .padding(.bottom, 4)
+                                    HStack {
+                                        Text(gm.Easy.y_dimensions[a])
+                                            .font(.system(size: 12, weight: .regular))
+                                            .frame(height: CGFloat(50 / (level + 2)))
+                                    }
+                                    
+                                    
+                                    ForEach(0..<((level + 2) * 5)) { b in
+                                        if (level == 0) {
+                                            let c = gm.Easy[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                        }
+                                        else if (level == 1) {
+                                            let c = gm.Intermediate[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                        }
+                                        else {
+                                            let c = gm.Hard[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                        }
+                                    }
                                 }
                                 else if (level == 1) {
-                                    Text(Intermediate.x_dimensions[u])
-                                        .padding(.bottom, 4)
-                                }
-                                else {
-                                    Text(Hard.x_dimensions[u])
-                                        .padding(.bottom, 4)
-                                }
-                            }
-                            .font(.system(size: 12, weight: .regular))
-                            .frame(width:CGFloat( 50 / (level + 2)), height: 200)
-                        }
-                    }
-                    
-                    ForEach(0..<((level + 2) * 5)) { a in
-                        GridRow {
-                            if (level == 0) {
-                                HStack {
-                                    Text(Easy.y_dimensions[a])
+                                    Text(gm.Intermediate.y_dimensions[a])
                                         .font(.system(size: 12, weight: .regular))
                                         .frame(height: CGFloat(50 / (level + 2)))
-                                }
-                                
-                                
-                                ForEach(0..<((level + 2) * 5)) { b in
-                                    if (level == 0) {
-                                        let c = Easy[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
+                                    
+                                    
+                                    ForEach(0..<((level + 2) * 5)) { b in
+                                        if (level == 0) {
+                                            let c = gm.Easy[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
                                         }
-                                        
+                                        else if (level == 1) {
+                                            let c = gm.Intermediate[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                        }
                                         else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                    else if (level == 1) {
-                                        let c = Intermediate[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                    else {
-                                        let c = Hard[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                }
-                            }
-                            else if (level == 1) {
-                                Text(Intermediate.y_dimensions[a])
-                                    .font(.system(size: 12, weight: .regular))
-                                    .frame(height: CGFloat(50 / (level + 2)))
-                                
-                                
-                                ForEach(0..<((level + 2) * 5)) { b in
-                                    if (level == 0) {
-                                        let c = Easy[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                    else if (level == 1) {
-                                        let c = Intermediate[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                    else {
-                                        let c = Hard[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
+                                            let c = gm.Hard[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            else {
-                                Text(Hard.y_dimensions[a])
-                                    .font(.system(size: 12, weight: .regular))
-                                    .frame(height: CGFloat(50 / (level + 2)))
-                                
-                                
-                                ForEach(0..<((level + 2) * 5)) { b in
-                                    if (level == 0) {
-                                        let c = Easy[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
+                                else {
+                                    Text(gm.Hard.y_dimensions[a])
+                                        .font(.system(size: 12, weight: .regular))
+                                        .frame(height: CGFloat(50 / (level + 2)))
+                                    
+                                    
+                                    ForEach(0..<((level + 2) * 5)) { b in
+                                        if (level == 0) {
+                                            let c = gm.Easy[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
                                         }
-                                        
+                                        else if (level == 1) {
+                                            let c = gm.Intermediate[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                        }
                                         else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                    else if (level == 1) {
-                                        let c = Intermediate[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
-                                        }
-                                    }
-                                    else {
-                                        let c = Hard[a, b]
-                                        let d = (c == 2) ? true : false
-                                        if (d) {
-                                            ColorSquare(level: $level)
-                                        }
-                                        
-                                        else {
-                                            ColorSquare(level: $level)
+                                            let c = gm.Hard[a, b]
+                                            let d = (c == 2) ? true : false
+                                            if (d) {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
+                                            
+                                            else {
+                                                ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
+                                            }
                                         }
                                     }
                                 }
@@ -180,8 +215,54 @@ struct Game1View: View {
                         }
                     }
                 }
+                HStack {
+                    VStack{
+                        Color.blue
+                            .frame(width:CGFloat( 65), height: CGFloat(65))
+                            .border(choice == 2 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
+                    }
+                    .onTapGesture {
+                        choice = 2
+                    }
+                    VStack {
+                        Color.gray.opacity(0.3)
+                            .frame(width:CGFloat( 65), height: CGFloat(65))
+                            .border(choice == 1 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
+                    }
+                    .onTapGesture {
+                        choice = 1
+                    }
+                }
+                
+                ZStack {
+                    Button(action: {
+                        storage = [[Int]]()
+                        colorChoice = true
+                        choice = 2
+                        life = 3
+                        gm.reset()
+                        reset = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            reset = false
+                        }
+                    }, label: {
+                        Text("Reset")
+                            .foregroundColor(.black)
+                })
+                }
             }
-            
+            if (life == 0) {
+                ZStack {
+                    Spacer()
+                        .frame(width: 1000, height: 1000)
+                        .background(Color.gray.opacity(0.4))
+                    LoseTab()
+                }
+            }
+            if (totalClicked == ((level + 2) * 5) * ((level + 2) * 5)) {
+                print("Got to final")
+                
+            }
         }
     }
 }
@@ -194,36 +275,128 @@ struct Game1View_Previews: PreviewProvider {
     }
 }
 
+struct LoseTab: View {
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        VStack {
+            Spacer()
+            Text("GAME OVER")
+                .font(.title).bold()
+            Text("Play again?")
+            Spacer()
+            HStack {
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image(systemName: "clear.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.red)
+                        
+            })
+                Spacer()
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image(systemName: "arrow.forward.square.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.green)
+                        
+            })
+            }
+        }
+          .frame(width: 300, height: 200)
+          .padding(20)
+          .background(Color.white)
+          .cornerRadius(10.0)
+    }
+}
+
 struct ColorSquare: View {
     @Binding var level: Int
+    @Binding var choice: Int
     @State var isCorrect:Int = 0
+    var xCoordinate:Int
+    var yCoordinate:Int
+    @Binding var reset:Bool
+    @Binding var life:Int
+    @Binding var totalClicked:Int
+    
+    @State var clicked:Bool = false
+    @State var rightValue: Bool = false
+    
+    var borderColor:Color {
+        if (clicked && !rightValue) {return .red.opacity(1)}
+        return .black.opacity(0.1)
+    }
+    
+    @ObservedObject var gm: GameMode
     var body: some View {
         VStack{
-            let checkBlue = isCorrect == 1 ? true : false
-            let checkGray = isCorrect == 2 ? true : false
-            if (checkBlue) {
+            let checkBlue = isCorrect == 2 ? true : false
+            let checkGray = isCorrect == 1 ? true : false
+            if (checkBlue && !reset) {
                 Color.blue
                     .frame(width:CGFloat( 65 / (level + 2)), height: CGFloat(65 / (level + 2)))
-                    .border(.black.opacity(0.1))
+                    .border(borderColor)
             }
-            else if (checkGray){
+            else if (checkGray && !reset){
                 Color.gray.opacity(0.3)
                     .frame(width:CGFloat( 65 / (level + 2)), height: CGFloat(65 / (level + 2)))
-                    .border(.black.opacity(0.1))
+                    .border(borderColor)
+
             }
             else {
                 Color.white
                     .frame(width:CGFloat( 65 / (level + 2)), height: CGFloat(65 / (level + 2)))
-                    .border(.black.opacity(0.1))
+                    .border(borderColor)
+
             }
         }
         .onTapGesture {
-            if (isCorrect == 2) {
-                isCorrect = 0
+            if (!clicked) {
+                clicked = true
+                print("is clicked = true, total clicked =  \(totalClicked)")
+                
             }
-            else {
-                isCorrect += 1
+            
+            if (rightValue) {
+                totalClicked += 1
             }
+            isCorrect = choice
+            if (level == 0) {
+                if (gm.Easy.storage[xCoordinate][yCoordinate] != isCorrect) {
+                    life -= 1
+                    print(life);
+                }
+                else {
+                    rightValue = true
+                    
+                }
+            }else if (level == 1) {
+                if (gm.Intermediate.storage[xCoordinate][yCoordinate] != isCorrect) {
+                    life -= 1
+                    print(life);
+                }
+                else {
+                    rightValue = true
+                    
+                }
+            }
+            else if (level == 2) {
+                if (gm.Hard.storage[xCoordinate][yCoordinate] != isCorrect) {
+                    life -= 1
+                    print(life);
+                }
+                else {
+                    rightValue = true
+                    
+                }
+            }
+        }
+        .onChange(of: reset) { _ in
+            reset ? isCorrect = 0 : nil
         }
     }
 }
@@ -241,27 +414,38 @@ struct ColorSquareController: View {
 }
 
 class NonogramEasy {
-    @State var level:Int = 0
+    var level:Int = 0
     var storage = [[Int]]()
     var y_dimensions = [String]()
     var x_dimensions = [String]()
+    var valueGrid = [[Int]]()
     init() {
         for _ in 0..<((level + 2) * 5) {
+                    var subArray = [Int]()
+                    for _ in 0..<((level + 2) * 5) {
+                        subArray.append(0)
+                    }
+                    valueGrid.append(subArray)
+                }
+        
+        for h in 0..<((level + 2) * 5) {
             var subArray = [Int]()
             var y_dimension = 0
             var y_string = ""
             var subY = [Int]()
-            for _ in 0..<((level + 2) * 5) {
-                if (Int.random(in: 1...3) == 1) {
+            for j in 0..<((level + 2) * 5) {
+                if (Int.random(in: 1...100) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
                     }
                     subArray.append(1)
+                    valueGrid[h][j] = 1
                 }
                 else {
                     y_dimension += 1
                     subArray.append(2)
+                    valueGrid[h][j] = 2;
                 }
             }
             if (y_dimension != 0) {
@@ -281,7 +465,7 @@ class NonogramEasy {
             var x_string = ""
             var subX = [Int]()
             for b in 0..<((level + 2) * 5) {
-                var value = storage[b][a]
+                let value = storage[b][a]
                 if (value == 1) {
                     if (x_dimension != 0) {
                         subX.append(x_dimension)
@@ -319,23 +503,34 @@ class NonogramIntermediate {
     var storage = [[Int]]()
     var y_dimensions = [String]()
     var x_dimensions = [String]()
+    var valueGrid = [[Int]]()
     init() {
         for _ in 0..<((level + 2) * 5) {
+                    var subArray = [Int]()
+                    for _ in 0..<((level + 2) * 5) {
+                        subArray.append(0)
+                    }
+                    valueGrid.append(subArray)
+                }
+        
+        for h in 0..<((level + 2) * 5) {
             var subArray = [Int]()
             var y_dimension = 0
             var y_string = ""
             var subY = [Int]()
-            for _ in 0..<((level + 2) * 5) {
+            for j in 0..<((level + 2) * 5) {
                 if (Int.random(in: 1...3) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
                     }
                     subArray.append(1)
+                    valueGrid[h][j] = 1
                 }
                 else {
                     y_dimension += 1
                     subArray.append(2)
+                    valueGrid[h][j] = 2
                 }
             }
             if (y_dimension != 0) {
@@ -393,23 +588,33 @@ class NonogramHard {
     var storage = [[Int]]()
     var y_dimensions = [String]()
     var x_dimensions = [String]()
+    var valueGrid = [[Int]]()
     init() {
         for _ in 0..<((level + 2) * 5) {
+                    var subArray = [Int]()
+                    for _ in 0..<((level + 2) * 5) {
+                        subArray.append(0)
+                    }
+                    valueGrid.append(subArray)
+                }
+        for h in 0..<((level + 2) * 5) {
             var subArray = [Int]()
             var y_dimension = 0
             var y_string = ""
             var subY = [Int]()
-            for _ in 0..<((level + 2) * 5) {
+            for j in 0..<((level + 2) * 5) {
                 if (Int.random(in: 1...3) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
                     }
                     subArray.append(1)
+                    valueGrid[h][j] = 1
                 }
                 else {
                     y_dimension += 1
                     subArray.append(2)
+                    valueGrid[h][j] = 2
                 }
             }
             if (y_dimension != 0) {
