@@ -13,6 +13,15 @@ struct MainView: View {
     @State private var levelIndex:Int = 0
     @State private var languageIndex:Int = 0
     
+    @State private var name:String = ""
+    @State private var password:String = ""
+
+    @State private var nameLogin:String = ""
+    @State private var passwordLogin:String = ""
+    
+    @State private var nameTemp:String = ""
+    @State private var passwordTemp:String = ""
+    
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -22,7 +31,7 @@ struct MainView: View {
                         Text("Master Mind")
                             .padding(.leading)
                         Spacer()
-                        NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex)) {
+                        NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
                             Image(systemName: "gearshape.circle.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30)
@@ -31,40 +40,84 @@ struct MainView: View {
                         }
                     }
                     List {
-                        Section{
-                            HStack{
-                                Spacer()
-                            }
-                        }.listRowSeparator(.hidden)
                         Section {
-                            HStack{
-                                Text("Computing Capability")
-                            }
-                            HStack{
-                                Text("Logical Reasoning")
-                            }
-                            HStack{
-                                Text("Color Accurate")
+                            HStack {
+                                Text("Has account?")
+                                Spacer()
+                                Button(action: {
+                                    // ADD FUNCTIONS
+                                    nameLogin = name
+                                    passwordLogin = password
+                                }, label: {
+                                    Text("Log In")
+                                })
                             }
                             HStack {
-                                Text("Attentions")
+                                Text("Username: ")
+                                Spacer()
+                                TextField (
+                                    "Enter your player name ", text: $name
+                                ).frame(width: 210)
                             }
-                        } header: {
-                            Text("Abilities")
-                        }.listRowSeparator(.hidden)
-                        
+                            HStack {
+                                Text("Password: ")
+                                Spacer()
+                                TextField (
+                                    "Enter password ", text: $password
+                                ).frame(width: 210)
+                            }
+                        }
+                        Section {
+                            HStack {
+                                Text("Create new account")
+                                Spacer()
+                                Button(action: {
+                                    // ADD FUNCTIONS
+                                }, label: {
+                                    Text("Create")
+                                })
+                            }
+                            HStack {
+                                Text("Username: ")
+                                Spacer()
+                                TextField (
+                                    "Enter your player name ", text: $nameTemp
+                                ).frame(width: 210)
+                            }
+                            HStack {
+                                Text("Password: ")
+                                Spacer()
+                                TextField (
+                                    "Enter password ", text: $passwordTemp
+                                )
+                                .frame(width: 210)
+                            }
+                        }
+                        Section {
+                            HStack {
+                                Spacer()
+                                Text("Master Mind")
+                                Spacer()
+                            }
+                        }.background(.clear)
                         Section {
                             NavigationLink (destination: Game1View(level: $levelIndex)){
                                 ZStack {
-                                    Rectangle().fill(Color.red)
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .frame(width: geometry.size.width * 0.6)
-                                    Text("Computational Capabilities")
+                                    Text("Play!")
                                 }
-                            }                        } header: {
-                            Text("Category")
+                            }
+                            NavigationLink (destination: Game1View(level: $levelIndex)){
+                                ZStack {
+                                    Text("Leaderboard")
+                                }
+                            }
+                            NavigationLink (destination: Game1View(level: $levelIndex)){
+                                ZStack {
+                                    Text("How To Play")
+                                }
+                            }
                         }
-                    }.listStyle(.inset)
+                    }
                     
                 }
             }

@@ -12,6 +12,8 @@ struct SettingView: View {
     @Binding var isOn: Bool
     @Binding var levelIndex:Int
     @Binding var languageIndex: Int
+    @Binding var name:String
+    @Binding var password:String
     var level = ["Easy", "Intermediate", "Hard"]
     var languages = ["Vietnamese", "English"]
     var body: some View {
@@ -20,12 +22,12 @@ struct SettingView: View {
                     HStack {
                         Text("Username: ")
                         Spacer()
-                        Text("tranhov")
+                        Text(name)
                     }
                     HStack {
                         Text("Password: ")
                         Spacer()
-                        Text("********");
+                        Text(password);
                     }
                 } header: {
                     Text("Account Information")
@@ -60,6 +62,6 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(isOn: .constant(false), levelIndex: .constant(0), languageIndex: .constant(0))
+        SettingView(isOn: .constant(false), levelIndex: .constant(0), languageIndex: .constant(0), name: .constant("Hoang vu"), password: .constant("asdjhks"))
     }
 }

@@ -36,14 +36,21 @@ struct Game1View: View {
     @State var showWinTab:Bool = false
     @State var levelUpgrade:Int = 1
     
+    @State var gameTime: Double = 995
+    @State var timer: Timer?
+    @State var isTimerRunning = false
+    
+    @State var maxTime: Double = 2000
+
     @StateObject var gm:GameMode = GameMode()
     
     var body: some View {
         ZStack {
             VStack {
                 HStack {
+                    
                     Spacer()
-
+                    
                     HStack (spacing: 8) {
                         ForEach(1..<life+1) { i in
                             Image(systemName: life >= i ? "heart.fill" : "heart")
@@ -55,23 +62,44 @@ struct Game1View: View {
                     .frame(width: CGFloat(40*life) + 20)
                     .onChange(of: life) { _ in
                         life == 0 ? showLoseTab = true : nil
+                        life == 0 ? stopPlayerTimer() : nil
                     }
                     .onChange(of: showLoseTab) { _ in
                         if (!showLoseTab && life == 0) {
                             resetGame()
+                            resetPlayerTimer()
+                            startPlayerTimer()
                         }
                     }
                     .onChange(of: totalClicked) { _ in
                         if (totalClicked == ((level + levelUpgrade) * 5) * ((level + levelUpgrade) * 5)) {
                             showWinTab = true
+                            stopPlayerTimer()
                         }
                     }
+                    .onChange(of: reset, perform: { _ in
+                        if reset {
+                            resetPlayerTimer()
+                            startPlayerTimer()
+                        }
+                    })
+                    
                     
                     Spacer()
                     
                   
                     
                 }
+                HStack {
+                    Text("Time: ")
+                    Text("\(String(format: "%.1f", gameTime))")
+                        .font(.system(size: 16, weight: .regular, design: .monospaced))
+                        .frame(width: 70)
+                        .onAppear{
+                            startPlayerTimer()
+                    }
+                }
+                .frame(width: 140)
                 HStack {
                     Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                         GridRow {
@@ -263,7 +291,7 @@ struct Game1View: View {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset)
+                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked)
                 }
             }
         }
@@ -276,9 +304,37 @@ struct Game1View: View {
         life = 5
         gm.reset()
         reset = true
+        totalClicked = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             reset = false
         }
+    }
+    
+    func startPlayerTimer() {
+        if timer == nil {
+            isTimerRunning = true
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true){ _ in
+                if gameTime >= maxTime {
+                    stopPlayerTimer()
+                } else {
+                    gameTime += 0.1
+
+                }
+            }
+        }
+    }
+    
+    func resetPlayerTimer() {
+        timer?.invalidate()
+        timer = nil
+        isTimerRunning = false
+        gameTime = 995
+    }
+    
+    func stopPlayerTimer() {
+        timer?.invalidate()
+        timer = nil
+        isTimerRunning = false
     }
 }
 
@@ -339,8 +395,7 @@ struct WinTab: View {
     @Binding var life:Int
     @ObservedObject var gm:GameMode
     @Binding var reset:Bool
-    
-    
+    @Binding var totalClicked:Int
     
     
     @Environment(\.dismiss) var dismiss
@@ -371,6 +426,7 @@ struct WinTab: View {
                     life = 5
                     gm.reset()
                     reset = true
+                    totalClicked = 0
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         reset = false
                     }
@@ -474,10 +530,11 @@ struct ColorSquare: View {
                     
                 }
             }
-            if (!valueAdded) {
-                totalClicked+=1
-                valueAdded = true
-            }
+            if (rightValue) {
+                if (!valueAdded) {
+                    totalClicked+=1
+                    valueAdded = true
+                }}
         
   
         }
@@ -486,26 +543,14 @@ struct ColorSquare: View {
                isCorrect = 0
                clicked = false
                rightValue = false
+               valueAdded = false
            }
-        }
-    }
-}
-struct ColorSquareController: View {
-    let color: Color
-    @Binding var level: Int
-    var body: some View {
-        color
-        .frame(width:CGFloat(65), height: CGFloat(65))
-        .border(.black.opacity(0.1))
-        .onTapGesture {
-            print("Tapped Color Controller")
         }
     }
 }
 
 class NonogramEasy {
     @State var levelUpgrade:Int = 1
-    
     var level:Int = 0
     var storage = [[Int]]()
     var y_dimensions = [String]()
@@ -526,7 +571,7 @@ class NonogramEasy {
             var y_string = ""
             var subY = [Int]()
             for j in 0..<((level + levelUpgrade) * 5) {
-                if (Int.random(in: 1...3) == 1) {
+                if (Int.random(in: 1...20) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
