@@ -18,7 +18,6 @@
 		44E925F72A907CE0009B685F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E925F62A907CE0009B685F /* SettingView.swift */; };
 		44E925F92A90907B009B685F /* Game1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E925F82A90907B009B685F /* Game1View.swift */; };
 		952571162AA0B83C00E0CD86 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952571152AA0B83C00E0CD86 /* Player.swift */; };
-		9525711A2AA0C49100E0CD86 /* Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952571192AA0C49100E0CD86 /* Testing.swift */; };
 		9525711C2AA0C4B700E0CD86 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9525711B2AA0C4B700E0CD86 /* Leaderboard.swift */; };
 		9525711F2AA1846000E0CD86 /* players.json in Resources */ = {isa = PBXBuildFile; fileRef = 9525711E2AA1846000E0CD86 /* players.json */; };
 		952571212AA1855600E0CD86 /* ModelPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952571202AA1855600E0CD86 /* ModelPlayer.swift */; };
@@ -68,7 +67,6 @@
 		44E925F62A907CE0009B685F /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		44E925F82A90907B009B685F /* Game1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game1View.swift; sourceTree = "<group>"; };
 		952571152AA0B83C00E0CD86 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		952571192AA0C49100E0CD86 /* Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing.swift; sourceTree = "<group>"; };
 		9525711B2AA0C4B700E0CD86 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
 		9525711E2AA1846000E0CD86 /* players.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = players.json; sourceTree = "<group>"; };
 		952571202AA1855600E0CD86 /* ModelPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPlayer.swift; sourceTree = "<group>"; };
@@ -133,11 +131,11 @@
 		4481263E2A85D3BA00F70F62 /* BrainableApp */ = {
 			isa = PBXGroup;
 			children = (
+				44E926002A90B306009B685F /* Game1 */,
 				9578A6E72AA23BF8007D8E56 /* Sounds */,
 				9525712A2AA1902200E0CD86 /* Leader */,
 				952571242AA18CA600E0CD86 /* Preview Content */,
 				9525711D2AA1842300E0CD86 /* Model */,
-				952571192AA0C49100E0CD86 /* Testing.swift */,
 				4481266B2A85D47000F70F62 /* Views */,
 				4481263F2A85D3BA00F70F62 /* BrainableAppApp.swift */,
 				448126432A85D3BB00F70F62 /* Assets.xcassets */,
@@ -167,7 +165,6 @@
 		4481266B2A85D47000F70F62 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				44E926002A90B306009B685F /* Game1 */,
 				448126412A85D3BA00F70F62 /* ContentView.swift */,
 				4481266C2A85D4A600F70F62 /* WelcomeView.swift */,
 				4481266E2A85D81C00F70F62 /* MainView.swift */,
@@ -365,7 +362,6 @@
 			files = (
 				448126422A85D3BA00F70F62 /* ContentView.swift in Sources */,
 				44E925F72A907CE0009B685F /* SettingView.swift in Sources */,
-				9525711A2AA0C49100E0CD86 /* Testing.swift in Sources */,
 				4481266F2A85D81C00F70F62 /* MainView.swift in Sources */,
 				952571212AA1855600E0CD86 /* ModelPlayer.swift in Sources */,
 				954E6D852AA1E14D00E62BCF /* Achievement.swift in Sources */,
