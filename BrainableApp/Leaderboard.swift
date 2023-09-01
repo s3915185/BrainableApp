@@ -8,13 +8,36 @@
 import SwiftUI
 
 struct Leaderboard: View {
+    @Binding var levelIndex:Int
+    var level = ["Easy", "Intermediate", "Hard"]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack {
+                HStack {
+                    List {
+                        Section {
+                            Picker(selection: $levelIndex, label:
+                                    Text("Level")) {
+                                ForEach(0 ..< level.count) {
+                                    Text(self.level[$0]).tag($0)
+                                }
+                            }
+                        }
+                    }
+                }.frame(height: 100)
+                HStack {
+                    List(players, id: \.id) {
+                        player in
+                        Text(player.name)
+                    }
+                }
+            }
+        }
     }
 }
 
 struct Leaderboard_Previews: PreviewProvider {
     static var previews: some View {
-        Leaderboard()
+        Leaderboard(levelIndex: .constant(0))
     }
 }

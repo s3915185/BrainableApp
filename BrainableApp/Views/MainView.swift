@@ -106,14 +106,14 @@ struct MainView: View {
                                     Text("Play!")
                                 }
                             }
-                            NavigationLink (destination: Game1View(level: $levelIndex)){
+                            NavigationLink (destination: Leaderboard(levelIndex: $levelIndex)){
                                 ZStack {
                                     Text("Leaderboard")
                                 }
                             }
-                            NavigationLink (destination: Game1View(level: $levelIndex)){
+                            NavigationLink (destination: Leaderboard(levelIndex: $levelIndex)){
                                 ZStack {
-                                    Text("How To Play")
+                                    Text("How to Play!")
                                 }
                             }
                         }

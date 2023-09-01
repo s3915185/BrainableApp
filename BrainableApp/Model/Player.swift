@@ -12,7 +12,6 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
     var id: Int
     var name: String
     var scoreEasy: Double
-    var ScoreIntermediate: Double
-    var ScoreHard: Double
+    var scoreIntermediate: Double
+    var scoreHard: Double
 }
-

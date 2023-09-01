@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Vuke",
+        "scoreEasy": 25.5,
+        "scoreIntermediate": 50.5,
+        "scoreHard": 80
+    },
+    {
+        "id": 2,
+        "name": "Hongan",
+        "scoreEasy": 23.2,
+        "scoreIntermediate": 48.5,
+        "scoreHard": 60
+    },
+    {
+        "id": 3,
+        "name": "Giahuy",
+        "scoreEasy": 28.5,
+        "scoreIntermediate": 61.5,
+        "scoreHard": 91
+    },
+    {
+        "id": 4,
+        "name": "Huahuy",
+        "scoreEasy": 31.5,
+        "scoreIntermediate": 32.5,
+        "scoreHard": 45
+    },
+    {
+        "id": 5,
+        "name": "Gianghuy",
+        "scoreEasy": 40.5,
+        "scoreIntermediate": 90.5,
+        "scoreHard": 150
+    }
+]
