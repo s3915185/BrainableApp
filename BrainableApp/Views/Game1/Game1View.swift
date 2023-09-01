@@ -24,6 +24,8 @@ class GameMode: ObservableObject {
 
 struct Game1View: View {
     @Binding var level:Int
+    var playerLoggin:Player
+
     @State var storage = [[Int]]()
     @State var colorChoice:Bool = true
     @State var choice:Int = 2
@@ -266,6 +268,7 @@ struct Game1View: View {
                             .border(choice == 2 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
                     }
                     .onTapGesture {
+                        playClickSound()
                         choice = 2
                     }
                     VStack {
@@ -274,6 +277,7 @@ struct Game1View: View {
                             .border(choice == 1 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
                     }
                     .onTapGesture {
+                        playClickSound()
                         choice = 1
                     }
                 }
@@ -283,7 +287,7 @@ struct Game1View: View {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    LoseTab(showLoseTab: $showLoseTab)
+                    LoseTab(playerLoggin: playerLoggin, showLoseTab: $showLoseTab, level: level, time: gameTime)
                 }
             }
             if (showWinTab) {
@@ -291,9 +295,14 @@ struct Game1View: View {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked)
+                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked, playerLoggin: playerLoggin, level: level, time: gameTime)
                 }
             }
+        }
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            playClickSound()
+            playBackgroundSound()
         }
     }
     
@@ -340,14 +349,17 @@ struct Game1View: View {
 
 struct Game1View_Previews: PreviewProvider {
     static var previews: some View {
-        Game1View(level: .constant(2))
-        Game1View(level: .constant(1))
-        Game1View(level: .constant(0))
+        Game1View(level: .constant(2), playerLoggin: players[0])
+        Game1View(level: .constant(1), playerLoggin: players[0])
+        Game1View(level: .constant(0), playerLoggin: players[0])
     }
 }
 
 struct LoseTab: View {
+    var playerLoggin:Player
     @Binding var showLoseTab:Bool
+    var level:Int
+    var time:Double
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
@@ -360,6 +372,7 @@ struct LoseTab: View {
             HStack {
                 Button(action: {
                     dismiss()
+                    playMainbackgroundSound()
                 }, label: {
                     Image(systemName: "clear.fill")
                         .resizable()
@@ -370,6 +383,7 @@ struct LoseTab: View {
                 Spacer()
                 Button(action: {
                     showLoseTab = false
+                    playBackgroundSound()
                 }, label: {
                     Image(systemName: "arrow.forward.square.fill")
                         .resizable()
@@ -383,9 +397,42 @@ struct LoseTab: View {
           .padding(20)
           .background(Color.white)
           .cornerRadius(10.0)
+          .onAppear {
+              updatePlayerInfo(player: playerLoggin, level: level, time: time, isWin: false)
+              playLoserSound()
+          }
     }
 }
 
+func updatePlayerInfo(player: Player, level: Int, time: Double, isWin: Bool) {
+    var playerChange = Player(id: player.id, name: player.name, password: player.password, scoreEasy: player.scoreEasy, scoreIntermediate: player.scoreIntermediate, scoreHard: player.scoreHard, maxWinStreak: player.maxWinStreak, winStreak: player.winStreak, gameTotal: player.gameTotal, winners: player.winners, losers: player.losers, achievements: player.achievements)
+    for i in 0..<players.count {
+        if (players[i].id == player.id) {
+            if (isWin) {
+                if (level == 0) {
+                    playerChange.scoreEasy = time < player.scoreEasy ? time : player.scoreEasy
+                }
+                else if (level == 1) {
+                    playerChange.scoreIntermediate = time < player.scoreIntermediate ? time : player.scoreIntermediate
+                }
+                else {
+                    playerChange.scoreHard = time < player.scoreHard ? time : player.scoreHard
+                }
+                playerChange.winStreak  = player.winStreak + 1
+                playerChange.gameTotal = player.gameTotal + 1
+                playerChange.winners = player.winners + 1
+                playerChange.maxWinStreak = player.maxWinStreak < player.winStreak ? player.winStreak : player.maxWinStreak
+            }
+            else {
+                playerChange.winStreak = 0
+                playerChange.gameTotal += 1
+                playerChange.losers += 1
+            }
+            players[i] = playerChange
+        }
+    }
+    
+}
 
 struct WinTab: View {
     @Binding var showWinTab:Bool
@@ -396,7 +443,9 @@ struct WinTab: View {
     @ObservedObject var gm:GameMode
     @Binding var reset:Bool
     @Binding var totalClicked:Int
-    
+    var playerLoggin:Player
+    var level:Int
+    var time:Double
     
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -410,6 +459,7 @@ struct WinTab: View {
             HStack {
                 Button(action: {
                     dismiss()
+                    playMainbackgroundSound()
                 }, label: {
                     Image(systemName: "clear.fill")
                         .resizable()
@@ -427,6 +477,8 @@ struct WinTab: View {
                     gm.reset()
                     reset = true
                     totalClicked = 0
+                    playBackgroundSound()
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         reset = false
                     }
@@ -444,6 +496,10 @@ struct WinTab: View {
           .padding(20)
           .background(Color.white)
           .cornerRadius(10.0)
+          .onAppear {
+              updatePlayerInfo(player: playerLoggin, level: level, time: time, isWin: true)
+              playWinnerSound()
+          }
     }
 }
 
@@ -495,6 +551,7 @@ struct ColorSquare: View {
             }
         }
         .onTapGesture {
+            playClickSound()
             if (!clicked) {
                 clicked = true
                 print("is clicked = true, total clicked =  \(totalClicked)")

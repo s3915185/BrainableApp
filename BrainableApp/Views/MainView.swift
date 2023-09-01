@@ -8,6 +8,11 @@
 import Foundation
 import SwiftUI
 
+import AVFoundation
+
+var audio: AVAudioPlayer!
+var background: AVAudioPlayer!
+
 struct MainView: View {
     @State private var isOn:Bool = false
     @State private var levelIndex:Int = 0
@@ -25,6 +30,7 @@ struct MainView: View {
     @State private var playersCount:Int = 0
     
     @State private var showingHowToPlay = false
+    @State private var playerLoggin:Player = Player(id: 100, name: "noname", password: "nopassword", scoreEasy: 50000, scoreIntermediate: 50000, scoreHard: 50000, maxWinStreak: 0, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -61,6 +67,7 @@ struct MainView: View {
                                         nameLogin = name
                                         passwordLogin = password
                                     }
+                                    playClickSound()
                                 }, label: {
                                     Text("Log In")
                                 })
@@ -90,6 +97,7 @@ struct MainView: View {
                                     }
                                     nameTemp = ""
                                     passwordTemp = ""
+                                    playClickSound()
                                 }, label: {
                                     Text("Create")
                                 })
@@ -119,7 +127,7 @@ struct MainView: View {
                         }.background(.clear)
                         Section {
                             if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                                NavigationLink (destination: Game1View(level: $levelIndex)){
+                                NavigationLink (destination: Game1View(level: $levelIndex, playerLoggin: playerLoggin)){
                                     ZStack {
                                         Text("Play!")
                                     }
@@ -132,6 +140,7 @@ struct MainView: View {
                             }
                             Button("How To Play") {
                                 showingHowToPlay.toggle()
+                                playClickSound()
                             }
                             .sheet(isPresented: $showingHowToPlay) {
                                 HowToPlayView()
@@ -140,6 +149,9 @@ struct MainView: View {
                     }
                     
                 }
+            }
+            .onAppear {
+                playClickSound()
             }
         }
         .environment(\.colorScheme, isOn ? .dark : .light)
@@ -150,6 +162,7 @@ struct MainView: View {
         players.forEach { player in
             if (player.name == login && player.password == password) {
                 hasAccount = true
+                playerLoggin = player
             }
             caught = player.id
         }
@@ -184,7 +197,7 @@ struct MainView: View {
 
     
     func addAccount(loginValue: String, passwordValue: String) {
-        var newPlayer = Player(id: players.count + 1, name: loginValue, password: passwordValue, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
+        var newPlayer = Player(id: players.count + 1, name: loginValue, password: passwordValue, scoreEasy: 50000, scoreIntermediate: 50000, scoreHard: 50000, maxWinStreak: 0, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
         print("Got to add account")
         players.append(newPlayer)
     }
@@ -193,5 +206,88 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+    }
+}
+
+
+func playClickSound() {
+    let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+    
+    guard url != nil else {
+        return
+    }
+    
+    do {
+        audio = try AVAudioPlayer(contentsOf: url!)
+        audio?.play()
+    }
+    catch {
+        print(error)
+    }
+}
+
+func playWinnerSound() {
+    let url = Bundle.main.url(forResource: "winner", withExtension: "mp3")
+    
+    guard url != nil else {
+        return
+    }
+    
+    do {
+        background = try AVAudioPlayer(contentsOf: url!)
+        background?.play()
+    }
+    catch {
+        print(error)
+    }
+}
+
+func playBackgroundSound() {
+    let url = Bundle.main.url(forResource: "background", withExtension: "mp3")
+    
+    guard url != nil else {
+        return
+    }
+    
+    do {
+        background = try AVAudioPlayer(contentsOf: url!)
+        background.numberOfLoops = 100
+        background?.play()
+    }
+    catch {
+        print(error)
+    }
+}
+
+func playMainbackgroundSound() {
+    let url = Bundle.main.url(forResource: "mainbackground", withExtension: "mp3")
+    
+    guard url != nil else {
+        return
+    }
+    
+    do {
+        background = try AVAudioPlayer(contentsOf: url!)
+        background.numberOfLoops = 100
+        background?.play()
+    }
+    catch {
+        print(error)
+    }
+}
+
+func playLoserSound() {
+    let url = Bundle.main.url(forResource: "loser", withExtension: "mp3")
+    
+    guard url != nil else {
+        return
+    }
+    
+    do {
+        background = try AVAudioPlayer(contentsOf: url!)
+        background?.play()
+    }
+    catch {
+        print(error)
     }
 }

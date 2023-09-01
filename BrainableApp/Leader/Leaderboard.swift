@@ -107,6 +107,9 @@ struct Leaderboard: View {
                     }
                 }
             }
+            .onAppear {
+                playClickSound()
+            }
         }.navigationBarBackButtonHidden(true)
     }
     func searchForAchievements(id: Int) -> Achievement {

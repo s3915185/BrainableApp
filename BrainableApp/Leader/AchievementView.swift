@@ -53,9 +53,9 @@ struct AchievementView: View {
                                     Text("\(player.gameTotal)")
                                 }
                                 HStack{
-                                    Text("Win Streak: ")
+                                    Text("Max Win Streak: ")
                                     Spacer()
-                                    Text("\(player.winStreak)")
+                                    Text("\(player.maxWinStreak)")
                                 }
                             }
                         }

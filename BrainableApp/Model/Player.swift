@@ -12,13 +12,38 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
     var id: Int
     var name: String
     var password: String
-    var scoreEasy: Double = 50000
-    var scoreIntermediate: Double = 50000
-    var scoreHard: Double = 50000
-    let winStreak: Int
-    let gameTotal: Int
-    let winners: Int
-    let losers: Int
+    var scoreEasy: Double
+    var scoreIntermediate: Double
+    var scoreHard: Double
+    var maxWinStreak: Int
+    var winStreak: Int
+    var gameTotal: Int
+    var winners: Int
+    var losers: Int
     
-    let achievements: [Int]
+    var achievements: [Int]
+    
+    mutating func addOne(number: inout Int) {
+        number += 1
+    }
+    mutating func compareLargeMaxWS() {
+        maxWinStreak = winStreak > maxWinStreak ? winStreak : maxWinStreak
+    }
+    mutating func compareLargeLowerScore(time: Double, level: Int) {
+        if (level == 0) {
+            scoreEasy = time < scoreEasy ? time : scoreEasy
+
+        }
+        else if (level == 1) {
+            scoreIntermediate = time < scoreIntermediate ? time : scoreIntermediate
+
+        }
+        else {
+            scoreHard = time < scoreHard ? time : scoreHard
+
+        }
+    }
+    mutating func setZero(number: inout Int) {
+        number = 0
+    }
 }

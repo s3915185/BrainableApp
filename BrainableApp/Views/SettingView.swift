@@ -73,6 +73,9 @@ struct SettingView: View {
                     }
                 }
             }
+            .onAppear {
+                playClickSound()
+            }
             .environment(\.colorScheme, isOn ? .dark : .light)
     }
 }
