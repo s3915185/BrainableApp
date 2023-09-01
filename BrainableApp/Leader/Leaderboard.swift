@@ -9,8 +9,8 @@ import SwiftUI
 
 struct Leaderboard: View {
     @Binding var levelIndex:Int
+    @Environment(\.dismiss) var dismiss
     var level = ["Easy", "Intermediate", "Hard"]
-    
     var filteredPlayers : [Player] {
         if (levelIndex == 0) {
             return players
@@ -31,50 +31,92 @@ struct Leaderboard: View {
         return players
     }
     var body: some View {
-        ZStack {
-            VStack {
-                HStack {
+        NavigationStack {
+            GeometryReader { geometry in
+                VStack {
+                    Spacer(minLength: 80)
                     List {
-                        Section {
-                            Picker(selection: $levelIndex, label:
-                                    Text("Level")) {
-                                ForEach(0 ..< level.count) {
-                                    Text(self.level[$0]).tag($0)
+                        ForEach(0..<filteredPlayers.count) { play in
+                            Section {
+                                HStack {
+                                    AchievementView(player: filteredPlayers[play], levelIndex: $levelIndex)
                                 }
-                            }
-                        }
-                    }
-                }.frame(height: 100)
-                HStack {
-                    List(filteredPlayers, id: \.id) {
-                        player in
-                        VStack {
-                            HStack {
-                                Text(player.name)
-                                Spacer()
-                                if (levelIndex == 0) {
-                                    Text("\(String(format: "%.1f", player.scoreEasy))")
-                                }
-                                else if (levelIndex == 1) {
-                                    Text("\(String(format: "%.1f", player.scoreIntermediate))")
-                                }
-                                else {
-                                    Text("\(String(format: "%.1f", player.scoreHard))")
-                                }
-                            }
-                            VStack {
-                                    ForEach(player.achievements, id: \.self) { achievement in
-                                        HStack {
-                                            Text(achievement)
-                                            Spacer()
-                                        }
+                            } header: {
+                                HStack {
+                                    Text("\(play + 1)")
+                                        .font(.title)
+                                    Spacer()
+                                    if (play + 1 == 1) {
+                                        Image("cup1")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                        Image("cup1")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
                                     }
+                                    if (play + 1 == 2) {
+                                        Image("cup2")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                        Image("cup2")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                    }
+                                    else if (play + 1 == 3) {
+                                        Image("cup3")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                        Image("cup3")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                    }
+                                }
                             }
                         }
                     }
                 }
+                .overlay {
+                    VStack {
+                        HStack {
+                            List {
+                                Section {
+                                    Picker(selection: $levelIndex, label:
+                                            Text("Level")) {
+                                        ForEach(0 ..< level.count) {
+                                            Text(self.level[$0]).tag($0)
+                                        }
+                                    }
+                                }
+                            }
+                        }.frame(height: 90)
+                        Spacer()
+                    }
+                    .overlay {
+                        VStack {
+                            HStack {
+                                Button(action: {
+                                    dismiss()
+                                }, label: {
+                                    Image(systemName: "arrowshape.backward.fill")
+                                })
+                                .padding(.leading)
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                    }
+                }
+            }
+        }.navigationBarBackButtonHidden(true)
+    }
+    func searchForAchievements(id: Int) -> Achievement {
+        var object:Achievement = Achievement(id: 100, achieveName: "noname", timeCount: 50000, mode: "nomode", image: "noimage")
+        achievementsList.forEach{ achieve in
+            if (achieve.id == id) {
+                object = achieve
             }
         }
+        return object
     }
 }
 

@@ -14,6 +14,8 @@ struct SettingView: View {
     @Binding var languageIndex: Int
     @Binding var name:String
     @Binding var password:String
+    @Environment(\.dismiss) var dismiss
+
     var level = ["Easy", "Intermediate", "Hard"]
     var languages = ["Vietnamese", "English"]
     var body: some View {
@@ -54,6 +56,21 @@ struct SettingView: View {
                     }
                 } header: {
                     Text("App Settings")
+                }
+                Section {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            name = ""
+                            password = ""
+                            dismiss()
+                        }, label: {
+                            Text("Log Out")
+                                .foregroundColor(.red)
+                        })
+                        Spacer()
+
+                    }
                 }
             }
             .environment(\.colorScheme, isOn ? .dark : .light)

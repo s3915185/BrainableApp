@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "Nonogram-puzzle-to-print-DelightfulPaths.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Nonogram-puzzle-to-print-DelightfulPaths 1.jpg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Nonogram-puzzle-to-print-DelightfulPaths 2.jpg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

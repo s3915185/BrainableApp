@@ -23,6 +23,8 @@ struct MainView: View {
     @State private var passwordTemp:String = ""
     
     @State private var playersCount:Int = 0
+    
+    @State private var showingHowToPlay = false
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -40,13 +42,13 @@ struct MainView: View {
                                     .foregroundColor(isOn ? .white : .black)
                                     .padding(.trailing)
                             }
-                        }
-                        NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
-                            Image(systemName: "gearshape.circle.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(isOn ? .white : .black)
-                                .padding(.trailing)
+                            NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
+                                Image(systemName: "gearshape.circle.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(isOn ? .white : .black)
+                                    .padding(.trailing)
+                            }
                         }
                     }
                     List {
@@ -128,6 +130,12 @@ struct MainView: View {
                                     Text("Leaderboard")
                                 }
                             }
+                            Button("How To Play") {
+                                showingHowToPlay.toggle()
+                            }
+                            .sheet(isPresented: $showingHowToPlay) {
+                                HowToPlayView()
+                            }
                         }
                     }
                     
@@ -138,13 +146,14 @@ struct MainView: View {
     }
     func checkForAccount(login: String, password: String) -> Bool{
         var hasAccount:Bool = false
-        playersCount = 0
+        var caught:Int = 0
         players.forEach { player in
             if (player.name == login && player.password == password) {
                 hasAccount = true
             }
-            playersCount += 1
+            caught = player.id
         }
+        playersCount = caught
         print("Got here")
         return hasAccount
     }
@@ -175,7 +184,7 @@ struct MainView: View {
 
     
     func addAccount(loginValue: String, passwordValue: String) {
-        var newPlayer = Player(id: playersCount + 1, name: loginValue, password: passwordValue, achievements: [])
+        var newPlayer = Player(id: players.count + 1, name: loginValue, password: passwordValue, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
         print("Got to add account")
         players.append(newPlayer)
     }

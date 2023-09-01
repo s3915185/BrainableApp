@@ -15,6 +15,10 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
     var scoreEasy: Double = 50000
     var scoreIntermediate: Double = 50000
     var scoreHard: Double = 50000
+    let winStreak: Int
+    let gameTotal: Int
+    let winners: Int
+    let losers: Int
     
-    let achievements: [String]
+    let achievements: [Int]
 }

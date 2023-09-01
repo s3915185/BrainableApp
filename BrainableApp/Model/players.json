@@ -6,7 +6,11 @@
         "scoreEasy": 50,
         "scoreIntermediate": 50.5,
         "scoreHard": 80,
-        "achievements": ["Easy: Solved in 2 minutes", "Intermedediate: Solved in 15 minutes", "Hard: Solved in 30 minutes"]
+        "winStreak": 3,
+        "gameTotal": 10,
+        "winners": 7,
+        "losers": 3,
+        "achievements": [1, 8, 9, 10, 15]
     },
     {
         "id": 2,
@@ -15,7 +19,11 @@
         "scoreEasy": 23.2,
         "scoreIntermediate": 48.5,
         "scoreHard": 60,
-        "achievements": ["Easy: Solved in 2 minutes", "Intermedediate: Solved in 15 minutes", "Hard: Solved in 30 minutes"]
+        "winStreak": 4,
+        "gameTotal": 15,
+        "winners": 7,
+        "losers": 8,
+        "achievements": [2, 3, 4, 10, 11, 12, 16, 17, 18]
     },
     {
         "id": 3,
@@ -24,7 +32,11 @@
         "scoreEasy": 28.5,
         "scoreIntermediate": 61.5,
         "scoreHard": 91,
-        "achievements": ["Easy: Solved in 2 minutes", "Intermedediate: Solved in 15 minutes", "Winstreak of 5"]
+        "winStreak": 10,
+        "gameTotal": 23,
+        "winners": 15,
+        "losers": 8,
+        "achievements": [7, 8, 9]
     },
     {
         "id": 4,
@@ -33,7 +45,11 @@
         "scoreEasy": 31.5,
         "scoreIntermediate": 32.5,
         "scoreHard": 45,
-        "achievements": ["Hard: Solved in 30 minutes"]
+        "winStreak": 5,
+        "gameTotal": 15,
+        "winners": 10,
+        "losers": 5,
+        "achievements": [5, 9, 10, 11, 12]
     },
     {
         "id": 5,
@@ -42,6 +58,10 @@
         "scoreEasy": 40.5,
         "scoreIntermediate": 90.5,
         "scoreHard": 150,
-        "achievements": ["Intermedediate: Solved in 10 minutes", "Hard: Solved in 15 minutes"]
+        "winStreak": 2,
+        "gameTotal": 12,
+        "winners": 5,
+        "losers": 7,
+        "achievements": [11, 13, 15, 16]
     }
 ]
