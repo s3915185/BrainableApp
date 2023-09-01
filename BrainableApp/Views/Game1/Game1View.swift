@@ -24,7 +24,7 @@ class GameMode: ObservableObject {
 
 struct Game1View: View {
     @Binding var level:Int
-    var playerLoggin:Player
+    @Binding var playerLoggin:Player
 
     @State var storage = [[Int]]()
     @State var colorChoice:Bool = true
@@ -287,7 +287,7 @@ struct Game1View: View {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    LoseTab(playerLoggin: playerLoggin, showLoseTab: $showLoseTab, level: level, time: gameTime)
+                    LoseTab(playerLoggin: $playerLoggin, showLoseTab: $showLoseTab, level: level, time: gameTime)
                 }
             }
             if (showWinTab) {
@@ -295,7 +295,7 @@ struct Game1View: View {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked, playerLoggin: playerLoggin, level: level, time: gameTime)
+                    WinTab(showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked, playerLoggin: $playerLoggin, level: level, time: gameTime)
                 }
             }
         }
@@ -349,14 +349,14 @@ struct Game1View: View {
 
 struct Game1View_Previews: PreviewProvider {
     static var previews: some View {
-        Game1View(level: .constant(2), playerLoggin: players[0])
-        Game1View(level: .constant(1), playerLoggin: players[0])
-        Game1View(level: .constant(0), playerLoggin: players[0])
+        Game1View(level: .constant(2), playerLoggin: .constant(players[0]))
+        Game1View(level: .constant(1), playerLoggin: .constant(players[0]))
+        Game1View(level: .constant(0), playerLoggin: .constant(players[0]))
     }
 }
 
 struct LoseTab: View {
-    var playerLoggin:Player
+    @Binding var playerLoggin:Player
     @Binding var showLoseTab:Bool
     var level:Int
     var time:Double
@@ -399,6 +399,11 @@ struct LoseTab: View {
           .cornerRadius(10.0)
           .onAppear {
               updatePlayerInfo(player: playerLoggin, level: level, time: time, isWin: false)
+              for i in 0..<players.count {
+                  if (players[i].id == playerLoggin.id) {
+                      playerLoggin = players[i]
+                  }
+              }
               playLoserSound()
           }
     }
@@ -410,23 +415,23 @@ func updatePlayerInfo(player: Player, level: Int, time: Double, isWin: Bool) {
         if (players[i].id == player.id) {
             if (isWin) {
                 if (level == 0) {
-                    playerChange.scoreEasy = time < player.scoreEasy ? time : player.scoreEasy
+                    playerChange.scoreEasy = time < playerChange.scoreEasy ? time : playerChange.scoreEasy
                 }
                 else if (level == 1) {
-                    playerChange.scoreIntermediate = time < player.scoreIntermediate ? time : player.scoreIntermediate
+                    playerChange.scoreIntermediate = time < playerChange.scoreIntermediate ? time : playerChange.scoreIntermediate
                 }
                 else {
-                    playerChange.scoreHard = time < player.scoreHard ? time : player.scoreHard
+                    playerChange.scoreHard = time < playerChange.scoreHard ? time : playerChange.scoreHard
                 }
-                playerChange.winStreak  = player.winStreak + 1
-                playerChange.gameTotal = player.gameTotal + 1
-                playerChange.winners = player.winners + 1
-                playerChange.maxWinStreak = player.maxWinStreak < player.winStreak ? player.winStreak : player.maxWinStreak
+                playerChange.winStreak  = playerChange.winStreak + 1
+                playerChange.gameTotal = playerChange.gameTotal + 1
+                playerChange.winners = playerChange.winners + 1
+                playerChange.maxWinStreak = playerChange.maxWinStreak < playerChange.winStreak ? playerChange.winStreak : playerChange.maxWinStreak
             }
             else {
                 playerChange.winStreak = 0
-                playerChange.gameTotal += 1
-                playerChange.losers += 1
+                playerChange.gameTotal = playerChange.gameTotal + 1
+                playerChange.losers = playerChange.gameTotal + 1
             }
             players[i] = playerChange
         }
@@ -443,7 +448,7 @@ struct WinTab: View {
     @ObservedObject var gm:GameMode
     @Binding var reset:Bool
     @Binding var totalClicked:Int
-    var playerLoggin:Player
+    @Binding var playerLoggin:Player
     var level:Int
     var time:Double
     
@@ -498,6 +503,11 @@ struct WinTab: View {
           .cornerRadius(10.0)
           .onAppear {
               updatePlayerInfo(player: playerLoggin, level: level, time: time, isWin: true)
+              for i in 0..<players.count {
+                  if (players[i].id == playerLoggin.id) {
+                      playerLoggin = players[i]
+                  }
+              }
               playWinnerSound()
           }
     }

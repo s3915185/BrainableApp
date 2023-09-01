@@ -127,7 +127,7 @@ struct MainView: View {
                         }.background(.clear)
                         Section {
                             if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                                NavigationLink (destination: Game1View(level: $levelIndex, playerLoggin: playerLoggin)){
+                                NavigationLink (destination: Game1View(level: $levelIndex, playerLoggin: $playerLoggin)){
                                     ZStack {
                                         Text("Play!")
                                     }
@@ -151,6 +151,7 @@ struct MainView: View {
                 }
             }
             .onAppear {
+                checkForAccount(login: nameLogin, password: passwordLogin)
                 playClickSound()
             }
         }
