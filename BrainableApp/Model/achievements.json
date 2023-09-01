@@ -1,0 +1,113 @@
+[
+    {
+        "achieveId": 1,
+        "achieveName" : "Faster than 50 seconds",
+        "timeCount": 50.0,
+        "mode": "Easy"
+    },
+    {
+        "achieveId": 2,
+        "achieveName" : "Faster than 40 seconds",
+        "timeCount": 40.0,
+        "mode": "Easy"
+    },
+    {
+        "achieveId": 3,
+        "achieveName" : "Faster than 30 seconds",
+        "timeCount": 30.0,
+        "mode": "Easy"
+    },
+    {
+        "achieveId": 4,
+        "achieveName" : "Faster than 20 seconds",
+        "timeCount": 20.0,
+        "mode": "Easy"
+    },
+    {
+        "achieveId": 5,
+        "achieveName" : "Faster than 15 seconds",
+        "timeCount": 15.0,
+        "mode": "Easy"
+    },
+    {
+        "achieveId": 6,
+        "achieveName" : "Faster than 10 seconds",
+        "timeCount": 10.0,
+        "mode": "Easy"
+    },
+    
+    
+        {
+        "achieveId": 7,
+        "achieveName" : "Faster than 5 minutes",
+        "timeCount": 300.0,
+        "mode": "Intermediate"
+    },
+    {
+        "achieveId": 8,
+        "achieveName" : "Faster than 4 minutes",
+        "timeCount": 240.0,
+        "mode": "Intermediate"
+    },
+    {
+        "achieveId": 9,
+        "achieveName" : "Faster than 3 minutes",
+        "timeCount": 180.0,
+        "mode": "Intermediate"
+    },
+    {
+        "achieveId": 10,
+        "achieveName" : "Faster than 2 minutes",
+        "timeCount": 120.0,
+        "mode": "Intermediate"
+    },
+    {
+        "achieveId": 11,
+        "achieveName" : "Faster than 1 minute 30 seconds",
+        "timeCount": 90.0,
+        "mode": "Intermediate"
+    },
+    {
+        "achieveId": 12,
+        "achieveName" : "Faster than 1 minute",
+        "timeCount": 60.0,
+        "mode": "Intermediate"
+    },
+    
+    {
+        "achieveId": 13,
+        "achieveName" : "Faster than 40 minutes",
+        "timeCount": 2400.0,
+        "mode": "Hard"
+    },
+    {
+        "achieveId": 14,
+        "achieveName" : "Faster than 35 minutes",
+        "timeCount": 2100.0,
+        "mode": "Hard"
+    },
+    {
+        "achieveId": 15,
+        "achieveName" : "Faster than 30 minutes",
+        "timeCount":1800.0,
+        "mode": "Hard"
+    },
+    {
+        "achieveId": 16,
+        "achieveName" : "Faster than 25 minutes",
+        "timeCount": 1500.0,
+        "mode": "Hard"
+    },
+    {
+        "achieveId": 17,
+        "achieveName" : "Faster than 20 minutes",
+        "timeCount": 1200.0,
+        "mode": "Hard"
+    },
+    {
+        "achieveId": 18,
+        "achieveName" : "Faster than 15 minutes",
+        "timeCount": 900.0,
+        "mode": "Hard"
+    }
+]
