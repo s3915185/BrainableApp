@@ -22,6 +22,7 @@ struct MainView: View {
     @State private var nameTemp:String = ""
     @State private var passwordTemp:String = ""
     
+    @State private var playersCount:Int = 0
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -31,6 +32,15 @@ struct MainView: View {
                         Text("Master Mind")
                             .padding(.leading)
                         Spacer()
+                        if (checkForAccount(login: nameLogin, password: passwordLogin)) {
+                            NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
+                                Image(systemName: "medal")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(isOn ? .white : .black)
+                                    .padding(.trailing)
+                            }
+                        }
                         NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
                             Image(systemName: "gearshape.circle.fill")
                                 .resizable()
@@ -45,9 +55,10 @@ struct MainView: View {
                                 Text("Has account?")
                                 Spacer()
                                 Button(action: {
-                                    // ADD FUNCTIONS
-                                    nameLogin = name
-                                    passwordLogin = password
+                                    if (checkForAccount(login: name, password: password)) {
+                                        nameLogin = name
+                                        passwordLogin = password
+                                    }
                                 }, label: {
                                     Text("Log In")
                                 })
@@ -72,7 +83,11 @@ struct MainView: View {
                                 Text("Create new account")
                                 Spacer()
                                 Button(action: {
-                                    // ADD FUNCTIONS
+                                    if (!checkForAccount(login: nameTemp, password: passwordTemp)) {
+                                        addAccount(loginValue: nameTemp, passwordValue: nameTemp)
+                                    }
+                                    nameTemp = ""
+                                    passwordTemp = ""
                                 }, label: {
                                     Text("Create")
                                 })
@@ -101,19 +116,16 @@ struct MainView: View {
                             }
                         }.background(.clear)
                         Section {
-                            NavigationLink (destination: Game1View(level: $levelIndex)){
-                                ZStack {
-                                    Text("Play!")
+                            if (checkForAccount(login: nameLogin, password: passwordLogin)) {
+                                NavigationLink (destination: Game1View(level: $levelIndex)){
+                                    ZStack {
+                                        Text("Play!")
+                                    }
                                 }
                             }
                             NavigationLink (destination: Leaderboard(levelIndex: $levelIndex)){
                                 ZStack {
                                     Text("Leaderboard")
-                                }
-                            }
-                            NavigationLink (destination: Leaderboard(levelIndex: $levelIndex)){
-                                ZStack {
-                                    Text("How to Play!")
                                 }
                             }
                         }
@@ -123,6 +135,49 @@ struct MainView: View {
             }
         }
         .environment(\.colorScheme, isOn ? .dark : .light)
+    }
+    func checkForAccount(login: String, password: String) -> Bool{
+        var hasAccount:Bool = false
+        playersCount = 0
+        players.forEach { player in
+            if (player.name == login && player.password == password) {
+                hasAccount = true
+            }
+            playersCount += 1
+        }
+        print("Got here")
+        return hasAccount
+    }
+    
+    func saveJSON(_ d: Player) {
+            do {
+                let jsonData = try JSONEncoder().encode(d)
+                let jsonString = String(data: jsonData, encoding: .utf8)!
+                print("Got 1")
+                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    let pathWithFilename = documentDirectory.appendingPathComponent("players.json")
+                    print("Got 2")
+                    do {
+                        try jsonString.write(to: pathWithFilename,
+                                             atomically: true,
+                                             encoding: .utf8)
+                        print("Got 3")
+                    } catch {
+                        print(error)
+                    }
+                    
+                    print("Got 4")
+                }
+            } catch {
+                print(error)
+            }
+        }
+
+    
+    func addAccount(loginValue: String, passwordValue: String) {
+        var newPlayer = Player(id: playersCount + 1, name: loginValue, password: passwordValue, achievements: [])
+        print("Got to add account")
+        players.append(newPlayer)
     }
 }
 

@@ -36,7 +36,7 @@ struct Game1View: View {
     @State var showWinTab:Bool = false
     @State var levelUpgrade:Int = 1
     
-    @State var gameTime: Double = 995
+    @State var gameTime: Double = 0
     @State var timer: Timer?
     @State var isTimerRunning = false
     
@@ -328,7 +328,7 @@ struct Game1View: View {
         timer?.invalidate()
         timer = nil
         isTimerRunning = false
-        gameTime = 995
+        gameTime = 0
     }
     
     func stopPlayerTimer() {

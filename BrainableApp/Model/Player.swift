@@ -11,7 +11,10 @@ import Foundation
 struct Player:Codable, Hashable, Identifiable, Equatable{
     var id: Int
     var name: String
-    var scoreEasy: Double
-    var scoreIntermediate: Double
-    var scoreHard: Double
+    var password: String
+    var scoreEasy: Double = 50000
+    var scoreIntermediate: Double = 50000
+    var scoreHard: Double = 50000
+    
+    let achievements: [String]
 }

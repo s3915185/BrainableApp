@@ -2,36 +2,46 @@
     {
         "id": 1,
         "name": "Vuke",
-        "scoreEasy": 25.5,
+        "password": "Vuke",
+        "scoreEasy": 50,
         "scoreIntermediate": 50.5,
-        "scoreHard": 80
+        "scoreHard": 80,
+        "achievements": ["Easy: Solved in 2 minutes", "Intermedediate: Solved in 15 minutes", "Hard: Solved in 30 minutes"]
     },
     {
         "id": 2,
         "name": "Hongan",
+        "password": "Hongan",
         "scoreEasy": 23.2,
         "scoreIntermediate": 48.5,
-        "scoreHard": 60
+        "scoreHard": 60,
+        "achievements": ["Easy: Solved in 2 minutes", "Intermedediate: Solved in 15 minutes", "Hard: Solved in 30 minutes"]
     },
     {
         "id": 3,
         "name": "Giahuy",
+        "password": "Giahuy",
         "scoreEasy": 28.5,
         "scoreIntermediate": 61.5,
-        "scoreHard": 91
+        "scoreHard": 91,
+        "achievements": ["Easy: Solved in 2 minutes", "Intermedediate: Solved in 15 minutes", "Winstreak of 5"]
     },
     {
         "id": 4,
         "name": "Huahuy",
+        "password": "Huahuy",
         "scoreEasy": 31.5,
         "scoreIntermediate": 32.5,
-        "scoreHard": 45
+        "scoreHard": 45,
+        "achievements": ["Hard: Solved in 30 minutes"]
     },
     {
         "id": 5,
         "name": "Gianghuy",
+        "password": "Gianghuy",
         "scoreEasy": 40.5,
         "scoreIntermediate": 90.5,
-        "scoreHard": 150
+        "scoreHard": 150,
+        "achievements": ["Intermedediate: Solved in 10 minutes", "Hard: Solved in 15 minutes"]
     }
 ]
