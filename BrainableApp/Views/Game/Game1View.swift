@@ -848,7 +848,7 @@ class NonogramHard {
             var y_string = ""
             var subY = [Int]()
             for j in 0..<((level + levelUpgrade) * 5) {
-                if (Int.random(in: 1...3) == 1) {
+                if (Int.random(in: 1...5) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0

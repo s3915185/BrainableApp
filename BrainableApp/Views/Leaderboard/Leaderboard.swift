@@ -37,128 +37,13 @@ struct Leaderboard: View {
                 VStack {
                     Spacer(minLength: 80)
                     if (levelIndex == 0) {
-                        List {
-                            ForEach(0..<filteredPlayers.count) { play in
-                                Section {
-                                    HStack {
-                                        AchievementView(player: filteredPlayers[play], levelIndex: $levelIndex)
-                                    }
-                                } header: {
-                                    HStack {
-                                        Text("\(play + 1)")
-                                            .font(.title)
-                                        Spacer()
-                                        if (play + 1 == 1) {
-                                            Image("cup1")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup1")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                        if (play + 1 == 2) {
-                                            Image("cup2")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup2")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                        else if (play + 1 == 3) {
-                                            Image("cup3")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup3")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        listViewUpdate(filteredPlayers: filteredPlayers, levelIndex: levelIndex)
                     }
                     else if (levelIndex == 1) {
-                        List {
-                            ForEach(0..<filteredPlayers.count) { play in
-                                Section {
-                                    HStack {
-                                        AchievementView(player: filteredPlayers[play], levelIndex: $levelIndex)
-                                    }
-                                } header: {
-                                    HStack {
-                                        Text("\(play + 1)")
-                                            .font(.title)
-                                        Spacer()
-                                        if (play + 1 == 1) {
-                                            Image("cup1")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup1")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                        if (play + 1 == 2) {
-                                            Image("cup2")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup2")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                        else if (play + 1 == 3) {
-                                            Image("cup3")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup3")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        listViewUpdate(filteredPlayers: filteredPlayers, levelIndex: levelIndex)
                     }
                     else {
-                        List {
-                            ForEach(0..<filteredPlayers.count) { play in
-                                Section {
-                                    HStack {
-                                        AchievementView(player: filteredPlayers[play], levelIndex: $levelIndex)
-                                    }
-                                } header: {
-                                    HStack {
-                                        Text("\(play + 1)")
-                                            .font(.title)
-                                        Spacer()
-                                        if (play + 1 == 1) {
-                                            Image("cup1")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup1")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                        if (play + 1 == 2) {
-                                            Image("cup2")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup2")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                        else if (play + 1 == 3) {
-                                            Image("cup3")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Image("cup3")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
+                        listViewUpdate(filteredPlayers: filteredPlayers, levelIndex: levelIndex)
                     }
                 }
                 .overlay {
@@ -197,6 +82,51 @@ struct Leaderboard: View {
                 playClickSound()
             }
         }.navigationBarBackButtonHidden(true)
+    }
+    @ViewBuilder
+    func listViewUpdate(filteredPlayers: [Player], levelIndex: Int) -> some View {
+        VStack {
+            List {
+                ForEach(0..<filteredPlayers.count) { play in
+                    Section {
+                        HStack {
+                            AchievementView(player: filteredPlayers[play], levelIndex: $levelIndex)
+                        }
+                    } header: {
+                        HStack {
+                            Text("\(play + 1)")
+                                .font(.title)
+                            Spacer()
+                            if (play + 1 == 1) {
+                                Image("cup1")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                Image("cup1")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
+                            if (play + 1 == 2) {
+                                Image("cup2")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                Image("cup2")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
+                            else if (play + 1 == 3) {
+                                Image("cup3")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                Image("cup3")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
     func searchForAchievements(id: Int) -> Achievement {
         var object:Achievement = Achievement(id: 100, achieveName: "noname", timeCount: 50000, mode: "nomode", image: "noimage")
