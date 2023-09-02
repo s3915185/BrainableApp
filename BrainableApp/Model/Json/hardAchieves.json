@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "achieveName" : "Less than 15 minutes",
+        "timeCount": 900,
+        "mode": "Hard",
+        "image": "hard900",
+        "modeID": 2
+    },
+    {
+        "id": 2,
+        "achieveName" : "Less than 20 minutes",
+        "timeCount": 1200.0,
+        "mode": "Hard",
+        "image": "hard1200",
+        "modeID": 2
+    },
+    {
+        "id": 3,
+        "achieveName" : "Less than 25 minutes",
+        "timeCount": 1500.0,
+        "mode": "Hard",
+        "image": "hard1500",
+        "modeID": 2
+    },
+    {
+        "id": 4,
+        "achieveName" : "Less than 30 minutes",
+        "timeCount":1800,
+        "mode": "Hard",
+        "image": "hard1800",
+        "modeID": 2
+    },
+    {
+        "id": 5,
+        "achieveName" : "Less than 35 minutes",
+        "timeCount": 2100,
+        "mode": "Hard",
+        "image": "hard2100",
+        "modeID": 2
+    },
+    {
+        "id": 6,
+        "achieveName" : "Less than 40 minutes",
+        "timeCount": 2400,
+        "mode": "Hard",
+        "image": "hard2400",
+        "modeID": 2
+    }
+]

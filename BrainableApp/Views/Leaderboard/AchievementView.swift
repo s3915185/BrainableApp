@@ -24,7 +24,8 @@ struct AchievementView: View {
                             HStack {
                                 Text("Time: ")
                                 if (levelIndex == 0) {
-                                    Text("\(String(format: "%.1f", player.scoreEasy))")
+                                    Text("\(String(format: "%.0f", player.scoreEasy / 60.0)) min")
+                                    Text("\(String(format: "%.0f", player.scoreEasy.truncatingRemainder(dividingBy: 60) )) s")
                                 }
                                 else if (levelIndex == 1) {
                                     Text("\(String(format: "%.1f", player.scoreIntermediate))")
@@ -77,14 +78,13 @@ struct AchievementView: View {
                                             Spacer()
                                             VStack {
                                                 HStack {
-                                                    Image(achievementsList[(player.achievements[i] - 1)].image)
+                                                    Image("\(player.achievements[i].image)")
                                                         .resizable()
                                                         .frame(width: 50, height: 50)
                                                     Spacer()
-                                                    Text(achievementsList[(player.achievements[i] - 1)].mode)
+                                                    Text("\(player.achievements[i].mode)")
                                                 }
-                                                Text(achievementsList[
-                                                    (player.achievements[i] - 1)].achieveName)
+                                                Text("\(player.achievements[i].achieveName)")
                                             }
                                             Divider()
                                         }

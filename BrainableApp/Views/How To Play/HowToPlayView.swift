@@ -10,18 +10,107 @@ import SwiftUI
 struct HowToPlayView: View {
     var body: some View {
             VStack {
-                ScrollView(.horizontal) {
-                    HStack {
-                        Image("cup1")
-                        Image("cup1")
-                        Image("cup1")
-                        Image("cup1")
-                    }
-                    HStack {
-                        Image("cup1")
-                    }
-                    HStack {
-                        Image("cup1")
+                HStack {
+                    Spacer(minLength: 40)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction0")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction1")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction2")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction3")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction4")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction5")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction6")
+                                            .resizable()
+                                            .frame(width: 300, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                            HStack {
+                                HStack {
+                                    Spacer()
+                                    VStack {
+                                        Spacer()
+                                        Image("instruction7")
+                                            .resizable()
+                                            .frame(width: 900, height: 600)
+                                    }
+                                }
+                                Spacer(minLength: 40)
+                            }
+                        }
                     }
                 }
                 Spacer()

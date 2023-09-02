@@ -129,7 +129,7 @@ struct Leaderboard: View {
         }
     }
     func searchForAchievements(id: Int) -> Achievement {
-        var object:Achievement = Achievement(id: 100, achieveName: "noname", timeCount: 50000, mode: "nomode", image: "noimage")
+        var object:Achievement = Achievement(id: 100, achieveName: "noname", timeCount: 50000, mode: "nomode", image: "noimage", modeID: 0)
         achievementsList.forEach{ achieve in
             if (achieve.id == id) {
                 object = achieve

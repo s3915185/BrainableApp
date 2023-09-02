@@ -4,42 +4,48 @@
         "achieveName" : "Less than 50 seconds",
         "timeCount": 50,
         "mode": "Easy",
-        "image": "easy50"
+        "image": "easy50",
+        "modeID": 0
     },
     {
         "id": 2,
         "achieveName" : "Less than 40 seconds",
         "timeCount": 40,
         "mode": "Easy",
-        "image": "easy40"
+        "image": "easy40",
+        "modeID": 0
     },
     {
         "id": 3,
         "achieveName" : "Less than 30 seconds",
         "timeCount": 30,
         "mode": "Easy",
-        "image": "easy30"
+        "image": "easy30",
+        "modeID": 0
     },
     {
         "id": 4,
         "achieveName" : "Less than 20 seconds",
         "timeCount": 20,
         "mode": "Easy",
-        "image": "easy20"
+        "image": "easy20",
+        "modeID": 0
     },
     {
         "id": 5,
         "achieveName" : "Less than 15 seconds",
         "timeCount": 15,
         "mode": "Easy",
-        "image": "easy15"
+        "image": "easy15",
+        "modeID": 0
     },
     {
         "id": 6,
         "achieveName" : "Less than 10 seconds",
         "timeCount": 10,
         "mode": "Easy",
-        "image": "easy10"
+        "image": "easy10",
+        "modeID": 0
     },
     
     
@@ -48,42 +54,48 @@
         "achieveName" : "Less than 5 minutes",
         "timeCount": 300,
         "mode": "Intermediate",
-        "image": "intermediate300"
+        "image": "intermediate300",
+        "modeID": 1
     },
     {
         "id": 8,
         "achieveName" : "Less than 4 minutes",
         "timeCount": 240,
         "mode": "Intermediate",
-        "image": "intermediate240"
+        "image": "intermediate240",
+        "modeID": 1
     },
     {
         "id": 9,
         "achieveName" : "Less than 3 minutes",
         "timeCount": 180,
         "mode": "Intermediate",
-        "image": "intermediate180"
+        "image": "intermediate180",
+        "modeID": 1
     },
     {
         "id": 10,
         "achieveName" : "Less than 2 minutes",
         "timeCount": 120,
         "mode": "Intermediate",
-        "image": "intermediate120"
+        "image": "intermediate120",
+        "modeID": 1
     },
     {
         "id": 11,
         "achieveName" : "Less than 1 minute 30 seconds",
         "timeCount": 90,
         "mode": "Intermediate",
-        "image": "intermediate90"
+        "image": "intermediate90",
+        "modeID": 1
     },
     {
         "id": 12,
         "achieveName" : "Less than 1 minute",
         "timeCount": 60,
         "mode": "Intermediate",
-        "image": "intermediate60"
+        "image": "intermediate60",
+        "modeID": 1
     },
     
     {
@@ -91,41 +103,47 @@
         "achieveName" : "Less than 40 minutes",
         "timeCount": 2400,
         "mode": "Hard",
-        "image": "hard2400"
+        "image": "hard2400",
+        "modeID": 2
     },
     {
         "id": 14,
         "achieveName" : "Less than 35 minutes",
         "timeCount": 2100,
         "mode": "Hard",
-        "image": "hard2100"
+        "image": "hard2100",
+        "modeID": 2
     },
     {
         "id": 15,
         "achieveName" : "Less than 30 minutes",
         "timeCount":1800,
         "mode": "Hard",
-        "image": "hard1800"
+        "image": "hard1800",
+        "modeID": 2
     },
     {
         "id": 16,
         "achieveName" : "Less than 25 minutes",
         "timeCount": 1500.0,
         "mode": "Hard",
-        "image": "hard1500"
+        "image": "hard1500",
+        "modeID": 2
     },
     {
         "id": 17,
         "achieveName" : "Less than 20 minutes",
         "timeCount": 1200.0,
         "mode": "Hard",
-        "image": "hard1200"
+        "image": "hard1200",
+        "modeID": 2
     },
     {
         "id": 18,
         "achieveName" : "Less than 15 minutes",
         "timeCount": 900,
         "mode": "Hard",
-        "image": "hard900"
+        "image": "hard900",
+        "modeID": 2
     }
 ]

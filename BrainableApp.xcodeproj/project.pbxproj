@@ -16,7 +16,7 @@
 		4481266D2A85D4A600F70F62 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4481266C2A85D4A600F70F62 /* WelcomeView.swift */; };
 		4481266F2A85D81C00F70F62 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4481266E2A85D81C00F70F62 /* MainView.swift */; };
 		44E925F72A907CE0009B685F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E925F62A907CE0009B685F /* SettingView.swift */; };
-		44E925F92A90907B009B685F /* Game1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E925F82A90907B009B685F /* Game1View.swift */; };
+		44E925F92A90907B009B685F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E925F82A90907B009B685F /* GameView.swift */; };
 		952571162AA0B83C00E0CD86 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952571152AA0B83C00E0CD86 /* Player.swift */; };
 		9525711C2AA0C4B700E0CD86 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9525711B2AA0C4B700E0CD86 /* Leaderboard.swift */; };
 		9525711F2AA1846000E0CD86 /* players.json in Resources */ = {isa = PBXBuildFile; fileRef = 9525711E2AA1846000E0CD86 /* players.json */; };
@@ -29,6 +29,16 @@
 		954E6D892AA21FA700E62BCF /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E6D882AA21FA700E62BCF /* HowToPlayView.swift */; };
 		956BA89F2AA32FC600775612 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA89E2AA32FC600775612 /* PlayerModel.swift */; };
 		956BA8A32AA3481300775612 /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8A22AA3481300775612 /* SoundController.swift */; };
+		956BA8A92AA35C9C00775612 /* hardAchieves.json in Resources */ = {isa = PBXBuildFile; fileRef = 956BA8A82AA35C9C00775612 /* hardAchieves.json */; };
+		956BA8AB2AA35D2C00775612 /* easyAchieves.json in Resources */ = {isa = PBXBuildFile; fileRef = 956BA8AA2AA35D2C00775612 /* easyAchieves.json */; };
+		956BA8AD2AA35D4000775612 /* intermediateAchieves.json in Resources */ = {isa = PBXBuildFile; fileRef = 956BA8AC2AA35D4000775612 /* intermediateAchieves.json */; };
+		956BA8AF2AA35EB000775612 /* easyAchievesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8AE2AA35EB000775612 /* easyAchievesModel.swift */; };
+		956BA8B12AA35EBF00775612 /* intermediateAchievesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8B02AA35EBF00775612 /* intermediateAchievesModel.swift */; };
+		956BA8B32AA35ECA00775612 /* hardAchievesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8B22AA35ECA00775612 /* hardAchievesModel.swift */; };
+		956BA8B72AA3623B00775612 /* LoseTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8B62AA3623B00775612 /* LoseTab.swift */; };
+		956BA8B92AA3629F00775612 /* WinTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8B82AA3629F00775612 /* WinTab.swift */; };
+		956BA8BC2AA3650400775612 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8BB2AA3650400775612 /* GameMode.swift */; };
+		956BA8BE2AA3655500775612 /* ColorSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA8BD2AA3655500775612 /* ColorSquare.swift */; };
 		9578A6EB2AA23CA2007D8E56 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6EA2AA23CA2007D8E56 /* click.mp3 */; };
 		9578A6EE2AA23CC7007D8E56 /* loser.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6EC2AA23CC7007D8E56 /* loser.mp3 */; };
 		9578A6F12AA23CE9007D8E56 /* winner.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6F02AA23CE9007D8E56 /* winner.mp3 */; };
@@ -67,7 +77,7 @@
 		4481266C2A85D4A600F70F62 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		4481266E2A85D81C00F70F62 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		44E925F62A907CE0009B685F /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		44E925F82A90907B009B685F /* Game1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game1View.swift; sourceTree = "<group>"; };
+		44E925F82A90907B009B685F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		952571152AA0B83C00E0CD86 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9525711B2AA0C4B700E0CD86 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
 		9525711E2AA1846000E0CD86 /* players.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = players.json; sourceTree = "<group>"; };
@@ -80,6 +90,16 @@
 		954E6D882AA21FA700E62BCF /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		956BA89E2AA32FC600775612 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		956BA8A22AA3481300775612 /* SoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
+		956BA8A82AA35C9C00775612 /* hardAchieves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hardAchieves.json; sourceTree = "<group>"; };
+		956BA8AA2AA35D2C00775612 /* easyAchieves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = easyAchieves.json; sourceTree = "<group>"; };
+		956BA8AC2AA35D4000775612 /* intermediateAchieves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = intermediateAchieves.json; sourceTree = "<group>"; };
+		956BA8AE2AA35EB000775612 /* easyAchievesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = easyAchievesModel.swift; sourceTree = "<group>"; };
+		956BA8B02AA35EBF00775612 /* intermediateAchievesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = intermediateAchievesModel.swift; sourceTree = "<group>"; };
+		956BA8B22AA35ECA00775612 /* hardAchievesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hardAchievesModel.swift; sourceTree = "<group>"; };
+		956BA8B62AA3623B00775612 /* LoseTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoseTab.swift; sourceTree = "<group>"; };
+		956BA8B82AA3629F00775612 /* WinTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinTab.swift; sourceTree = "<group>"; };
+		956BA8BB2AA3650400775612 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		956BA8BD2AA3655500775612 /* ColorSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSquare.swift; sourceTree = "<group>"; };
 		9578A6EA2AA23CA2007D8E56 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		9578A6EC2AA23CC7007D8E56 /* loser.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = loser.mp3; sourceTree = "<group>"; };
 		9578A6F02AA23CE9007D8E56 /* winner.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = winner.mp3; sourceTree = "<group>"; };
@@ -198,6 +218,9 @@
 			children = (
 				954E6D802AA1DEA100E62BCF /* achievements.json */,
 				9525711E2AA1846000E0CD86 /* players.json */,
+				956BA8A82AA35C9C00775612 /* hardAchieves.json */,
+				956BA8AA2AA35D2C00775612 /* easyAchieves.json */,
+				956BA8AC2AA35D4000775612 /* intermediateAchieves.json */,
 			);
 			path = Json;
 			sourceTree = "<group>";
@@ -217,6 +240,9 @@
 			children = (
 				954E6D842AA1E14D00E62BCF /* Achievement.swift */,
 				954E6D822AA1E0FD00E62BCF /* ModelAchievement.swift */,
+				956BA8AE2AA35EB000775612 /* easyAchievesModel.swift */,
+				956BA8B02AA35EBF00775612 /* intermediateAchievesModel.swift */,
+				956BA8B22AA35ECA00775612 /* hardAchievesModel.swift */,
 			);
 			path = Achievement;
 			sourceTree = "<group>";
@@ -259,7 +285,11 @@
 		956BA89C2AA3234200775612 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				44E925F82A90907B009B685F /* Game1View.swift */,
+				44E925F82A90907B009B685F /* GameView.swift */,
+				956BA8B62AA3623B00775612 /* LoseTab.swift */,
+				956BA8B82AA3629F00775612 /* WinTab.swift */,
+				956BA8BB2AA3650400775612 /* GameMode.swift */,
+				956BA8BD2AA3655500775612 /* ColorSquare.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -401,8 +431,11 @@
 				9578A6F52AA2493C007D8E56 /* background.mp3 in Resources */,
 				954E6D812AA1DEA100E62BCF /* achievements.json in Resources */,
 				9578A6F72AA24C4A007D8E56 /* mainbackground.mp3 in Resources */,
+				956BA8AD2AA35D4000775612 /* intermediateAchieves.json in Resources */,
+				956BA8AB2AA35D2C00775612 /* easyAchieves.json in Resources */,
 				952571292AA18F0E00E0CD86 /* Preview Assets.xcassets in Resources */,
 				9578A6EB2AA23CA2007D8E56 /* click.mp3 in Resources */,
+				956BA8A92AA35C9C00775612 /* hardAchieves.json in Resources */,
 				9525711F2AA1846000E0CD86 /* players.json in Resources */,
 				9578A6F12AA23CE9007D8E56 /* winner.mp3 in Resources */,
 				9578A6EE2AA23CC7007D8E56 /* loser.mp3 in Resources */,
@@ -430,19 +463,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				956BA8BE2AA3655500775612 /* ColorSquare.swift in Sources */,
 				448126422A85D3BA00F70F62 /* ContentView.swift in Sources */,
 				956BA8A32AA3481300775612 /* SoundController.swift in Sources */,
 				44E925F72A907CE0009B685F /* SettingView.swift in Sources */,
 				4481266F2A85D81C00F70F62 /* MainView.swift in Sources */,
 				952571212AA1855600E0CD86 /* ModelPlayer.swift in Sources */,
+				956BA8B12AA35EBF00775612 /* intermediateAchievesModel.swift in Sources */,
+				956BA8B72AA3623B00775612 /* LoseTab.swift in Sources */,
+				956BA8B32AA35ECA00775612 /* hardAchievesModel.swift in Sources */,
 				954E6D852AA1E14D00E62BCF /* Achievement.swift in Sources */,
 				4481266D2A85D4A600F70F62 /* WelcomeView.swift in Sources */,
 				956BA89F2AA32FC600775612 /* PlayerModel.swift in Sources */,
-				44E925F92A90907B009B685F /* Game1View.swift in Sources */,
+				44E925F92A90907B009B685F /* GameView.swift in Sources */,
 				952571162AA0B83C00E0CD86 /* Player.swift in Sources */,
 				954E6D872AA1E71100E62BCF /* AchievementView.swift in Sources */,
+				956BA8BC2AA3650400775612 /* GameMode.swift in Sources */,
 				954E6D892AA21FA700E62BCF /* HowToPlayView.swift in Sources */,
 				954E6D832AA1E0FD00E62BCF /* ModelAchievement.swift in Sources */,
+				956BA8B92AA3629F00775612 /* WinTab.swift in Sources */,
+				956BA8AF2AA35EB000775612 /* easyAchievesModel.swift in Sources */,
 				9525711C2AA0C4B700E0CD86 /* Leaderboard.swift in Sources */,
 				448126402A85D3BA00F70F62 /* BrainableAppApp.swift in Sources */,
 			);
