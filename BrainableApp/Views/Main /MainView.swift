@@ -14,6 +14,9 @@ var audio: AVAudioPlayer!
 var background: AVAudioPlayer!
 
 struct MainView: View {
+    @AppStorage("players")private var playersData: Data = Data()
+    @StateObject private var players:PlayerModel = PlayerModel()
+    
     @State private var isOn:Bool = false
     @State private var levelIndex:Int = 0
     @State private var languageIndex:Int = 0
@@ -92,9 +95,10 @@ struct MainView: View {
                                 Text("Create new account")
                                 Spacer()
                                 Button(action: {
-                                    if (!checkForAccount(login: nameTemp, password: passwordTemp)) {
-                                        addAccount(loginValue: nameTemp, passwordValue: nameTemp)
-                                    }
+//                                    if (!checkForAccount(login: nameTemp, password: passwordTemp)) {
+                                        printValue()
+                                        addAccount(loginValue: nameTemp, passwordValue: passwordTemp)
+//                                    }
                                     nameTemp = ""
                                     passwordTemp = ""
                                     playClickSound()
@@ -127,13 +131,13 @@ struct MainView: View {
                         }.background(.clear)
                         Section {
                             if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                                NavigationLink (destination: Game1View(level: $levelIndex, playerLoggin: $playerLoggin)){
+                                NavigationLink (destination: Game1View(players: players, level: $levelIndex, playerLoggin: $playerLoggin)){
                                     ZStack {
                                         Text("Play!")
                                     }
                                 }
                             }
-                            NavigationLink (destination: Leaderboard(levelIndex: $levelIndex)){
+                            NavigationLink (destination: Leaderboard(players: players)){
                                 ZStack {
                                     Text("Leaderboard")
                                 }
@@ -151,56 +155,74 @@ struct MainView: View {
                 }
             }
             .onAppear {
+                playersCount = players.players.count
                 checkForAccount(login: nameLogin, password: passwordLogin)
                 playClickSound()
             }
         }
+        .onAppear {
+            loadPlayers()
+            //clearData()
+        }
         .environment(\.colorScheme, isOn ? .dark : .light)
     }
+    
+    func loadPlayers() {
+        do {
+            let decodedPlayers = try JSONDecoder().decode([Player].self, from: playersData)
+            self.players.players = decodedPlayers
+            print("Loading players")
+        } catch {
+            print("Error loading Players")
+        }
+    }
+    
+    func savePlayers() {
+        do {
+            let encodedPlayers = try JSONEncoder().encode(players.players)
+            playersData = encodedPlayers
+            print("Already saved to AppStorage")
+        } catch {
+            print("Error saving players: ")
+        }
+    }
+    
+    func clearData() {
+        players.players = []
+        do {
+            let encodedPlayers = try JSONEncoder().encode(players.players)
+            playersData = encodedPlayers
+            print("Already saved to AppStorage")
+        } catch {
+            print("Error saving players: ")
+        }
+    }
+    
     func checkForAccount(login: String, password: String) -> Bool{
+        print("Go into check account")
         var hasAccount:Bool = false
-        var caught:Int = 0
-        players.forEach { player in
+        players.players.forEach { player in
             if (player.name == login && player.password == password) {
                 hasAccount = true
                 playerLoggin = player
+                print("Caught a value in this")
             }
-            caught = player.id
         }
-        playersCount = caught
-        print("Got here")
+        print("Has Account is \(hasAccount)")
         return hasAccount
     }
-    
-    func saveJSON(_ d: Player) {
-            do {
-                let jsonData = try JSONEncoder().encode(d)
-                let jsonString = String(data: jsonData, encoding: .utf8)!
-                print("Got 1")
-                if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    let pathWithFilename = documentDirectory.appendingPathComponent("players.json")
-                    print("Got 2")
-                    do {
-                        try jsonString.write(to: pathWithFilename,
-                                             atomically: true,
-                                             encoding: .utf8)
-                        print("Got 3")
-                    } catch {
-                        print(error)
-                    }
-                    
-                    print("Got 4")
-                }
-            } catch {
-                print(error)
-            }
-        }
-
+    func printValue() {
+        print("Got through state")
+    }
     
     func addAccount(loginValue: String, passwordValue: String) {
-        var newPlayer = Player(id: players.count + 1, name: loginValue, password: passwordValue, scoreEasy: 50000, scoreIntermediate: 50000, scoreHard: 50000, maxWinStreak: 0, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
-        print("Got to add account")
-        players.append(newPlayer)
+        print("Calling add Function")
+        var newPlayer = Player(id: players.players.count + 1, name: loginValue, password: passwordValue, scoreEasy: 50000, scoreIntermediate: 50000, scoreHard: 50000, maxWinStreak: 0, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
+        players.players.append(newPlayer)
+        print(newPlayer)
+        print("Below is list: ")
+        print(players.players)
+        savePlayers()
     }
 }
 

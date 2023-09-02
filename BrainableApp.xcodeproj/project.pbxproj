@@ -27,6 +27,7 @@
 		954E6D852AA1E14D00E62BCF /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E6D842AA1E14D00E62BCF /* Achievement.swift */; };
 		954E6D872AA1E71100E62BCF /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E6D862AA1E71100E62BCF /* AchievementView.swift */; };
 		954E6D892AA21FA700E62BCF /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E6D882AA21FA700E62BCF /* HowToPlayView.swift */; };
+		956BA89F2AA32FC600775612 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956BA89E2AA32FC600775612 /* PlayerModel.swift */; };
 		9578A6EB2AA23CA2007D8E56 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6EA2AA23CA2007D8E56 /* click.mp3 */; };
 		9578A6EE2AA23CC7007D8E56 /* loser.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6EC2AA23CC7007D8E56 /* loser.mp3 */; };
 		9578A6F12AA23CE9007D8E56 /* winner.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6F02AA23CE9007D8E56 /* winner.mp3 */; };
@@ -76,6 +77,7 @@
 		954E6D842AA1E14D00E62BCF /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		954E6D862AA1E71100E62BCF /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
 		954E6D882AA21FA700E62BCF /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
+		956BA89E2AA32FC600775612 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		9578A6EA2AA23CA2007D8E56 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		9578A6EC2AA23CC7007D8E56 /* loser.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = loser.mp3; sourceTree = "<group>"; };
 		9578A6F02AA23CE9007D8E56 /* winner.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = winner.mp3; sourceTree = "<group>"; };
@@ -131,16 +133,13 @@
 		4481263E2A85D3BA00F70F62 /* BrainableApp */ = {
 			isa = PBXGroup;
 			children = (
-				44E926002A90B306009B685F /* Game1 */,
 				9578A6E72AA23BF8007D8E56 /* Sounds */,
-				9525712A2AA1902200E0CD86 /* Leader */,
 				952571242AA18CA600E0CD86 /* Preview Content */,
 				9525711D2AA1842300E0CD86 /* Model */,
 				4481266B2A85D47000F70F62 /* Views */,
 				4481263F2A85D3BA00F70F62 /* BrainableAppApp.swift */,
 				448126432A85D3BB00F70F62 /* Assets.xcassets */,
 				448126452A85D3BB00F70F62 /* BrainableApp.entitlements */,
-				954E6D882AA21FA700E62BCF /* HowToPlayView.swift */,
 			);
 			path = BrainableApp;
 			sourceTree = "<group>";
@@ -165,31 +164,21 @@
 		4481266B2A85D47000F70F62 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				448126412A85D3BA00F70F62 /* ContentView.swift */,
-				4481266C2A85D4A600F70F62 /* WelcomeView.swift */,
-				4481266E2A85D81C00F70F62 /* MainView.swift */,
-				44E925F62A907CE0009B685F /* SettingView.swift */,
+				956BA89C2AA3234200775612 /* Game */,
+				956BA89B2AA3232800775612 /* Leaderboard */,
+				956BA89A2AA3231A00775612 /* Setting */,
+				956BA8992AA3230700775612 /* Main  */,
+				956BA8982AA322FA00775612 /* How To Play */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		44E926002A90B306009B685F /* Game1 */ = {
-			isa = PBXGroup;
-			children = (
-				44E925F82A90907B009B685F /* Game1View.swift */,
-			);
-			path = Game1;
 			sourceTree = "<group>";
 		};
 		9525711D2AA1842300E0CD86 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				952571152AA0B83C00E0CD86 /* Player.swift */,
-				9525711E2AA1846000E0CD86 /* players.json */,
-				952571202AA1855600E0CD86 /* ModelPlayer.swift */,
-				954E6D802AA1DEA100E62BCF /* achievements.json */,
-				954E6D822AA1E0FD00E62BCF /* ModelAchievement.swift */,
-				954E6D842AA1E14D00E62BCF /* Achievement.swift */,
+				956BA8972AA322D200775612 /* Achievement */,
+				956BA8962AA322BA00775612 /* Player */,
+				956BA8952AA3229A00775612 /* Json */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,13 +191,75 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9525712A2AA1902200E0CD86 /* Leader */ = {
+		956BA8952AA3229A00775612 /* Json */ = {
 			isa = PBXGroup;
 			children = (
-				9525711B2AA0C4B700E0CD86 /* Leaderboard.swift */,
-				954E6D862AA1E71100E62BCF /* AchievementView.swift */,
+				954E6D802AA1DEA100E62BCF /* achievements.json */,
+				9525711E2AA1846000E0CD86 /* players.json */,
 			);
-			path = Leader;
+			path = Json;
+			sourceTree = "<group>";
+		};
+		956BA8962AA322BA00775612 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				952571202AA1855600E0CD86 /* ModelPlayer.swift */,
+				952571152AA0B83C00E0CD86 /* Player.swift */,
+				956BA89E2AA32FC600775612 /* PlayerModel.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		956BA8972AA322D200775612 /* Achievement */ = {
+			isa = PBXGroup;
+			children = (
+				954E6D842AA1E14D00E62BCF /* Achievement.swift */,
+				954E6D822AA1E0FD00E62BCF /* ModelAchievement.swift */,
+			);
+			path = Achievement;
+			sourceTree = "<group>";
+		};
+		956BA8982AA322FA00775612 /* How To Play */ = {
+			isa = PBXGroup;
+			children = (
+				954E6D882AA21FA700E62BCF /* HowToPlayView.swift */,
+			);
+			path = "How To Play";
+			sourceTree = "<group>";
+		};
+		956BA8992AA3230700775612 /* Main  */ = {
+			isa = PBXGroup;
+			children = (
+				448126412A85D3BA00F70F62 /* ContentView.swift */,
+				4481266E2A85D81C00F70F62 /* MainView.swift */,
+				4481266C2A85D4A600F70F62 /* WelcomeView.swift */,
+			);
+			path = "Main ";
+			sourceTree = "<group>";
+		};
+		956BA89A2AA3231A00775612 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				44E925F62A907CE0009B685F /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		956BA89B2AA3232800775612 /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				954E6D862AA1E71100E62BCF /* AchievementView.swift */,
+				9525711B2AA0C4B700E0CD86 /* Leaderboard.swift */,
+			);
+			path = Leaderboard;
+			sourceTree = "<group>";
+		};
+		956BA89C2AA3234200775612 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				44E925F82A90907B009B685F /* Game1View.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		9578A6E72AA23BF8007D8E56 /* Sounds */ = {
@@ -366,6 +417,7 @@
 				952571212AA1855600E0CD86 /* ModelPlayer.swift in Sources */,
 				954E6D852AA1E14D00E62BCF /* Achievement.swift in Sources */,
 				4481266D2A85D4A600F70F62 /* WelcomeView.swift in Sources */,
+				956BA89F2AA32FC600775612 /* PlayerModel.swift in Sources */,
 				44E925F92A90907B009B685F /* Game1View.swift in Sources */,
 				952571162AA0B83C00E0CD86 /* Player.swift in Sources */,
 				954E6D872AA1E71100E62BCF /* AchievementView.swift in Sources */,

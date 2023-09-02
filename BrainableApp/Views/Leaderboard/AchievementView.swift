@@ -101,6 +101,6 @@ struct AchievementView: View {
 
 struct AchievementView_Previews: PreviewProvider {
     static var previews: some View {
-        AchievementView(player: players[0], levelIndex: .constant(0))
+        AchievementView(player: testPlayer, levelIndex: .constant(0))
     }
 }

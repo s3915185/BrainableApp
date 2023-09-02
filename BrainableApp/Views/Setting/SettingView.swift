@@ -15,6 +15,7 @@ struct SettingView: View {
     @Binding var name:String
     @Binding var password:String
     @Environment(\.dismiss) var dismiss
+    
 
     var level = ["Easy", "Intermediate", "Hard"]
     var languages = ["Vietnamese", "English"]

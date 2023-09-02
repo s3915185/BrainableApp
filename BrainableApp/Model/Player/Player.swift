@@ -47,3 +47,5 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
         number = 0
     }
 }
+
+let testPlayer = Player(id: -1, name: "Test Name", password: "Test Password", scoreEasy: 666, scoreIntermediate: 777, scoreHard: 888, maxWinStreak: 2, winStreak: 1, gameTotal: 3, winners: 3, losers: 0, achievements: [1,2])
