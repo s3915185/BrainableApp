@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct LoseTab: View {
+    @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
+    @AppStorage("totalClicked") private var totalClickedData: Data = Data()
     @ObservedObject var players:PlayerModel
-    @Binding var playerLoggin:Player
     @Binding var showLoseTab:Bool
+    @Binding var storage:[[Int]]
+    @Binding var colorChoice:Bool
+    @Binding var choice:Int
+    @Binding var life:Int
+    
+    @ObservedObject var gm:GameMode
+    
+    @Binding var reset:Bool
+    @Binding var totalClicked:Int
+    @Binding var playerLoggin:Player
+    @Binding var hasPlayerContinue:Bool
     var level:Int
     var time:Int
     @Environment(\.dismiss) var dismiss
@@ -37,6 +49,28 @@ struct LoseTab: View {
                 Button(action: {
                     showLoseTab = false
                     playBackgroundSound()
+                    storage = [[Int]]()
+                    colorChoice = true
+                    hasPlayerContinue = true
+                    saveHasPlayerContinue()
+                    choice = 2
+                    life = 5
+                    if (level == 0) {
+                        gm.easyReset()
+                    }
+                    else if (level == 1) {
+                        gm.intermediateReset()
+                    }
+                    else {
+                        gm.hardReset()
+                    }
+                    reset = true
+                    totalClicked = 0
+                    saveTotalClicked()
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        reset = false
+                    }
                 }, label: {
                     Image(systemName: "arrow.forward.square.fill")
                         .resizable()
@@ -59,5 +93,21 @@ struct LoseTab: View {
               }
               playLoserSound()
           }
+    }
+    func saveHasPlayerContinue() {
+        do {
+            let encodedHasPlayerContinue = try JSONEncoder().encode(hasPlayerContinue)
+            hasPlayerContinueData = encodedHasPlayerContinue
+        } catch {
+            print("Error saving HasPlayerContinue")
+        }
+    }
+    func saveTotalClicked() {
+        do {
+            let encodedTotalClicked = try JSONEncoder().encode(totalClicked)
+            totalClickedData = encodedTotalClicked
+        } catch {
+            print("Error saving TotalClicked")
+        }
     }
 }

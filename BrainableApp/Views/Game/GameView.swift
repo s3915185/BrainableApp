@@ -226,7 +226,7 @@ struct GameView: View {
                     Spacer()
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
-                    LoseTab(players: players, playerLoggin: $playerLoggin, showLoseTab: $showLoseTab, level: levelIndex, time: gameTime)
+                    LoseTab(players: players, showLoseTab: $showLoseTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked, playerLoggin: $playerLoggin,hasPlayerContinue: $hasPlayerContinue, level: levelIndex, time: gameTime)
                         .onAppear {
                             hasPlayerContinue = false
                             saveHasPlayerContinue()

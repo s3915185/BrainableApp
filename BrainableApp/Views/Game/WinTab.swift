@@ -25,7 +25,6 @@ struct WinTab: View {
     @Binding var hasPlayerContinue:Bool
     var level:Int
     var time:Int
-    
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
