@@ -8,16 +8,21 @@
 import SwiftUI
 
 struct WinTab: View {
+    @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
+    @AppStorage("totalClicked") private var totalClickedData: Data = Data()
     @ObservedObject var players:PlayerModel
     @Binding var showWinTab:Bool
     @Binding var storage:[[Int]]
     @Binding var colorChoice:Bool
     @Binding var choice:Int
     @Binding var life:Int
+    
     @ObservedObject var gm:GameMode
+    
     @Binding var reset:Bool
     @Binding var totalClicked:Int
     @Binding var playerLoggin:Player
+    @Binding var hasPlayerContinue:Bool
     var level:Int
     var time:Int
     
@@ -46,6 +51,8 @@ struct WinTab: View {
                     showWinTab = false
                     storage = [[Int]]()
                     colorChoice = true
+                    hasPlayerContinue = true
+                    saveHasPlayerContinue()
                     choice = 2
                     life = 5
                     if (level == 0) {
@@ -59,6 +66,7 @@ struct WinTab: View {
                     }
                     reset = true
                     totalClicked = 0
+                    saveTotalClicked()
                     playBackgroundSound()
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -87,6 +95,22 @@ struct WinTab: View {
               }
               playWinnerSound()
           }
+    }
+    func saveHasPlayerContinue() {
+        do {
+            let encodedHasPlayerContinue = try JSONEncoder().encode(hasPlayerContinue)
+            hasPlayerContinueData = encodedHasPlayerContinue
+        } catch {
+            print("Error saving HasPlayerContinue")
+        }
+    }
+    func saveTotalClicked() {
+        do {
+            let encodedTotalClicked = try JSONEncoder().encode(totalClicked)
+            totalClickedData = encodedTotalClicked
+        } catch {
+            print("Error saving TotalClicked")
+        }
     }
 }
 

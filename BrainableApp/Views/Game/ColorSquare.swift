@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ColorSquare: View {
+    @AppStorage("playerGrid") private var playerGridData: Data = Data()
+    @AppStorage("life") private var lifeData: Data = Data()
+    @AppStorage("totalClicked") private var totalClickedData: Data = Data()
     @Binding var level: Int
     @Binding var choice: Int
     @State var isCorrect:Int = 0
@@ -20,8 +23,6 @@ struct ColorSquare: View {
     @State var clicked:Bool = false
     @State var rightValue: Bool = false
     @State var valueAdded: Bool = false
-    
-    
     @State var levelUpgrade:Int = 1
     
     
@@ -30,7 +31,8 @@ struct ColorSquare: View {
         return .black.opacity(0.1)
     }
     
-    @ObservedObject var gm: GameMode
+    @Binding var answerGrid:[[Int]]
+    @Binding var playerGrid:[[Int]]
     var body: some View {
         VStack{
             let checkBlue = isCorrect == 2 ? true : false
@@ -53,7 +55,13 @@ struct ColorSquare: View {
 
             }
         }
+        .onAppear {
+            isCorrect = playerGrid[xCoordinate][yCoordinate]
+        }
         .onTapGesture {
+            playerGrid[xCoordinate][yCoordinate] = choice
+            savePlayerGrid()
+            print("This is playerGrid before: \(playerGrid)")
             playClickSound()
             if (!clicked) {
                 clicked = true
@@ -61,7 +69,7 @@ struct ColorSquare: View {
             }
             isCorrect = choice
             if (level == 0) {
-                if (gm.Easy.storage[xCoordinate][yCoordinate] != isCorrect) {
+                if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
                     life -= 1
                 }
                 else {
@@ -69,7 +77,7 @@ struct ColorSquare: View {
                     
                 }
             }else if (level == 1) {
-                if (gm.Intermediate.storage[xCoordinate][yCoordinate] != isCorrect) {
+                if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
                     life -= 1
                 }
                 else {
@@ -78,7 +86,7 @@ struct ColorSquare: View {
                 }
             }
             else if (level == 2) {
-                if (gm.Hard.storage[xCoordinate][yCoordinate] != isCorrect) {
+                if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
                     life -= 1
                 }
                 else {
@@ -91,8 +99,8 @@ struct ColorSquare: View {
                     totalClicked+=1
                     valueAdded = true
                 }}
-        
-  
+            saveLife()
+            saveTotalClicked()
         }
         .onChange(of: reset) { _ in
            if reset {
@@ -101,6 +109,38 @@ struct ColorSquare: View {
                rightValue = false
                valueAdded = false
            }
+        }
+    }
+    func savePlayerGrid() {
+        do {
+            let encodedPlayerGrid = try JSONEncoder().encode(playerGrid)
+            playerGridData = encodedPlayerGrid
+        } catch {
+            print("Error saving playerGrid")
+        }
+    }
+    func saveLife() {
+        do {
+            let encodedLife = try JSONEncoder().encode(life)
+            lifeData = encodedLife
+        } catch {
+            print("Error saving Life")
+        }
+    }
+    func saveTotalClicked() {
+        do {
+            let encodedTotalClicked = try JSONEncoder().encode(totalClicked)
+            totalClickedData = encodedTotalClicked
+        } catch {
+            print("Error saving totalClicked")
+        }
+    }
+    func loadPlayerGrid() {
+        do {
+            let decodedPlayerGrid = try JSONDecoder().decode([[Int]].self, from: playerGridData)
+            self.playerGrid = decodedPlayerGrid
+        } catch {
+            print("Error loading PlayerGrid")
         }
     }
 }

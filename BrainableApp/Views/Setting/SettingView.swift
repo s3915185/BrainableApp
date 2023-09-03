@@ -69,6 +69,7 @@ struct SettingView: View {
                             dismiss()
                             hasPlayerContinue = false
                             saveHasPlayerContinue()
+                            
                             loadHasPlayerContinue()
                             print("Has Player Continute: \(false)")
                         }, label: {

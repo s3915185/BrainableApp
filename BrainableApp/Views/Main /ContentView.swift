@@ -25,6 +25,7 @@ struct ContentView: View {
                     loadPlayerLoggin()
                     if (hasPlayerContinue) {
                         toMain = true
+                        
                     }
                     print("Has player continue: \(hasPlayerContinue)")
                     print("The player is: \(playerLoggin)")
@@ -46,6 +47,7 @@ struct ContentView: View {
         do {
             let decodedHasPlayerContinue = try JSONDecoder().decode(Bool.self, from: hasPlayerContinueData)
             self.hasPlayerContinue = decodedHasPlayerContinue
+            print("This value is : \(hasPlayerContinue)")
         } catch {
             print("Error loading HasPlayerContinue")
         }

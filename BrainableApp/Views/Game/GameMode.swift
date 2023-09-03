@@ -8,10 +8,10 @@
 import SwiftUI
 
 class GameMode: ObservableObject {
-    private var easyRandomDegrade = 20
+    private var easyRandomDegrade = 10
     private var intermediateRandomDegrade = 6
     private var hardRandomDegrade = 6
-    @Published var Easy = NonogramEasy(fromRandom: 20)
+    @Published var Easy = NonogramEasy(fromRandom: 10)
     @Published var Intermediate = NonogramIntermediate(fromRandom: 6)
     @Published var Hard = NonogramHard(fromRandom: 6)
     func easyReset() {
