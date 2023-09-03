@@ -11,8 +11,6 @@ class GameMode: ObservableObject {
     @Published var Easy = NonogramEasy()
     @Published var Intermediate = NonogramIntermediate()
     @Published var Hard = NonogramHard()
-    
-    
     func reset () {
         Easy = NonogramEasy()
         Intermediate = NonogramIntermediate()
@@ -42,6 +40,7 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Do
                         }
                         print("This is object: ")
                         print(object)
+                        if (caughtAchieve) {
                         aLoop: for achi in playerChange.achievements {
                             if (achi.modeID == object.modeID) {
                                 if (achi.timeCount >= object.timeCount) {
@@ -51,20 +50,21 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Do
                                 }
                             }
                         }
-                        if (!caughtLowerTimeAchieve) {
-                            print("No achivements caught in the achievements, then parse in the playerChange")
-                            playerChange.achievements.append(object)
-                            print("Value in playerChange: ")
-                            print(playerChange.achievements)
-                        }
-                        print("This is caughtAchieve: ")
-                        print(hasObject)
-                        if (caughtLowerTimeAchieve) {
-                            playerChange.achievements.removeAll { Achievement in
-                                Achievement == hasObject
+                            if (!caughtLowerTimeAchieve) {
+                                print("No achivements caught in the achievements, then parse in the playerChange")
+                                playerChange.achievements.append(object)
+                                print("Value in playerChange: ")
+                                print(playerChange.achievements)
                             }
-                            playerChange.achievements.append(object)
-                            print("Remove hasObject, then add object in")
+                            print("This is caughtAchieve: ")
+                            print(hasObject)
+                            if (caughtLowerTimeAchieve) {
+                                playerChange.achievements.removeAll { Achievement in
+                                    Achievement == hasObject
+                                }
+                                playerChange.achievements.append(object)
+                                print("Remove hasObject, then add object in")
+                            }
                         }
                     }
                 }
@@ -84,6 +84,7 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Do
                         }
                         print("This is object: ")
                         print(object)
+                        if (caughtAchieve) {
                         aLoop: for achi in playerChange.achievements {
                             if (achi.modeID == object.modeID) {
                                 if (achi.timeCount >= object.timeCount) {
@@ -93,20 +94,21 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Do
                                 }
                             }
                         }
-                        if (!caughtLowerTimeAchieve) {
-                            print("No achivements caught in the achievements, then parse in the playerChange")
-                            playerChange.achievements.append(object)
-                            print("Value in playerChange: ")
-                            print(playerChange.achievements)
-                        }
-                        print("This is caughtAchieve: ")
-                        print(hasObject)
-                        if (caughtLowerTimeAchieve) {
-                            playerChange.achievements.removeAll { Achievement in
-                                Achievement == hasObject
+                            if (!caughtLowerTimeAchieve) {
+                                print("No achivements caught in the achievements, then parse in the playerChange")
+                                playerChange.achievements.append(object)
+                                print("Value in playerChange: ")
+                                print(playerChange.achievements)
                             }
-                            playerChange.achievements.append(object)
-                            print("Remove hasObject, then add object in")
+                            print("This is caughtAchieve: ")
+                            print(hasObject)
+                            if (caughtLowerTimeAchieve) {
+                                playerChange.achievements.removeAll { Achievement in
+                                    Achievement == hasObject
+                                }
+                                playerChange.achievements.append(object)
+                                print("Remove hasObject, then add object in")
+                            }
                         }
                     }
                 }
@@ -126,6 +128,7 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Do
                         }
                         print("This is object: ")
                         print(object)
+                        if (caughtAchieve) {
                         aLoop: for achi in playerChange.achievements {
                             if (achi.modeID == object.modeID) {
                                 if (achi.timeCount >= object.timeCount) {
@@ -135,20 +138,21 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Do
                                 }
                             }
                         }
-                        if (!caughtLowerTimeAchieve) {
-                            print("No achivements caught in the achievements, then parse in the playerChange")
-                            playerChange.achievements.append(object)
-                            print("Value in playerChange: ")
-                            print(playerChange.achievements)
-                        }
-                        print("This is caughtAchieve: ")
-                        print(hasObject)
-                        if (caughtLowerTimeAchieve) {
-                            playerChange.achievements.removeAll { Achievement in
-                                Achievement == hasObject
+                            if (!caughtLowerTimeAchieve) {
+                                print("No achivements caught in the achievements, then parse in the playerChange")
+                                playerChange.achievements.append(object)
+                                print("Value in playerChange: ")
+                                print(playerChange.achievements)
                             }
-                            playerChange.achievements.append(object)
-                            print("Remove hasObject, then add object in")
+                            print("This is caughtAchieve: ")
+                            print(hasObject)
+                            if (caughtLowerTimeAchieve) {
+                                playerChange.achievements.removeAll { Achievement in
+                                    Achievement == hasObject
+                                }
+                                playerChange.achievements.append(object)
+                                print("Remove hasObject, then add object in")
+                            }
                         }
                     }
                 }
@@ -187,6 +191,7 @@ class NonogramEasy {
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
+    var randomrate:Int = 20
     init() {
         for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
@@ -202,7 +207,7 @@ class NonogramEasy {
             var y_string = ""
             var subY = [Int]()
             for j in 0..<((level + levelUpgrade) * 5) {
-                if (Int.random(in: 1...20) == 1) {
+                if (Int.random(in: 1...randomrate) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
@@ -274,6 +279,7 @@ class NonogramIntermediate {
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
+    var randomrate = 6
     init() {
         for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
@@ -289,7 +295,7 @@ class NonogramIntermediate {
             var y_string = ""
             var subY = [Int]()
             for j in 0..<((level + levelUpgrade) * 5) {
-                if (Int.random(in: 1...3) == 1) {
+                if (Int.random(in: 1...randomrate) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
@@ -360,6 +366,7 @@ class NonogramHard {
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
+    var randomrate:Int = 6
     init() {
         for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
@@ -374,7 +381,7 @@ class NonogramHard {
             var y_string = ""
             var subY = [Int]()
             for j in 0..<((level + levelUpgrade) * 5) {
-                if (Int.random(in: 1...5) == 1) {
+                if (Int.random(in: 1...randomrate) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0

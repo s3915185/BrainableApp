@@ -35,7 +35,7 @@ struct GameView: View {
     @Environment(\.dismiss) var dismiss
     @State var showInstructions:Bool = false
 
-
+    var levelString:[String] = ["Easy", "Intermediate", "Hard"]
     @StateObject var gm:GameMode = GameMode()
     
     var body: some View {
@@ -64,9 +64,7 @@ struct GameView: View {
                 Spacer()
                 VStack {
                     HStack {
-                        
                         Spacer()
-                        
                         HStack (spacing: 8) {
                             ForEach(1..<life+1) { i in
                                 Image(systemName: life >= i ? "heart.fill" : "heart")
@@ -99,12 +97,7 @@ struct GameView: View {
                                 startPlayerTimer()
                             }
                         })
-                        
-                        
                         Spacer()
-                        
-                        
-                        
                     }
                     HStack {
                         Text("Time: ")
@@ -159,126 +152,24 @@ struct GameView: View {
                                                 .font(.system(size: 12, weight: .regular))
                                                 .frame(height: CGFloat(50 / (level + levelUpgrade)))
                                         }
-                                        
-                                        
                                         ForEach(0..<((level + levelUpgrade) * 5)) { b in
-                                            if (level == 0) {
-                                                let c = gm.Easy[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
-                                            else if (level == 1) {
-                                                let c = gm.Intermediate[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
-                                            else {
-                                                let c = gm.Hard[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
+                                            ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
                                         }
                                     }
                                     else if (level == 1) {
                                         Text(gm.Intermediate.y_dimensions[a])
                                             .font(.system(size: 12, weight: .regular))
                                             .frame(height: CGFloat(50 / (level + 2)))
-                                        
-                                        
                                         ForEach(0..<((level + levelUpgrade) * 5)) { b in
-                                            if (level == 0) {
-                                                let c = gm.Easy[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
-                                            else if (level == 1) {
-                                                let c = gm.Intermediate[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
-                                            else {
-                                                let c = gm.Hard[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
+                                            ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
                                         }
                                     }
                                     else {
                                         Text(gm.Hard.y_dimensions[a])
                                             .font(.system(size: 12, weight: .regular))
                                             .frame(height: CGFloat(50 / (level + 2)))
-                                        
-                                        
                                         ForEach(0..<((level + levelUpgrade) * 5)) { b in
-                                            if (level == 0) {
-                                                let c = gm.Easy[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
-                                            else if (level == 1) {
-                                                let c = gm.Intermediate[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
-                                            else {
-                                                let c = gm.Hard[a, b]
-                                                let d = (c == 2) ? true : false
-                                                if (d) {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                                
-                                                else {
-                                                    ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
-                                                }
-                                            }
+                                            ColorSquare(level: $level, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, gm: gm)
                                         }
                                     }
                                 }
