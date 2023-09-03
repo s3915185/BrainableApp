@@ -20,6 +20,9 @@ struct GameView: View {
     @AppStorage("levelIndex") private var levelData: Data = Data()
     @AppStorage("life") private var lifeData: Data = Data()
     @AppStorage("totalClicked") private var totalClickedData: Data = Data()
+    
+    @AppStorage("gameTime") private var gameTimeData: Data = Data()
+    
     @ObservedObject var players:PlayerModel
     @Binding var levelIndex:Int
     @Binding var hasPlayerContinue:Bool
@@ -281,6 +284,9 @@ struct GameView: View {
                 loadYDimens()
                 loadLife()
                 loadTotalClicked()
+                loadGameTime()
+                minute = gameTime / 60
+                second = gameTime
                 print("This is playerGrid after: \(playerGrid)")
             }
             else {
@@ -382,6 +388,23 @@ struct GameView: View {
             print("Error loading YDimens")
         }
     }
+    func loadGameTime() {
+        do {
+            let decodedGameTime = try JSONDecoder().decode(Int.self, from: gameTimeData)
+            self.gameTime = decodedGameTime
+        } catch {
+            print("Error loading gameTime")
+        }
+    }
+    
+    func saveGameTime() {
+        do {
+            let encodedGameTime = try JSONEncoder().encode(gameTime)
+            gameTimeData = encodedGameTime
+        } catch {
+            print("Error saving gameTime")
+        }
+    }
     
     func saveAnswerGrid() {
         do {
@@ -469,6 +492,7 @@ struct GameView: View {
                 } else {
                     gameTime += 1
                     second += 1
+                    saveGameTime()
                 }
             }
         }
