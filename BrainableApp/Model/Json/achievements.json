@@ -133,7 +133,7 @@
     {
         "id": 17,
         "achieveName" : "Less than 20 minutes",
-        "timeCount": 1200.0,
+        "timeCount": 1200,
         "mode": "Hard",
         "image": "hard1200",
         "modeID": 2

@@ -10,7 +10,7 @@ import Foundation
 struct Achievement:Codable, Hashable, Identifiable, Equatable {
     let id: Int
     let achieveName: String
-    let timeCount: Double
+    let timeCount: Int
     let mode: String
     let image: String
     let modeID: Int

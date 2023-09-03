@@ -12,9 +12,9 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
     var id: Int
     var name: String
     var password: String
-    var scoreEasy: Double
-    var scoreIntermediate: Double
-    var scoreHard: Double
+    var scoreEasy: Int
+    var scoreIntermediate: Int
+    var scoreHard: Int
     var maxWinStreak: Int
     var winStreak: Int
     var gameTotal: Int
@@ -29,7 +29,7 @@ struct Player:Codable, Hashable, Identifiable, Equatable{
     mutating func compareLargeMaxWS() {
         maxWinStreak = winStreak > maxWinStreak ? winStreak : maxWinStreak
     }
-    mutating func compareLargeLowerScore(time: Double, level: Int) {
+    mutating func compareLargeLowerScore(time: Int, level: Int) {
         if (level == 0) {
             scoreEasy = time < scoreEasy ? time : scoreEasy
 

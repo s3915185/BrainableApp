@@ -8,17 +8,36 @@
 import SwiftUI
 
 class GameMode: ObservableObject {
-    @Published var Easy = NonogramEasy()
-    @Published var Intermediate = NonogramIntermediate()
-    @Published var Hard = NonogramHard()
+    private var easyRandomDegrade = 20
+    private var intermediateRandomDegrade = 6
+    private var hardRandomDegrade = 6
+    @Published var Easy = NonogramEasy(fromRandom: 20)
+    @Published var Intermediate = NonogramIntermediate(fromRandom: 6)
+    @Published var Hard = NonogramHard(fromRandom: 6)
+    func easyReset() {
+        easyRandomDegrade -= 5
+        easyRandomDegrade = (easyRandomDegrade < 5) ? 5 : easyRandomDegrade
+        Easy = NonogramEasy(fromRandom: easyRandomDegrade)
+    }
+    func intermediateReset() {
+        intermediateRandomDegrade -= 1
+        intermediateRandomDegrade = (intermediateRandomDegrade < 3) ? 3 : intermediateRandomDegrade
+        Intermediate = NonogramIntermediate(fromRandom: intermediateRandomDegrade)
+
+    }
+    func hardReset() {
+        hardRandomDegrade -= 1
+        hardRandomDegrade = (hardRandomDegrade < 3) ? 3 : hardRandomDegrade
+        Hard = NonogramHard(fromRandom: hardRandomDegrade)
+    }
     func reset () {
-        Easy = NonogramEasy()
-        Intermediate = NonogramIntermediate()
-        Hard = NonogramHard()
+        Easy = NonogramEasy(fromRandom: easyRandomDegrade)
+        Intermediate = NonogramIntermediate(fromRandom: intermediateRandomDegrade)
+        Hard = NonogramHard(fromRandom: hardRandomDegrade)
     }
 }
 
-func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Double, isWin: Bool) {
+func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Int, isWin: Bool) {
     @AppStorage("players")var playersData: Data = Data()
     var playerChange = Player(id: player.id, name: player.name, password: player.password, scoreEasy: player.scoreEasy, scoreIntermediate: player.scoreIntermediate, scoreHard: player.scoreHard, maxWinStreak: player.maxWinStreak, winStreak: player.winStreak, gameTotal: player.gameTotal, winners: player.winners, losers: player.losers, achievements: player.achievements)
     for i in 0..<players.players.count {
@@ -191,8 +210,7 @@ class NonogramEasy {
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
-    var randomrate:Int = 20
-    init() {
+    init(fromRandom random: Int) {
         for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
                     for _ in 0..<((level + levelUpgrade) * 5) {
@@ -207,7 +225,7 @@ class NonogramEasy {
             var y_string = ""
             var subY = [Int]()
             for j in 0..<((level + levelUpgrade) * 5) {
-                if (Int.random(in: 1...randomrate) == 1) {
+                if (Int.random(in: 1...random) == 1) {
                     if (y_dimension != 0) {
                         subY.append(y_dimension)
                         y_dimension = 0
@@ -279,8 +297,7 @@ class NonogramIntermediate {
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
-    var randomrate = 6
-    init() {
+    init(fromRandom randomrate: Int) {
         for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
                     for _ in 0..<((level + levelUpgrade) * 5) {
@@ -366,8 +383,7 @@ class NonogramHard {
     var y_dimensions = [String]()
     var x_dimensions = [String]()
     var valueGrid = [[Int]]()
-    var randomrate:Int = 6
-    init() {
+    init(fromRandom randomrate: Int) {
         for _ in 0..<((level + levelUpgrade) * 5) {
                     var subArray = [Int]()
                     for _ in 0..<((level + levelUpgrade) * 5) {

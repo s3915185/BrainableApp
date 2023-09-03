@@ -19,7 +19,7 @@ struct WinTab: View {
     @Binding var totalClicked:Int
     @Binding var playerLoggin:Player
     var level:Int
-    var time:Double
+    var time:Int
     
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -48,7 +48,15 @@ struct WinTab: View {
                     colorChoice = true
                     choice = 2
                     life = 5
-                    gm.reset()
+                    if (level == 0) {
+                        gm.easyReset()
+                    }
+                    else if (level == 1) {
+                        gm.intermediateReset()
+                    }
+                    else {
+                        gm.hardReset()
+                    }
                     reset = true
                     totalClicked = 0
                     playBackgroundSound()

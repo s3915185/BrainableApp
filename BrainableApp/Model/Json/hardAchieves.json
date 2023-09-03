@@ -10,7 +10,7 @@
     {
         "id": 2,
         "achieveName" : "Less than 20 minutes",
-        "timeCount": 1200.0,
+        "timeCount": 1200,
         "mode": "Hard",
         "image": "hard1200",
         "modeID": 2
@@ -18,7 +18,7 @@
     {
         "id": 3,
         "achieveName" : "Less than 25 minutes",
-        "timeCount": 1500.0,
+        "timeCount": 1500,
         "mode": "Hard",
         "image": "hard1500",
         "modeID": 2

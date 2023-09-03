@@ -12,7 +12,7 @@ struct LoseTab: View {
     @Binding var playerLoggin:Player
     @Binding var showLoseTab:Bool
     var level:Int
-    var time:Double
+    var time:Int
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {

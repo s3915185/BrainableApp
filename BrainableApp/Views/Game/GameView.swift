@@ -25,13 +25,13 @@ struct GameView: View {
     @State var showWinTab:Bool = false
     @State var levelUpgrade:Int = 1
     
-    @State var gameTime: Double = 0
+    @State var gameTime: Int = 0
     @State var minute:Int = 0
-    @State var second:Double = 0
+    @State var second:Int = 0
     @State var timer: Timer?
     @State var isTimerRunning = false
     
-    @State var maxTime: Double = 2000
+    @State var maxTime: Int = 50000
     @Environment(\.dismiss) var dismiss
     @State var showInstructions:Bool = false
 
@@ -106,7 +106,7 @@ struct GameView: View {
                         Text("\(minute)  minutes")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
                             .frame(width: 100)
-                        Text("\(String(format: "%.0f", gameTime.truncatingRemainder(dividingBy: 60) )) seconds")
+                        Text("\(second % 60) seconds")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
                             .frame(width: 100)
                             .onAppear{
@@ -114,7 +114,7 @@ struct GameView: View {
                             }
                     }
                     .onChange(of: second, perform: { _ in
-                        if (second.truncatingRemainder(dividingBy: 60) == 0) {
+                        if (second % 60 == 0 && second != 0) {
                             minute += 1
                         }
                     })

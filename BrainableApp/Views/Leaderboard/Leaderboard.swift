@@ -15,18 +15,18 @@ struct Leaderboard: View {
     var filteredPlayers : [Player] {
         if (levelIndex == 0) {
             return players.players
-                .filter{$0.scoreEasy.isLess(than: 50000)}
+                .filter{$0.scoreEasy < 50000}
                 .sorted(by: {$0.scoreEasy < $1.scoreEasy})
 
         }
         else if (levelIndex == 1) {
             return players.players
-                .filter{$0.scoreIntermediate.isLess(than: 50000)}
+                .filter{$0.scoreIntermediate < 50000}
                 .sorted(by: {$0.scoreIntermediate < $1.scoreIntermediate})
         }
         else {
             return players.players
-                .filter{$0.scoreHard.isLess(than: 50000)}
+                .filter{$0.scoreHard < 50000}
                 .sorted(by: {$0.scoreHard < $1.scoreHard})
         }
         return players.players

@@ -24,15 +24,17 @@ struct AchievementView: View {
                             HStack {
                                 Text("Time: ")
                                 if (levelIndex == 0) {
-                                    Text("\(String(format: "%.0f", player.scoreEasy / 60.0)) min")
-                                    Text("\(String(format: "%.0f", player.scoreEasy.truncatingRemainder(dividingBy: 60) )) s")
+                                    Text("\(player.scoreEasy / 60) min")
+                                    Text("\(player.scoreEasy % 60) s")
                                 }
                                 else if (levelIndex == 1) {
-                                    Text("\(String(format: "%.1f", player.scoreIntermediate))")
+                                    Text("\(player.scoreIntermediate / 60) min")
+                                    Text("\(player.scoreIntermediate % 60) s")
                                     
                                 }
                                 else {
-                                    Text("\(String(format: "%.1f", player.scoreHard))")
+                                    Text("\(player.scoreHard / 60) min")
+                                    Text("\(player.scoreHard % 60) s")
                                 }
                                 Spacer()
                             }
