@@ -12,8 +12,11 @@ import AVFoundation
 
 struct MainView: View {
     @AppStorage("players")private var playersData: Data = Data()
-    @StateObject private var players:PlayerModel = PlayerModel()
-    
+    @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
+    @AppStorage("playerLoggin") private var playerLogginData: Data = Data()
+    @ObservedObject var players:PlayerModel
+    @Binding var hasPlayerContinue:Bool
+    @Binding var playerLoggin:Player
     @State private var isOn:Bool = false
     @State private var levelIndex:Int = 0
     @State private var languageIndex:Int = 0
@@ -26,11 +29,8 @@ struct MainView: View {
     
     @State private var nameTemp:String = ""
     @State private var passwordTemp:String = ""
-    
     @State private var playersCount:Int = 0
-    
     @State private var showingHowToPlay = false
-    @State private var playerLoggin:Player = Player(id: 100, name: "noname", password: "nopassword", scoreEasy: 50000, scoreIntermediate: 50000, scoreHard: 50000, maxWinStreak: 0, winStreak: 0, gameTotal: 0, winners: 0, losers: 0, achievements: [])
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -39,16 +39,27 @@ struct MainView: View {
                     HStack{
                         Text("Master Mind")
                             .padding(.leading)
+                            .frame(width: 120)
                         Spacer()
+                        Button(action: {
+                            clearData()
+                            loadPlayers()
+                        }, label: {
+                            Text("Clear Data")
+                                .foregroundColor(.red)
+                                .font(.system(size: 18).bold())
+                        })
+                        .padding(.trailing)
                         if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                            NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
+                            Spacer()
+                            NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue)) {
                                 Image(systemName: "medal")
                                     .resizable()
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(isOn ? .white : .black)
                                     .padding(.trailing)
                             }
-                            NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin)) {
+                            NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue)) {
                                 Image(systemName: "gearshape.circle.fill")
                                     .resizable()
                                     .frame(width: 30, height: 30)
@@ -127,7 +138,7 @@ struct MainView: View {
                         }.background(.clear)
                         Section {
                             if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                                NavigationLink (destination: GameView(players: players, level: $levelIndex, playerLoggin: $playerLoggin)){
+                                NavigationLink (destination: GameView(players: players, level: $levelIndex, hasPlayerContinue: $hasPlayerContinue, playerLoggin: $playerLoggin)){
                                     ZStack {
                                         Text("Play!")
                                     }
@@ -160,6 +171,10 @@ struct MainView: View {
             loadPlayers()
             //clearData()
             print(players.players)
+            if (hasPlayerContinue) {
+                nameLogin = playerLoggin.name
+                passwordLogin = playerLoggin.password
+            }
         }
         .environment(\.colorScheme, isOn ? .dark : .light)
     }
@@ -172,6 +187,14 @@ struct MainView: View {
             print("Error loading Players")
         }
     }
+    func loadPlayerLoggin() {
+        do {
+            let decodedPlayerLoggin = try JSONDecoder().decode(Player.self, from: playerLogginData)
+            self.playerLoggin = decodedPlayerLoggin
+        } catch {
+            print("Error loading playerLoggin")
+        }
+    }
     
     func savePlayers() {
         do {
@@ -179,6 +202,14 @@ struct MainView: View {
             playersData = encodedPlayers
         } catch {
             print("Error saving players: ")
+        }
+    }
+    func savePlayerLoggin() {
+        do {
+            let encodedPlayerLoggin = try JSONEncoder().encode(playerLoggin)
+            playerLogginData = encodedPlayerLoggin
+        } catch {
+            print("Error saving playerLoggin")
         }
     }
     
@@ -198,6 +229,7 @@ struct MainView: View {
             if (player.name == login && player.password == password) {
                 hasAccount = true
                 playerLoggin = player
+                savePlayerLoggin()
             }
         }
         return hasAccount
@@ -211,6 +243,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(players: PlayerModel(), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
     }
 }

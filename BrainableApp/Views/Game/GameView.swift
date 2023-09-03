@@ -9,8 +9,12 @@ import Foundation
 import SwiftUI
 
 struct GameView: View {
+    @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
+    @AppStorage("playerLoggin") private var playerLogginData: Data = Data()
+    
     @ObservedObject var players:PlayerModel
     @Binding var level:Int
+    @Binding var hasPlayerContinue:Bool
     @Binding var playerLoggin:Player
 
     @State var storage = [[Int]]()
@@ -204,6 +208,10 @@ struct GameView: View {
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
                     LoseTab(players: players, playerLoggin: $playerLoggin, showLoseTab: $showLoseTab, level: level, time: gameTime)
+                        .onAppear {
+                            hasPlayerContinue = false
+                            saveHasPlayerContinue()
+                        }
                 }
             }
             if (showWinTab) {
@@ -212,13 +220,27 @@ struct GameView: View {
                         .frame(width: 1000, height: 1000)
                         .background(Color.gray.opacity(0.4))
                     WinTab(players: players, showWinTab: $showWinTab, storage: $storage, colorChoice: $colorChoice, choice: $choice, life: $life, gm: gm, reset: $reset, totalClicked: $totalClicked, playerLoggin: $playerLoggin, level: level, time: gameTime)
+                        .onAppear {
+                            hasPlayerContinue = false
+                            saveHasPlayerContinue()
+                        }
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
+            hasPlayerContinue = true
+            saveHasPlayerContinue()
             playClickSound()
             playBackgroundSound()
+        }
+    }
+    func saveHasPlayerContinue() {
+        do {
+            let encodedHasPlayerContinue = try JSONEncoder().encode(hasPlayerContinue)
+            hasPlayerContinueData = encodedHasPlayerContinue
+        } catch {
+            print("Error saving HasPlayerContinue")
         }
     }
     
@@ -267,8 +289,8 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(players: PlayerModel(), level: .constant(2), playerLoggin: .constant(testPlayer))
-        GameView(players: PlayerModel(), level: .constant(1), playerLoggin: .constant(testPlayer))
-        GameView(players: PlayerModel(), level: .constant(0), playerLoggin: .constant(testPlayer))
+        GameView(players: PlayerModel(), level: .constant(2), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
+        GameView(players: PlayerModel(), level: .constant(1), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
+        GameView(players: PlayerModel(), level: .constant(0), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
     }
 }

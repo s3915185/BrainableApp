@@ -8,13 +8,54 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var toMain:Bool = false;
+    @AppStorage("players")private var playersData: Data = Data()
+    @StateObject private var players:PlayerModel = PlayerModel()
+    @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
+    @AppStorage("playerLoggin") private var playerLogginData: Data = Data()
+    @AppStorage("toMain") private var toMainData: Data = Data()
+    @State private var hasPlayerContinue:Bool = false
+    @State private var playerLoggin:Player = testPlayer
+    @State var toMain:Bool = false
     var body: some View {
         if (!toMain) {
-            WelcomeView(toMain: $toMain)
+            WelcomeView(toMain: $toMain, hasPlayerContinue: $hasPlayerContinue)
+                .onAppear {
+                    loadToMain()
+                    loadHasPlayerContinue()
+                    loadPlayerLoggin()
+                    if (hasPlayerContinue) {
+                        toMain = true
+                    }
+                    print("Has player continue: \(hasPlayerContinue)")
+                    print("The player is: \(playerLoggin)")
+                }
         }
         else {
-            MainView()
+            MainView(players: players, hasPlayerContinue: $hasPlayerContinue, playerLoggin: $playerLoggin)
+        }
+    }
+    func loadPlayerLoggin() {
+        do {
+            let decodedPlayerLoggin = try JSONDecoder().decode(Player.self, from: playerLogginData)
+            self.playerLoggin = decodedPlayerLoggin
+        } catch {
+            print("Error loading playerLoggin")
+        }
+    }
+    func loadHasPlayerContinue() {
+        do {
+            let decodedHasPlayerContinue = try JSONDecoder().decode(Bool.self, from: hasPlayerContinueData)
+            self.hasPlayerContinue = decodedHasPlayerContinue
+        } catch {
+            print("Error loading HasPlayerContinue")
+        }
+    }
+    func loadToMain() {
+        do {
+            let decodedToMain = try JSONDecoder().decode(Bool.self, from: toMainData)
+            self.toMain = decodedToMain
+        } catch {
+            print("Error loading ToMain")
         }
     }
 }

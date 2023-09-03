@@ -9,11 +9,13 @@ import Foundation
 import SwiftUI
 
 struct SettingView: View {
+    @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
     @Binding var isOn: Bool
     @Binding var levelIndex:Int
     @Binding var languageIndex: Int
     @Binding var name:String
     @Binding var password:String
+    @Binding var hasPlayerContinue:Bool
     @Environment(\.dismiss) var dismiss
     
 
@@ -65,6 +67,10 @@ struct SettingView: View {
                             name = ""
                             password = ""
                             dismiss()
+                            hasPlayerContinue = false
+                            saveHasPlayerContinue()
+                            loadHasPlayerContinue()
+                            print("Has Player Continute: \(false)")
                         }, label: {
                             Text("Log Out")
                                 .foregroundColor(.red)
@@ -79,10 +85,26 @@ struct SettingView: View {
             }
             .environment(\.colorScheme, isOn ? .dark : .light)
     }
+    func saveHasPlayerContinue() {
+        do {
+            let encodedHasPlayerContinue = try JSONEncoder().encode(hasPlayerContinue)
+            hasPlayerContinueData = encodedHasPlayerContinue
+        } catch {
+            print("Error saving HasPlayerContinue")
+        }
+    }
+    func loadHasPlayerContinue() {
+        do {
+            let decodedHasPlayerContinue = try JSONDecoder().decode(Bool.self, from: hasPlayerContinueData)
+            self.hasPlayerContinue = decodedHasPlayerContinue
+        } catch {
+            print("Error loading HasPlayerContinue")
+        }
+    }
 }
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(isOn: .constant(false), levelIndex: .constant(0), languageIndex: .constant(0), name: .constant("Hoang vu"), password: .constant("asdjhks"))
+        SettingView(isOn: .constant(false), levelIndex: .constant(0), languageIndex: .constant(0), name: .constant("Hoang vu"), password: .constant("asdjhks"), hasPlayerContinue: .constant(false))
     }
 }

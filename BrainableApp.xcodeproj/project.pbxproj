@@ -159,7 +159,6 @@
 				952571242AA18CA600E0CD86 /* Preview Content */,
 				9525711D2AA1842300E0CD86 /* Model */,
 				4481266B2A85D47000F70F62 /* Views */,
-				4481263F2A85D3BA00F70F62 /* BrainableAppApp.swift */,
 				448126432A85D3BB00F70F62 /* Assets.xcassets */,
 				448126452A85D3BB00F70F62 /* BrainableApp.entitlements */,
 			);
@@ -258,6 +257,7 @@
 		956BA8992AA3230700775612 /* Main  */ = {
 			isa = PBXGroup;
 			children = (
+				4481263F2A85D3BA00F70F62 /* BrainableAppApp.swift */,
 				448126412A85D3BA00F70F62 /* ContentView.swift */,
 				4481266E2A85D81C00F70F62 /* MainView.swift */,
 				4481266C2A85D4A600F70F62 /* WelcomeView.swift */,
