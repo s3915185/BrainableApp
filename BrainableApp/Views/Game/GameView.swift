@@ -177,18 +177,8 @@ struct GameView: View {
                                 ForEach(0..<((levelIndex + levelUpgrade) * 5)) { u in
                                     VStack {
                                         Spacer()
-                                        if (levelIndex == 0) {
-                                            Text(x_dimens[u])
-                                                .padding(.bottom, 4)
-                                        }
-                                        else if (levelIndex == 1) {
-                                            Text(x_dimens[u])
-                                                .padding(.bottom, 4)
-                                        }
-                                        else {
-                                            Text(x_dimens[u])
-                                                .padding(.bottom, 4)
-                                        }
+                                        Text(x_dimens[u])
+                                            .padding(.bottom, 4)
                                     }
                                     .font(.system(size: 12, weight: .regular))
                                     .frame(width:CGFloat( 50 / (levelIndex + levelUpgrade)), height: 200)
@@ -197,31 +187,13 @@ struct GameView: View {
                             
                             ForEach(0..<((levelIndex + levelUpgrade) * 5)) { a in
                                 GridRow {
-                                    if (levelIndex == 0) {
-                                        HStack {
-                                            Text(y_dimens[a])
-                                                .font(.system(size: 12, weight: .regular))
-                                                .frame(height: CGFloat(50 / (levelIndex + levelUpgrade)))
-                                        }
-                                        ForEach(0..<((levelIndex + levelUpgrade) * 5)) { b in
-                                            ColorSquare(level: $levelIndex, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, answerGrid: $answerGrid, playerGrid: $playerGrid)
-                                        }
-                                    }
-                                    else if (levelIndex == 1) {
+                                    HStack {
                                         Text(y_dimens[a])
                                             .font(.system(size: 12, weight: .regular))
-                                            .frame(height: CGFloat(50 / (levelIndex + 2)))
-                                        ForEach(0..<((levelIndex + levelUpgrade) * 5)) { b in
-                                            ColorSquare(level: $levelIndex, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, answerGrid: $answerGrid, playerGrid: $playerGrid)
-                                        }
+                                            .frame(height: CGFloat(50 / (levelIndex + levelUpgrade)))
                                     }
-                                    else {
-                                        Text(y_dimens[a])
-                                            .font(.system(size: 12, weight: .regular))
-                                            .frame(height: CGFloat(50 / (levelIndex + 2)))
-                                        ForEach(0..<((levelIndex + levelUpgrade) * 5)) { b in
-                                            ColorSquare(level: $levelIndex, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, answerGrid: $answerGrid, playerGrid: $playerGrid)
-                                        }
+                                    ForEach(0..<((levelIndex + levelUpgrade) * 5)) { b in
+                                        ColorSquare(level: $levelIndex, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, answerGrid: $answerGrid, playerGrid: $playerGrid)
                                     }
                                 }
                             }
