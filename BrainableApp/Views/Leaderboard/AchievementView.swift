@@ -22,19 +22,37 @@ struct AchievementView: View {
                                 Spacer()
                             }
                             HStack {
-                                Text("Time: ")
-                                if (levelIndex == 0) {
-                                    Text("\(player.scoreEasy / 60) min")
-                                    Text("\(player.scoreEasy % 60) s")
-                                }
-                                else if (levelIndex == 1) {
-                                    Text("\(player.scoreIntermediate / 60) min")
-                                    Text("\(player.scoreIntermediate % 60) s")
-                                    
-                                }
-                                else {
-                                    Text("\(player.scoreHard / 60) min")
-                                    Text("\(player.scoreHard % 60) s")
+                                VStack {
+                                    HStack {
+                                        Text("time")
+                                        Spacer()
+                                    }
+                                    if (levelIndex == 0) {
+                                        HStack {
+                                            Text("\(player.scoreEasy / 60) ")
+                                            Text("min")
+                                            Text("\(player.scoreEasy % 60) ")
+                                            Text("s")
+                                            Spacer()
+                                        }
+                                    }
+                                    else if (levelIndex == 1) {
+                                        HStack {
+                                            Text("\(player.scoreIntermediate / 60) ")
+                                            Text("min")
+                                            Text("\(player.scoreIntermediate % 60) ")
+                                            Text("s")
+                                        }
+                                        
+                                    }
+                                    else {
+                                        HStack {
+                                            Text("\(player.scoreHard / 60) ")
+                                            Text("min")
+                                            Text("\(player.scoreHard % 60) ")
+                                            Text("s")
+                                        }
+                                    }
                                 }
                                 Spacer()
                             }
@@ -43,7 +61,7 @@ struct AchievementView: View {
                         HStack {
                             VStack{
                                 HStack {
-                                    Text("Winrates: ")
+                                    Text("winrates")
                                         .font(.system(size: 18))
                                     Spacer()
                                     Text("\(player.winners * 100 / player.gameTotal)%")
@@ -51,12 +69,12 @@ struct AchievementView: View {
                                         .foregroundColor(.red)
                                 }
                                 HStack{
-                                    Text("Game Total: ")
+                                    Text("game-total")
                                     Spacer()
                                     Text("\(player.gameTotal)")
                                 }
                                 HStack{
-                                    Text("Max Win Streak: ")
+                                    Text("max-win-streak")
                                     Spacer()
                                     Text("\(player.maxWinStreak)")
                                 }
@@ -69,7 +87,7 @@ struct AchievementView: View {
                 Divider()
                 VStack {
                     HStack {
-                        Text("Achievements")
+                        Text("achievements")
                         Spacer()
                     }
                     ScrollView(.horizontal) {
@@ -84,9 +102,9 @@ struct AchievementView: View {
                                                         .resizable()
                                                         .frame(width: 50, height: 50)
                                                     Spacer()
-                                                    Text("\(player.achievements[i].mode)")
+                                                    Text(LocalizedStringKey(player.achievements[i].mode))
                                                 }
-                                                Text("\(player.achievements[i].achieveName)")
+                                                Text(LocalizedStringKey(player.achievements[i].achieveName))
                                             }
                                             Divider()
                                         }

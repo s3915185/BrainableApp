@@ -16,9 +16,10 @@ struct ContentView: View {
     @State private var hasPlayerContinue:Bool = false
     @State private var playerLoggin:Player = testPlayer
     @State var toMain:Bool = false
+    @State var language:String  = "en"
     var body: some View {
         if (!toMain) {
-            WelcomeView(toMain: $toMain, hasPlayerContinue: $hasPlayerContinue)
+            WelcomeView(toMain: $toMain, hasPlayerContinue: $hasPlayerContinue, language: $language)
                 .onAppear {
                     loadToMain()
                     loadHasPlayerContinue()
@@ -32,7 +33,7 @@ struct ContentView: View {
                 }
         }
         else {
-            MainView(players: players, hasPlayerContinue: $hasPlayerContinue, playerLoggin: $playerLoggin)
+            MainView(players: players, hasPlayerContinue: $hasPlayerContinue, playerLoggin: $playerLoggin, language: $language)
         }
     }
     func loadPlayerLoggin() {

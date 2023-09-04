@@ -72,13 +72,13 @@ struct GameView: View {
                             print("At this state hasplayerContinute: \(hasPlayerContinue)")
                             dismiss()
                         }, label: {
-                            Text("Save and Exit")
+                            Text("exit")
                         })
                         Spacer()
                         Button(action: {
                             showInstructions.toggle()
                         }, label: {
-                            Text("Instructions")
+                            Text("instructions")
                         })
                         .padding(.trailing)
                         .sheet(isPresented: $showInstructions) {
@@ -154,10 +154,16 @@ struct GameView: View {
                         Text("Time: ")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
                             .frame(width: 60)
-                        Text("\(minute)  minutes")
+                        Text("\(minute) ")
+                            .font(.system(size: 16, weight: .regular, design: .monospaced))
+                            .frame(width: 20)
+                        Text("minutes")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
                             .frame(width: 100)
-                        Text("\(second % 60) seconds")
+                        Text("\(second % 60) ")
+                            .font(.system(size: 16, weight: .regular, design: .monospaced))
+                            .frame(width: 20)
+                        Text("seconds")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
                             .frame(width: 100)
                             .onAppear{

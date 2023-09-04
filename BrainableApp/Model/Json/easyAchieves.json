@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "achieveName" : "Less than 10 seconds",
+        "achieveName" : "less-than-10-seconds",
         "timeCount": 10,
         "mode": "Easy",
         "image": "easy10",
@@ -9,7 +9,7 @@
     },
     {
         "id": 2,
-        "achieveName" : "Less than 15 seconds",
+        "achieveName" : "less-than-15-seconds",
         "timeCount": 15,
         "mode": "Easy",
         "image": "easy15",
@@ -17,7 +17,7 @@
     },
     {
         "id": 3,
-        "achieveName" : "Less than 20 seconds",
+        "achieveName" : "less-than-20-seconds",
         "timeCount": 20,
         "mode": "Easy",
         "image": "easy20",
@@ -25,7 +25,7 @@
     },
     {
         "id": 4,
-        "achieveName" : "Less than 30 seconds",
+        "achieveName" : "less-than-30-seconds",
         "timeCount": 30,
         "mode": "Easy",
         "image": "easy30",
@@ -33,7 +33,7 @@
     },
     {
         "id": 5,
-        "achieveName" : "Less than 40 seconds",
+        "achieveName" : "less-than-40-seconds",
         "timeCount": 40,
         "mode": "Easy",
         "image": "easy40",
@@ -41,7 +41,7 @@
     },
     {
         "id": 6,
-        "achieveName" : "Less than 50 seconds",
+        "achieveName" : "less-than-50-seconds",
         "timeCount": 50,
         "mode": "Easy",
         "image": "easy50",

@@ -12,6 +12,7 @@ struct WelcomeView: View {
     @AppStorage("hasPlayerContinue") private var hasPlayerContinueData: Data = Data()
     @Binding var toMain: Bool
     @Binding var hasPlayerContinue:Bool
+    @Binding var language:String
 
     var body: some View {
         ZStack {
@@ -30,13 +31,14 @@ struct WelcomeView: View {
                 })
                 Spacer()
                 HStack{
-                    Text("Swift Left")
+                    Text("swipe-left")
                         .foregroundColor(.white)
                     Image(systemName: "arrow.left.to.line")
                         .foregroundColor(.white)
                 }
             }
         }
+        .environment(\.locale, Locale.init(identifier: language))
         .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
             .onEnded({ value in
                 if value.translation.width < 0 {
@@ -70,6 +72,6 @@ struct WelcomeView: View {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView(toMain: .constant(false), hasPlayerContinue: .constant(false))
+        WelcomeView(toMain: .constant(false), hasPlayerContinue: .constant(false), language: .constant("en"))
     }
 }

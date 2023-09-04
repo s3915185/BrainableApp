@@ -14,4 +14,5 @@ struct Achievement:Codable, Hashable, Identifiable, Equatable {
     let mode: String
     let image: String
     let modeID: Int
+    
 }

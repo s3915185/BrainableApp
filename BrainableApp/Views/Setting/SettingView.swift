@@ -16,49 +16,51 @@ struct SettingView: View {
     @Binding var name:String
     @Binding var password:String
     @Binding var hasPlayerContinue:Bool
+    @Binding var language:String
     @Environment(\.dismiss) var dismiss
     
 
     var level = ["Easy", "Intermediate", "Hard"]
-    var languages = ["Vietnamese", "English"]
+    var languages = ["English", "Tiếng Việt"]
+    var languageIndexW = ["en", "vi"]
     var body: some View {
             List {
                 Section {
                     HStack {
-                        Text("Username: ")
+                        Text("username")
                         Spacer()
                         Text(name)
                     }
                     HStack {
-                        Text("Password: ")
+                        Text("password")
                         Spacer()
                         Text(password);
                     }
                 } header: {
-                    Text("Account Information")
+                    Text("account-information")
                 }
                 
                 Section {
                     HStack{
-                        Text("Dark Mode")
+                        Text("dark-mode")
                         Spacer()
                         Toggle(isOn: $isOn) {
                         }.accentColor(Color.red)
                     }
                     Picker(selection: $levelIndex, label:
-                            Text("Level")) {
+                            Text("level")) {
                         ForEach(0 ..< level.count) {
-                            Text(self.level[$0]).tag($0)
+                            Text(LocalizedStringKey(self.level[$0])).tag($0)
                         }
                     }
-                    Picker(selection: $languageIndex, label:
-                            Text("Language")) {
+                    Picker(selection: $language, label:
+                            Text("language")) {
                         ForEach(0 ..< languages.count) {
-                            Text(self.languages[$0]).tag($0)
+                            Text(self.languages[$0]).tag(languageIndexW[$0])
                         }
                     }
                 } header: {
-                    Text("App Settings")
+                    Text("app-settings")
                 }
                 Section {
                     HStack {
@@ -73,7 +75,7 @@ struct SettingView: View {
                             loadHasPlayerContinue()
                             print("Has Player Continute: \(false)")
                         }, label: {
-                            Text("Log Out")
+                            Text("log-out")
                                 .foregroundColor(.red)
                         })
                         Spacer()
@@ -106,6 +108,6 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView(isOn: .constant(false), levelIndex: .constant(0), languageIndex: .constant(0), name: .constant("Hoang vu"), password: .constant("asdjhks"), hasPlayerContinue: .constant(false))
+        SettingView(isOn: .constant(false), levelIndex: .constant(0), languageIndex: .constant(0), name: .constant("Hoang vu"), password: .constant("asdjhks"), hasPlayerContinue: .constant(false), language: .constant("en"))
     }
 }

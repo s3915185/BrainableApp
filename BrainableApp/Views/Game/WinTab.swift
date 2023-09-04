@@ -29,10 +29,10 @@ struct WinTab: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("You've won the them")
+            Text("game-won")
                 .font(.title).bold()
                 .foregroundColor(.black)
-            Text("Play again?")
+            Text("play-again?")
             Spacer()
             HStack {
                 Button(action: {

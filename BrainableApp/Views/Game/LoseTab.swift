@@ -29,10 +29,10 @@ struct LoseTab: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("GAME OVER")
+            Text("game-over")
                 .font(.title).bold()
                 .foregroundColor(.black)
-            Text("Play again?")
+            Text("play-again?")
             Spacer()
             HStack {
                 Button(action: {

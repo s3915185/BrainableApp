@@ -44,6 +44,7 @@
 		9578A6F12AA23CE9007D8E56 /* winner.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6F02AA23CE9007D8E56 /* winner.mp3 */; };
 		9578A6F52AA2493C007D8E56 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6F42AA2493C007D8E56 /* background.mp3 */; };
 		9578A6F72AA24C4A007D8E56 /* mainbackground.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9578A6F62AA24C4A007D8E56 /* mainbackground.mp3 */; };
+		95DDA5CF2AA57CEF00497FA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95DDA5D12AA57CEF00497FA9 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,8 @@
 		9578A6F02AA23CE9007D8E56 /* winner.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = winner.mp3; sourceTree = "<group>"; };
 		9578A6F42AA2493C007D8E56 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
 		9578A6F62AA24C4A007D8E56 /* mainbackground.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainbackground.mp3; sourceTree = "<group>"; };
+		95DDA5D02AA57CEF00497FA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		95DDA5D22AA57D5500497FA9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,7 @@
 				4481266B2A85D47000F70F62 /* Views */,
 				448126432A85D3BB00F70F62 /* Assets.xcassets */,
 				448126452A85D3BB00F70F62 /* BrainableApp.entitlements */,
+				95DDA5D12AA57CEF00497FA9 /* Localizable.strings */,
 			);
 			path = BrainableApp;
 			sourceTree = "<group>";
@@ -409,6 +413,7 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 448126332A85D3BA00F70F62;
 			productRefGroup = 4481263D2A85D3BA00F70F62 /* Products */;
@@ -436,6 +441,7 @@
 				952571292AA18F0E00E0CD86 /* Preview Assets.xcassets in Resources */,
 				9578A6EB2AA23CA2007D8E56 /* click.mp3 in Resources */,
 				956BA8A92AA35C9C00775612 /* hardAchieves.json in Resources */,
+				95DDA5CF2AA57CEF00497FA9 /* Localizable.strings in Resources */,
 				9525711F2AA1846000E0CD86 /* players.json in Resources */,
 				9578A6F12AA23CE9007D8E56 /* winner.mp3 in Resources */,
 				9578A6EE2AA23CC7007D8E56 /* loser.mp3 in Resources */,
@@ -520,11 +526,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		95DDA5D12AA57CEF00497FA9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95DDA5D02AA57CEF00497FA9 /* en */,
+				95DDA5D22AA57D5500497FA9 /* vi */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		4481265F2A85D3BB00F70F62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -583,6 +602,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

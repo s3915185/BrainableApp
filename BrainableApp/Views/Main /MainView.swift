@@ -34,6 +34,7 @@ struct MainView: View {
     @State private var showingHowToPlay = false
     @State private var showPlaying:Bool = false
     @State private var showContinueButton:Bool = true
+    @Binding var language:String
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -51,21 +52,21 @@ struct MainView: View {
                                 loadPlayers()
                                 print(players.players)
                             }, label: {
-                                Text("Clear Data")
+                                Text("clear-data")
                                     .foregroundColor(.red)
                                     .font(.system(size: 18).bold())
                             })
                             .padding(.trailing)
                             if (checkForAccount(login: nameLogin, password: passwordLogin)) {
                                 Spacer()
-                                NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue)) {
+                                NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue, language: $language)) {
                                     Image(systemName: "medal")
                                         .resizable()
                                         .frame(width: 30, height: 30)
                                         .foregroundColor(isOn ? .white : .black)
                                         .padding(.trailing)
                                 }
-                                NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue)) {
+                                NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue, language: $language)) {
                                     Image(systemName: "gearshape.circle.fill")
                                         .resizable()
                                         .frame(width: 30, height: 30)
@@ -77,7 +78,7 @@ struct MainView: View {
                         List {
                             Section {
                                 HStack {
-                                    Text("Has account?")
+                                    Text("has-account?")
                                     Spacer()
                                     Button(action: {
                                         if (checkForAccount(login: name, password: password)) {
@@ -86,18 +87,18 @@ struct MainView: View {
                                         }
                                         playClickSound()
                                     }, label: {
-                                        Text("Log In")
+                                        Text("log-in")
                                     })
                                 }
                                 HStack {
-                                    Text("Username: ")
+                                    Text("username")
                                     Spacer()
                                     TextField (
                                         "Enter your player name ", text: $name
                                     ).frame(width: 210)
                                 }
                                 HStack {
-                                    Text("Password: ")
+                                    Text("password")
                                     Spacer()
                                     TextField (
                                         "Enter password ", text: $password
@@ -106,7 +107,7 @@ struct MainView: View {
                             }
                             Section {
                                 HStack {
-                                    Text("Create new account")
+                                    Text("create-new-account")
                                     Spacer()
                                     Button(action: {
                                         if (!checkForAccount(login: nameTemp, password: passwordTemp)) {
@@ -116,18 +117,18 @@ struct MainView: View {
                                         passwordTemp = ""
                                         playClickSound()
                                     }, label: {
-                                        Text("Create")
+                                        Text("create")
                                     })
                                 }
                                 HStack {
-                                    Text("Username: ")
+                                    Text("username")
                                     Spacer()
                                     TextField (
                                         "Enter your player name ", text: $nameTemp
                                     ).frame(width: 210)
                                 }
                                 HStack {
-                                    Text("Password: ")
+                                    Text("password")
                                     Spacer()
                                     TextField (
                                         "Enter password ", text: $passwordTemp
@@ -152,10 +153,10 @@ struct MainView: View {
                                 }
                                 NavigationLink (destination: Leaderboard(players: players)){
                                     ZStack {
-                                        Text("Leaderboard")
+                                        Text("leaderboard")
                                     }
                                 }
-                                Button("How To Play") {
+                                Button("how-to-play") {
                                     showingHowToPlay.toggle()
                                     playClickSound()
                                 }
@@ -209,6 +210,7 @@ struct MainView: View {
             }
         }
         .environment(\.colorScheme, isOn ? .dark : .light)
+        .environment(\.locale, Locale.init(identifier: language))
     }
     
     func loadLevel() {
@@ -290,6 +292,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(players: PlayerModel(), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
+        MainView(players: PlayerModel(), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer), language: .constant("en"))
     }
 }

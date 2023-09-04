@@ -35,7 +35,7 @@ struct Leaderboard: View {
         NavigationStack {
             GeometryReader { geometry in
                 VStack {
-                    Spacer(minLength: 80)
+                    Spacer(minLength: 70)
                     if (levelIndex == 0) {
                         listViewUpdate(filteredPlayers: filteredPlayers, levelIndex: levelIndex)
                     }
@@ -49,16 +49,14 @@ struct Leaderboard: View {
                 .overlay {
                     VStack {
                         HStack {
-                            List {
-                                Section {
-                                    Picker(selection: $levelIndex, label:
-                                            Text("Level")) {
-                                        ForEach(0 ..< level.count) {
-                                            Text(self.level[$0]).tag($0)
-                                        }
-                                    }
+                            Picker(selection: $levelIndex, label:
+                                    Text("Level")) {
+                                ForEach(0 ..< level.count) {
+                                    Text(LocalizedStringKey(self.level[$0])).tag($0)
                                 }
                             }
+                                    .pickerStyle(SegmentedPickerStyle())
+                                    .padding(.horizontal)
                         }.frame(height: 90)
                         Spacer()
                     }
@@ -87,6 +85,13 @@ struct Leaderboard: View {
     func listViewUpdate(filteredPlayers: [Player], levelIndex: Int) -> some View {
         VStack {
             List {
+                if (filteredPlayers.count == 0) {
+                    HStack {
+                        Spacer()
+                        Text("no-record-found")
+                        Spacer()
+                    }
+                }
                 ForEach(0..<filteredPlayers.count) { play in
                     Section {
                         HStack {

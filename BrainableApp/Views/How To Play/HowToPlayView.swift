@@ -18,7 +18,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("To begin with all cells are unknown. I will mark a known black cell with a black square (no surprises there!) and any known white cells with a dot.")
+                                        Text("instruction-0")
                                             .frame(width: 260)
                                             .offset(y: 31)
                                         Image("instruction0")
@@ -33,7 +33,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("1. First find any solid lines. The 0 means there are no black cells in that row, so we mark every cell in the row with a dot (they are known white cells).")
+                                        Text("instruction-1")
                                             .frame(width: 260)
                                         Image("instruction1")
                                             .resizable()
@@ -46,7 +46,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("2. The 5 means that every cell in the row is black, so we color them all in.")
+                                        Text("instruction-2")
                                             .frame(width: 260)
                                             .offset(y: -23)
                                         Image("instruction2")
@@ -61,7 +61,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("3. The 2 / 2 row will be a complete row. There is only one possible way of filling it in – a block of 2 black followed by one white and then another block of two black.")
+                                        Text("instruction-3")
                                             .frame(width: 260)
                                         Image("instruction3")
                                             .resizable()
@@ -74,7 +74,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("4. First column has completed its block of two black. That means every other cell in this column must be white. So we can fill in the remaining cells with a dot.")
+                                        Text("instruction-4")
                                             .frame(width: 260)
                                         Image("instruction4")
                                             .resizable()
@@ -87,7 +87,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("5. Then I start from the bottom to see the bottom-most these blocks can go.")
+                                        Text("instruction-5")
                                             .frame(width: 260)
                                             .offset(y: -23)
                                         Image("instruction5")
@@ -102,7 +102,7 @@ struct HowToPlayView: View {
                                 HStack {
                                     Spacer()
                                     VStack {
-                                        Text("6. Where the same blocks overlap, we know that must be a black cell, so we color those overlaps black.")
+                                        Text("instruction-6")
                                             .frame(width: 260)
                                             .offset(y: -10)
                                         Image("instruction6")
@@ -118,7 +118,7 @@ struct HowToPlayView: View {
                                     Spacer()
                                     VStack {
                                         HStack {
-                                            Text("7. Then we can continue with the overlap tactic over again...")
+                                            Text("instruction-7")
                                                 .frame(width: 260)
                                                 .offset(y: -33)
                                             Spacer()
