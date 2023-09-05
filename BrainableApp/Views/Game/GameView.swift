@@ -58,7 +58,9 @@ struct GameView: View {
 
     var levelString:[String] = ["Easy", "Intermediate", "Hard"]
     @State var gm:GameMode = GameMode()
-    
+    @State var heartLose:Bool = false
+    @State var blueClick:Bool = false
+    @State var grayClick:Bool = false
     var body: some View {
         ZStack {
             VStack {
@@ -129,12 +131,19 @@ struct GameView: View {
                         }
                         .frame(width: CGFloat(40*life) + 20)
                         .onChange(of: life) { _ in
+                            heartLose = true
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                                heartLose = false
+
+                            })
                             life == 0 ? stopPlayerTimer() : nil
                             if (life == 0) {
                                 withAnimation(.easeIn(duration: 0.5)) {
                                     showLoseTab = true
                                 }
                             }
+                            
                         }
                         .onChange(of: showLoseTab) { _ in
                             if (!showLoseTab && life == 0) {
@@ -274,8 +283,14 @@ struct GameView: View {
                                 Color.blue
                                     .frame(width:CGFloat( 65), height: CGFloat(65))
                                     .border(choice == 2 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
+                                    .scaleEffect(blueClick ? 1.5 : 1)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.6))
                             }
                             .onTapGesture {
+                                blueClick = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    blueClick = false
+                                }
                                 playClickSound()
                                 choice = 2
                             }
@@ -283,8 +298,14 @@ struct GameView: View {
                                 Color.gray
                                     .frame(width:CGFloat( 65), height: CGFloat(65))
                                     .border(choice == 1 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
+                                    .scaleEffect(grayClick ? 1.5 : 1)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.6))
                             }
                             .onTapGesture {
+                                grayClick = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    grayClick = false
+                                }
                                 playClickSound()
                                 choice = 1
                             }
@@ -296,6 +317,13 @@ struct GameView: View {
             }
         }
         .overlay {
+            if heartLose {
+                Rectangle()
+                    .frame(width: 400, height: 1000)
+                    .foregroundColor(.red.opacity(0.4))
+                    .zIndex(99)
+                    .animation(.linear(duration: 0.3), value: heartLose)
+            }
             if (showLoseTab) {
                 ZStack {
                     Spacer()
