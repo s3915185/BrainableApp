@@ -129,8 +129,12 @@ struct GameView: View {
                         }
                         .frame(width: CGFloat(40*life) + 20)
                         .onChange(of: life) { _ in
-                            life == 0 ? showLoseTab = true : nil
                             life == 0 ? stopPlayerTimer() : nil
+                            if (life == 0) {
+                                withAnimation(.easeIn(duration: 0.5)) {
+                                    showLoseTab = true
+                                }
+                            }
                         }
                         .onChange(of: showLoseTab) { _ in
                             if (!showLoseTab && life == 0) {
@@ -141,7 +145,9 @@ struct GameView: View {
                         }
                         .onChange(of: totalClicked) { _ in
                             if (totalClicked == ((levelIndex + levelUpgrade) * 5) * ((levelIndex + levelUpgrade) * 5)) {
-                                showWinTab = true
+                                withAnimation(.easeIn(duration: 0.5)) {
+                                    showWinTab = true
+                                }
                                 stopPlayerTimer()
                             }
                         }
@@ -233,7 +239,7 @@ struct GameView: View {
                                     .background {
                                         Rectangle()
                                             .fill(isOn ? .gray : .white)
-                                            .frame(width: CGFloat( 60 / (levelIndex + 1)), height: 110)
+                                            .frame(width: CGFloat( 60 / (levelIndex + 1)), height: 130)
                                             .cornerRadius(20)
                                             .offset(y: 60)
                                     }
@@ -242,11 +248,13 @@ struct GameView: View {
                                 
                                 ForEach(0..<((levelIndex + levelUpgrade) * 5)) { a in
                                     GridRow {
-                                        HStack {
-                                            Text(y_dimens[a])
-                                                .font(.system(size: 12, weight: .regular))
-                                                .frame(height: CGFloat(50 / (levelIndex + levelUpgrade)))
-                                        }
+                                        VStack {
+                                            HStack {
+                                                Spacer()
+                                                Text(y_dimens[a])
+                                                    .font(.system(size: 12, weight: .regular))
+                                                    .frame(height: CGFloat(50 / (levelIndex + levelUpgrade)))
+                                            }}.frame(width: 60)
                                         .background {
                                             Rectangle()
                                                 .fill(isOn ? .gray : .white)
@@ -301,6 +309,7 @@ struct GameView: View {
                 }
             }
             if (showWinTab) {
+                
                 ZStack {
                     Spacer()
                         .frame(width: 1000, height: 1000)
