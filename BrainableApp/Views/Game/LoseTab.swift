@@ -23,6 +23,7 @@ struct LoseTab: View {
     @Binding var totalClicked:Int
     @Binding var playerLoggin:Player
     @Binding var hasPlayerContinue:Bool
+    @State var achievementFound:Achievement = Achievement(id: 100, achieveName: "noname", timeCount: 50000, mode: "nomode", image: "noimage", modeID: 0)
     var level:Int
     var time:Int
     @Environment(\.dismiss) var dismiss
@@ -87,7 +88,7 @@ struct LoseTab: View {
           .onAppear {
               totalClicked = 0
               saveTotalClicked()
-              updatePlayerInfo(players: players, player: playerLoggin, level: level, time: time, isWin: false)
+              updatePlayerInfo(players: players, player: playerLoggin, level: level, time: time, isWin: false, achievement: &achievementFound)
               for i in 0..<players.players.count {
                   if (players.players[i].id == playerLoggin.id) {
                       playerLoggin = players.players[i]

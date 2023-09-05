@@ -49,9 +49,11 @@ struct MainView: View {
                 ZStack {
                     VStack {
                         HStack{
-                            Text("Master Mind")
+                            Image("icon")
+                                .resizable()
+                                .cornerRadius(10)
+                                .frame(width: 50, height: 50)
                                 .padding(.leading)
-                                .frame(width: 120)
                             Spacer()
                             Button(action: {
                                 clearData()
@@ -101,7 +103,7 @@ struct MainView: View {
                                             Text("log-in")
                                                 .foregroundColor(isOn ? .white : .black)
                                         })
-                                        .frame(width: 70, height: 30)
+                                        .frame(width: 150, height: 30)
                                         .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
                                                 .mask(RoundedRectangle(cornerRadius: 30))
                                                 .shadow(color: Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).opacity(loginTap ? 0.6 : 0.3), radius: loginTap ? 10 : 5, x: 0, y: loginTap ? 0 : 5)
@@ -115,6 +117,9 @@ struct MainView: View {
                                         TextField (
                                             "Enter your player name ", text: $name
                                         ).frame(width: 210)
+                                            .onChange(of: name, perform: { _ in
+                                                playClickSound()
+                                            })
                                     }
                                     HStack {
                                         Text("password")
@@ -122,6 +127,9 @@ struct MainView: View {
                                         SecureField (
                                             "Enter password ", text: $password
                                         ).frame(width: 210)
+                                            .onChange(of: password, perform: { _ in
+                                                playClickSound()
+                                            })
                                     }
                                 } header: {
                                     Text("log-in")
@@ -161,6 +169,9 @@ struct MainView: View {
                                         TextField (
                                             "Enter your player name ", text: $nameTemp
                                         ).frame(width: 210)
+                                            .onChange(of: nameTemp, perform: { _ in
+                                                playClickSound()
+                                            })
                                     }
                                     HStack {
                                         Text("password")
@@ -169,6 +180,9 @@ struct MainView: View {
                                             "Enter password ", text: $passwordTemp
                                         )
                                         .frame(width: 210)
+                                        .onChange(of: passwordTemp, perform: { _ in
+                                            playClickSound()
+                                        })
                                     }
                                 } header: {
                                     Text("register").font(.title)
@@ -177,13 +191,6 @@ struct MainView: View {
                                         .shadow(color:isOn ? .white.opacity(0.3) : .black.opacity(0.3), radius: 5)
                                 }                                .listRowSeparator(.hidden)
 }
-                            Section {
-                                HStack {
-                                    Spacer()
-                                    Text("Master Mind")
-                                    Spacer()
-                                }
-                            }.background(.clear)
                             Section {
                                 ScrollView() {
                                     VStack {
@@ -209,7 +216,7 @@ struct MainView: View {
                                                                         .scaledToFit()
                                                                         .blur(radius: 1)
                                                                 )
-                                                            Text("Play")                                                        .shadow(radius: 5)
+                                                            Text("play")                                                        .shadow(radius: 5)
                                                                 .font(.title.bold())
                                                                 .foregroundColor(isOn ? .white : .black)
                                                                 .offset(y: -30)
@@ -241,7 +248,7 @@ struct MainView: View {
                                                                     .blur(radius: 1)
 
                                                             )
-                                                        Text("Leaderboard")
+                                                        Text("leaderboard")
                                                             .shadow(radius: 5)
 
                                                             .font(.title.bold())
@@ -276,7 +283,7 @@ struct MainView: View {
                                                                 .blur(radius: 1)
 
                                                         )
-                                                    Text("How to play")
+                                                    Text("how-to-play")
                                                         .shadow(radius: 5)
                                                         .font(.title.bold())
                                                         .foregroundColor(isOn ? .white : .black)

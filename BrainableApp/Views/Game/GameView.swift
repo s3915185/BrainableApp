@@ -132,7 +132,7 @@ struct GameView: View {
                         .frame(width: CGFloat(40*life) + 20)
                         .onChange(of: life) { _ in
                             heartLose = true
-                            
+                            playOuchSound()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                                 heartLose = false
 

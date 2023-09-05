@@ -92,3 +92,18 @@ func playLoserSound() {
         print(error)
     }
 }
+func playOuchSound() {
+    let url = Bundle.main.url(forResource: "ouch", withExtension: "mp3")
+    
+    guard url != nil else {
+        return
+    }
+    
+    do {
+        audio = try AVAudioPlayer(contentsOf: url!)
+        audio?.play()
+    }
+    catch {
+        print(error)
+    }
+}

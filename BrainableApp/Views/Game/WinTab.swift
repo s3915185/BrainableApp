@@ -23,6 +23,7 @@ struct WinTab: View {
     @Binding var totalClicked:Int
     @Binding var playerLoggin:Player
     @Binding var hasPlayerContinue:Bool
+    @State var achievementFound:Achievement = Achievement(id: 100, achieveName: "noname", timeCount: 50000, mode: "nomode", image: "noimage", modeID: 0)
     var level:Int
     var time:Int
     @Environment(\.dismiss) var dismiss
@@ -32,6 +33,17 @@ struct WinTab: View {
             Text("game-won")
                 .font(.title).bold()
                 .foregroundColor(.black)
+            if (achievementFound.id != 100) {
+                Text("You've got an achievement!")
+                Image(achievementFound.image)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                HStack {Text("level")
+                    Text(LocalizedStringKey(achievementFound.mode))
+                    Text(":")
+                    Text(LocalizedStringKey(achievementFound.achieveName))
+                    .foregroundColor(.red)}
+            }
             Text("play-again?")
             Spacer()
             HStack {
@@ -87,7 +99,7 @@ struct WinTab: View {
           .onAppear {
               totalClicked = 0
               saveTotalClicked()
-              updatePlayerInfo(players: players, player: playerLoggin, level: level, time: time, isWin: true)
+              updatePlayerInfo(players: players, player: playerLoggin, level: level, time: time, isWin: true, achievement: &achievementFound)
               for i in 0..<players.players.count {
                   if (players.players[i].id == playerLoggin.id) {
                       playerLoggin = players.players[i]

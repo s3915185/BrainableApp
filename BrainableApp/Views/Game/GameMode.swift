@@ -37,7 +37,7 @@ class GameMode: ObservableObject {
     }
 }
 
-func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Int, isWin: Bool) {
+func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: Int, isWin: Bool, achievement: inout Achievement) {
     @AppStorage("players")var playersData: Data = Data()
     var playerChange = Player(id: player.id, name: player.name, password: player.password, scoreEasy: player.scoreEasy, scoreIntermediate: player.scoreIntermediate, scoreHard: player.scoreHard, maxWinStreak: player.maxWinStreak, winStreak: player.winStreak, gameTotal: player.gameTotal, winners: player.winners, losers: player.losers, achievements: player.achievements)
     for i in 0..<players.players.count {
@@ -53,6 +53,7 @@ func updatePlayerInfo(players: PlayerModel, player: Player, level: Int, time: In
                         innerLoop: for achi in easyAchieves {
                             if ( achi.timeCount >= time) {
                                 caughtAchieve = true
+                                achievement = achi
                                 object = achi
                                 break innerLoop
                             }
