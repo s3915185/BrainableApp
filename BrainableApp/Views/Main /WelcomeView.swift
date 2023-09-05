@@ -20,15 +20,6 @@ struct WelcomeView: View {
                 .resizable()
                 .ignoresSafeArea()
             VStack{
-                Button(action: {
-                    hasPlayerContinue = false
-                    saveHasPlayerContinue()
-                    loadHasPlayerContinue()
-                    print(hasPlayerContinue)
-                }, label: {
-                    Text("Change hasPlayerContinue to false")
-                        .foregroundColor(.white)
-                })
                 Spacer()
                 HStack{
                     Text("swipe-left")

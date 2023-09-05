@@ -25,21 +25,22 @@ struct SettingView: View {
     var languageIndexW = ["en", "vi"]
     var body: some View {
             List {
-                Section {
-                    HStack {
-                        Text("username")
-                        Spacer()
-                        Text(name)
+                if (name != "" && password != "") {
+                    Section {
+                        HStack {
+                            Text("username")
+                            Spacer()
+                            Text(name)
+                        }
+                        HStack {
+                            Text("password")
+                            Spacer()
+                            Text(password);
+                        }
+                    } header: {
+                        Text("account-information")
                     }
-                    HStack {
-                        Text("password")
-                        Spacer()
-                        Text(password);
-                    }
-                } header: {
-                    Text("account-information")
                 }
-                
                 Section {
                     HStack{
                         Text("dark-mode")
@@ -62,24 +63,26 @@ struct SettingView: View {
                 } header: {
                     Text("app-settings")
                 }
-                Section {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            name = ""
-                            password = ""
-                            dismiss()
-                            hasPlayerContinue = false
-                            saveHasPlayerContinue()
+                if (name != "" && password != "") {
+                    Section {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                name = ""
+                                password = ""
+                                dismiss()
+                                hasPlayerContinue = false
+                                saveHasPlayerContinue()
+                                
+                                loadHasPlayerContinue()
+                                print("Has Player Continute: \(false)")
+                            }, label: {
+                                Text("log-out")
+                                    .foregroundColor(.red)
+                            })
+                            Spacer()
                             
-                            loadHasPlayerContinue()
-                            print("Has Player Continute: \(false)")
-                        }, label: {
-                            Text("log-out")
-                                .foregroundColor(.red)
-                        })
-                        Spacer()
-
+                        }
                     }
                 }
             }

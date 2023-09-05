@@ -49,6 +49,7 @@ struct GameView: View {
     @State var maxTime: Int = 50000
     @Environment(\.dismiss) var dismiss
     @State var showInstructions:Bool = false
+    @Binding var isOn:Bool
     
     @State private var answerGrid:[[Int]] = [[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1], [2, 1, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1, 1], [1, 2, 2, 2, 2, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2], [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 1, 2], [2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [1, 2, 2, 2, 2, 2, 1, 2, 2, 1, 1, 2, 1, 2, 2], [2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2]]
     @State private var playerGrid:[[Int]] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
@@ -63,31 +64,59 @@ struct GameView: View {
             VStack {
                 HStack {
                     HStack {
-                        Button(action: {
-                            playMainbackgroundSound()
-                            hasPlayerContinue = false
-                            saveHasPlayerContinue()
-                            loadHasPlayerContinue()
-                            hasPlayerContinue = false
-                            print("At this state hasplayerContinute: \(hasPlayerContinue)")
-                            dismiss()
-                        }, label: {
-                            Text("exit")
-                        })
+                        HStack {
+                            Button(action: {
+                                playMainbackgroundSound()
+                                hasPlayerContinue = false
+                                saveHasPlayerContinue()
+                                loadHasPlayerContinue()
+                                hasPlayerContinue = false
+                                print("At this state hasplayerContinute: \(hasPlayerContinue)")
+                                dismiss()
+                            }, label: {
+                                Text("exit")
+                                    .accentColor(.black)
+                            })
+                        }
+                        .background {
+                            Rectangle()
+                                .fill(.white)
+                                .frame(width: 50, height: 25)
+                                .cornerRadius(20)
+                                .overlay (
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                )
+                        }
+                        
                         Spacer()
-                        Button(action: {
-                            showInstructions.toggle()
-                        }, label: {
-                            Text("instructions")
-                        })
-                        .padding(.trailing)
-                        .sheet(isPresented: $showInstructions) {
-                            HowToPlayView()
+                        HStack {
+                            Button(action: {
+                                showInstructions.toggle()
+                            }, label: {
+                                Text("instructions")
+                                    .accentColor(.black)
+                            })
+                            .padding(.trailing)
+                            .sheet(isPresented: $showInstructions) {
+                                HowToPlayView()
+                            }
+                        }.background {
+                            Rectangle()
+                                .fill(.white)
+                                .frame(width: 100, height: 25)
+                                .cornerRadius(20)
+                                .padding(.trailing)
+                                .overlay (
+                                    RoundedRectangle(cornerRadius: 40)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                        .padding(.trailing)
+                                )
                         }
                     }.padding(.leading)
                 }
-                Spacer()
                 VStack {
+                    Spacer()
                     HStack {
                         Spacer()
                         HStack (spacing: 8) {
@@ -165,68 +194,100 @@ struct GameView: View {
                             .frame(width: 20)
                         Text("seconds")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
-                            .frame(width: 100)
+                            .frame(width: 80)
                             .onAppear{
                                 startPlayerTimer()
                             }
                     }
+                    .background {
+                        Rectangle()
+                            .fill(isOn ? .black : .white)
+                            .frame(width: 330, height: 25)
+                            .cornerRadius(20)
+                            .overlay (
+                                RoundedRectangle(cornerRadius: 40)
+                                    .stroke(Color.blue, lineWidth: 1)
+                            )
+                    }
+                    .cornerRadius(5)
                     .onChange(of: second, perform: { _ in
                         if (second % 60 == 0 && second != 0) {
                             minute += 1
                         }
                     })
-                    .frame(width: 300)
-                    HStack {
-                        Grid(horizontalSpacing: 0, verticalSpacing: 0) {
-                            GridRow {
-                                Text("")
-                                ForEach(0..<((levelIndex + levelUpgrade) * 5)) { u in
-                                    VStack {
-                                        Spacer()
-                                        Text(x_dimens[u])
-                                            .padding(.bottom, 4)
-                                    }
-                                    .font(.system(size: 12, weight: .regular))
-                                    .frame(width:CGFloat( 50 / (levelIndex + levelUpgrade)), height: 200)
-                                }
-                            }
-                            
-                            ForEach(0..<((levelIndex + levelUpgrade) * 5)) { a in
+                    .frame(width: 290)
+                    VStack {
+                        HStack {
+                            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
                                 GridRow {
-                                    HStack {
-                                        Text(y_dimens[a])
-                                            .font(.system(size: 12, weight: .regular))
-                                            .frame(height: CGFloat(50 / (levelIndex + levelUpgrade)))
+                                    Text("")
+                                    ForEach(0..<((levelIndex + levelUpgrade) * 5)) { u in
+                                        VStack {
+                                            Spacer()
+                                            Text(x_dimens[u])
+                                                .padding(.bottom, 4)
+                                        }
+                                        .font(.system(size: 12, weight: .regular))
+                                        .frame(width:CGFloat( 50 / (levelIndex + levelUpgrade)), height: 200)
                                     }
-                                    ForEach(0..<((levelIndex + levelUpgrade) * 5)) { b in
-                                        ColorSquare(level: $levelIndex, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, answerGrid: $answerGrid, playerGrid: $playerGrid)
+                                    .background {
+                                        Rectangle()
+                                            .fill(isOn ? .gray : .white)
+                                            .frame(width: CGFloat( 60 / (levelIndex + 1)), height: 110)
+                                            .cornerRadius(20)
+                                            .offset(y: 60)
+                                    }
+                                }
+                                .offset(y: 15)
+                                
+                                ForEach(0..<((levelIndex + levelUpgrade) * 5)) { a in
+                                    GridRow {
+                                        HStack {
+                                            Text(y_dimens[a])
+                                                .font(.system(size: 12, weight: .regular))
+                                                .frame(height: CGFloat(50 / (levelIndex + levelUpgrade)))
+                                        }
+                                        .background {
+                                            Rectangle()
+                                                .fill(isOn ? .gray : .white)
+                                                .frame(width: 100, height: CGFloat( 60 / (levelIndex + 1)))
+                                                .cornerRadius(20)
+                                                .offset(x: 15)
+                                        }
+                                        ForEach(0..<((levelIndex + levelUpgrade) * 5)) { b in
+                                            ColorSquare(level: $levelIndex, choice: $choice, xCoordinate: a, yCoordinate: b, reset: $reset, life: $life, totalClicked: $totalClicked, answerGrid: $answerGrid, playerGrid: $playerGrid)
+                                        }
                                     }
                                 }
                             }
                         }
+                        HStack {
+                            VStack{
+                                Color.blue
+                                    .frame(width:CGFloat( 65), height: CGFloat(65))
+                                    .border(choice == 2 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
+                            }
+                            .onTapGesture {
+                                playClickSound()
+                                choice = 2
+                            }
+                            VStack {
+                                Color.gray
+                                    .frame(width:CGFloat( 65), height: CGFloat(65))
+                                    .border(choice == 1 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
+                            }
+                            .onTapGesture {
+                                playClickSound()
+                                choice = 1
+                            }
+                        }
                     }
-                    HStack {
-                        VStack{
-                            Color.blue
-                                .frame(width:CGFloat( 65), height: CGFloat(65))
-                                .border(choice == 2 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
-                        }
-                        .onTapGesture {
-                            playClickSound()
-                            choice = 2
-                        }
-                        VStack {
-                            Color.gray.opacity(0.3)
-                                .frame(width:CGFloat( 65), height: CGFloat(65))
-                                .border(choice == 1 ? .red.opacity(1) : .black.opacity(0.1), width: 1.5)
-                        }
-                        .onTapGesture {
-                            playClickSound()
-                            choice = 1
-                        }
-                    }
+                    .offset(y: -60)
                 }
+                Spacer()
             }
+        }
+        .overlay {
             if (showLoseTab) {
                 ZStack {
                     Spacer()
@@ -251,6 +312,12 @@ struct GameView: View {
                         }
                 }
             }
+        }
+        .background {
+            Image(isOn ? "gamebackground-black" : "gamebackground")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea(.all, edges: .all)
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
@@ -292,6 +359,7 @@ struct GameView: View {
                     playerGrid.append(subArray)
                 }
                 saveAnswerGrid()
+                savePlayerGrid()
                 saveXDimens()
                 saveYDimens()
             }
@@ -494,8 +562,8 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(players: PlayerModel(), levelIndex: .constant(2), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
-        GameView(players: PlayerModel(), levelIndex: .constant(1), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
-        GameView(players: PlayerModel(), levelIndex: .constant(0), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer))
+        GameView(players: PlayerModel(), levelIndex: .constant(2), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer), isOn: .constant(false))
+        GameView(players: PlayerModel(), levelIndex: .constant(1), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer), isOn: .constant(false))
+        GameView(players: PlayerModel(), levelIndex: .constant(0), hasPlayerContinue: .constant(false), playerLoggin: .constant(testPlayer), isOn: .constant(false))
     }
 }

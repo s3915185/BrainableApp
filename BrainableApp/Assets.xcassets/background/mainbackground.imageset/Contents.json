@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Roller-Brush.png",
+      "filename" : "4.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Roller-Brush 1.png",
+      "filename" : "4 1.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Roller-Brush 2.png",
+      "filename" : "4 2.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

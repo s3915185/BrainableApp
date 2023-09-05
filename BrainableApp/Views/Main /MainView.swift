@@ -35,7 +35,14 @@ struct MainView: View {
     @State private var showPlaying:Bool = false
     @State private var showContinueButton:Bool = true
     @Binding var language:String
+    @State private var goesToLeaderboard:Bool = false
     @Environment(\.dismiss) var dismiss
+    @State private var settingAnimate:Bool = false
+    @State private var loginTap:Bool = false
+    @State private var registerTap:Bool = false
+    @State private var playTap:Bool = false
+    @State private var leaderboardTap:Bool = false
+    @State private var howtoplayTap:Bool = false
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -57,85 +64,119 @@ struct MainView: View {
                                     .font(.system(size: 18).bold())
                             })
                             .padding(.trailing)
-                            if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                                Spacer()
-                                NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue, language: $language)) {
-                                    Image(systemName: "medal")
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
-                                        .foregroundColor(isOn ? .white : .black)
-                                        .padding(.trailing)
-                                }
                                 NavigationLink (destination:SettingView(isOn: $isOn, levelIndex: $levelIndex, languageIndex: $languageIndex, name: $nameLogin, password: $passwordLogin, hasPlayerContinue: $hasPlayerContinue, language: $language)) {
                                     Image(systemName: "gearshape.circle.fill")
                                         .resizable()
+                                        .rotationEffect(Angle(degrees: settingAnimate ? 360*2 : 0))
                                         .frame(width: 30, height: 30)
                                         .foregroundColor(isOn ? .white : .black)
                                         .padding(.trailing)
+                                        .animation(.linear(duration: 2.5), value: settingAnimate)
+                                        .onAppear {
+                                            settingAnimate.toggle()
+                                            Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+                                                self.settingAnimate.toggle()
+                                            }
+                                        }
                                 }
-                            }
                         }
                         List {
-                            Section {
-                                HStack {
-                                    Text("has-account?")
-                                    Spacer()
-                                    Button(action: {
-                                        if (checkForAccount(login: name, password: password)) {
-                                            nameLogin = name
-                                            passwordLogin = password
-                                        }
-                                        playClickSound()
-                                    }, label: {
-                                        Text("log-in")
-                                    })
+                            if (nameLogin == "" && passwordLogin == "") {
+                                Section {
+                                    HStack {
+                                        Spacer()
+                                        Button(action: {
+                                            loginTap = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                               loginTap = false
+                                            }
+                                            if (checkForAccount(login: name, password: password)) {
+                                                nameLogin = name
+                                                passwordLogin = password
+                                                name = ""
+                                                password = ""
+                                            }
+                                            playClickSound()
+                                        }, label: {
+                                            Text("log-in")
+                                                .foregroundColor(isOn ? .white : .black)
+                                        })
+                                        .frame(width: 70, height: 30)
+                                        .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                .mask(RoundedRectangle(cornerRadius: 30))
+                                                .shadow(color: Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).opacity(loginTap ? 0.6 : 0.3), radius: loginTap ? 10 : 5, x: 0, y: loginTap ? 0 : 5)
+                                               
+                                                .scaleEffect(loginTap ? 1.5 : 1)
+                                        .animation(.spring(response: 0.4, dampingFraction: 0.6))
+                                    }
+                                    HStack {
+                                        Text("username")
+                                        Spacer()
+                                        TextField (
+                                            "Enter your player name ", text: $name
+                                        ).frame(width: 210)
+                                    }
+                                    HStack {
+                                        Text("password")
+                                        Spacer()
+                                        SecureField (
+                                            "Enter password ", text: $password
+                                        ).frame(width: 210)
+                                    }
+                                } header: {
+                                    Text("log-in")
+                                        .font(.title)
+                                        .bold()
+                                        .foregroundColor(isOn ? .white : .black)
+                                        .shadow(color:isOn ? .white.opacity(0.3) : .black.opacity(0.3), radius: 5)
                                 }
-                                HStack {
-                                    Text("username")
-                                    Spacer()
-                                    TextField (
-                                        "Enter your player name ", text: $name
-                                    ).frame(width: 210)
-                                }
-                                HStack {
-                                    Text("password")
-                                    Spacer()
-                                    TextField (
-                                        "Enter password ", text: $password
-                                    ).frame(width: 210)
-                                }
-                            }
-                            Section {
-                                HStack {
-                                    Text("create-new-account")
-                                    Spacer()
-                                    Button(action: {
-                                        if (!checkForAccount(login: nameTemp, password: passwordTemp)) {
-                                            addAccount(loginValue: nameTemp, passwordValue: passwordTemp)
-                                        }
-                                        nameTemp = ""
-                                        passwordTemp = ""
-                                        playClickSound()
-                                    }, label: {
-                                        Text("create")
-                                    })
-                                }
-                                HStack {
-                                    Text("username")
-                                    Spacer()
-                                    TextField (
-                                        "Enter your player name ", text: $nameTemp
-                                    ).frame(width: 210)
-                                }
-                                HStack {
-                                    Text("password")
-                                    Spacer()
-                                    TextField (
-                                        "Enter password ", text: $passwordTemp
-                                    )
-                                    .frame(width: 210)
-                                }
-                            }
+                                .listRowSeparator(.hidden)
+                                Section {
+                                    HStack {
+                                        Spacer()
+                                        Button(action: {
+                                            registerTap = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                registerTap = false
+                                            }
+                                            if (!checkForAccount(login: nameTemp, password: passwordTemp)) {
+                                                addAccount(loginValue: nameTemp, passwordValue: passwordTemp)
+                                            }
+                                            nameTemp = ""
+                                            passwordTemp = ""
+                                            playClickSound()
+                                        }, label: {
+                                            Text("create").foregroundColor(isOn ? .white : .black)
+                                        }).frame(width: 70, height: 30)
+                                            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                    .mask(RoundedRectangle(cornerRadius: 30))
+                                                    .shadow(color: Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).opacity(registerTap ? 0.6 : 0.3), radius: registerTap ? 10 : 5, x: 0, y: registerTap ? 0 : 5)
+                                                   
+                                                    .scaleEffect(registerTap ? 1.5 : 1)
+                                            .animation(.spring(response: 0.4, dampingFraction: 0.6))
+                                    }
+                                    HStack {
+                                        Text("username")
+                                        Spacer()
+                                        TextField (
+                                            "Enter your player name ", text: $nameTemp
+                                        ).frame(width: 210)
+                                    }
+                                    HStack {
+                                        Text("password")
+                                        Spacer()
+                                        SecureField (
+                                            "Enter password ", text: $passwordTemp
+                                        )
+                                        .frame(width: 210)
+                                    }
+                                } header: {
+                                    Text("register").font(.title)
+                                        .bold()
+                                        .foregroundColor(isOn ? .white : .black)
+                                        .shadow(color:isOn ? .white.opacity(0.3) : .black.opacity(0.3), radius: 5)
+                                }                                .listRowSeparator(.hidden)
+}
                             Section {
                                 HStack {
                                     Spacer()
@@ -144,27 +185,116 @@ struct MainView: View {
                                 }
                             }.background(.clear)
                             Section {
-                                if (checkForAccount(login: nameLogin, password: passwordLogin)) {
-                                    NavigationLink (destination: GameView(players: players, levelIndex: $levelIndex, hasPlayerContinue: $hasPlayerContinue, playerLoggin: $playerLoggin), isActive: $showPlaying){
-                                        ZStack {
-                                            Text("Play!")
+                                ScrollView() {
+                                    VStack {
+                                        if (nameLogin != "" && passwordLogin != "") {
+                                            VStack {
+                                                NavigationLink (destination: GameView(players: players, levelIndex: $levelIndex, hasPlayerContinue: $hasPlayerContinue, playerLoggin: $playerLoggin, isOn: $isOn), isActive: $showPlaying){
+                                                    Button(action: {
+                                                        playTap = true
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                            playTap = false
+                                                        }
+                                                        showPlaying = true
+                                                    }, label: {
+                                                        ZStack {
+                                                            Rectangle()
+                                                                .fill(.clear)
+                                                                .frame(width: geometry.size.width - 38, height: 200)
+                                                                .cornerRadius(20)
+                                                                .clipped()
+                                                                .overlay (
+                                                                    Image("play-card")
+                                                                        .resizable()
+                                                                        .scaledToFit()
+                                                                        .blur(radius: 1)
+                                                                )
+                                                            Text("Play")                                                        .shadow(radius: 5)
+                                                                .font(.title.bold())
+                                                                .foregroundColor(isOn ? .white : .black)
+                                                                .offset(y: -30)
+                                                        }
+                                                    }).scaleEffect(playTap ? 1.2 : 1)
+                                                        .animation(.spring(response: 0.4, dampingFraction: 0.6))
+                                                }
+                                            }}
+                                        VStack {
+                                            NavigationLink (destination: Leaderboard(players: players), isActive: $goesToLeaderboard){
+                                                Button(action: {
+                                                    leaderboardTap = true
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                        leaderboardTap = false
+                                                    }
+
+                                                    goesToLeaderboard = true
+                                                }, label: {
+                                                    ZStack {
+                                                        Rectangle()
+                                                            .fill(.clear)
+                                                            .frame(width: geometry.size.width - 38, height: 200)
+                                                            .cornerRadius(20)
+                                                            .clipped()
+                                                            .overlay (
+                                                                Image("leaderboard-card")
+                                                                    .resizable()
+                                                                    .scaledToFit()
+                                                                    .blur(radius: 1)
+
+                                                            )
+                                                        Text("Leaderboard")
+                                                            .shadow(radius: 5)
+
+                                                            .font(.title.bold())
+                                                            .foregroundColor(isOn ? .white : .black)
+                                                            .offset(y: -30)
+                                                    }
+                                                }).scaleEffect(leaderboardTap ? 1.2 : 1)
+                                                    .animation(.spring(response: 0.4, dampingFraction: 0.6))
+                                            }
+                                        }
+                                        VStack {
+                                            Button(action: {
+                                                howtoplayTap = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                    howtoplayTap = false
+                                                }
+
+                                                showingHowToPlay.toggle()
+                                                print(showingHowToPlay)
+                                                playClickSound()
+                                            }, label: {
+                                                ZStack {
+                                                    Rectangle()
+                                                        .fill(.clear)
+                                                        .frame(width: geometry.size.width - 38, height: 200)
+                                                        .cornerRadius(20)
+                                                        .clipped()
+                                                        .overlay (
+                                                            Image("howtoplay-card")
+                                                                .resizable()
+                                                                .scaledToFit()
+                                                                .blur(radius: 1)
+
+                                                        )
+                                                    Text("How to play")
+                                                        .shadow(radius: 5)
+                                                        .font(.title.bold())
+                                                        .foregroundColor(isOn ? .white : .black)
+                                                        .offset(y: -30)
+                                                }                                            }).scaleEffect(howtoplayTap ? 2 : 1)
+                                                .animation(.spring(response: 0.4, dampingFraction: 0.6))
                                         }
                                     }
+                                    .padding(.leading)
                                 }
-                                NavigationLink (destination: Leaderboard(players: players)){
-                                    ZStack {
-                                        Text("leaderboard")
-                                    }
-                                }
-                                Button("how-to-play") {
-                                    showingHowToPlay.toggle()
-                                    playClickSound()
-                                }
-                                .sheet(isPresented: $showingHowToPlay) {
-                                    HowToPlayView()
-                                }
+                            } header: {
+                                Text("Go to")
                             }
                         }
+                        .environment(\.defaultMinListRowHeight, 50)
+                        .environment(\.defaultMinListHeaderHeight, 45)
+                        .scrollContentBackground(.hidden)
+                        
                         
                     }
                     if (hasPlayerContinue && showContinueButton) {
@@ -191,13 +321,27 @@ struct MainView: View {
                             .background(.white)
                     }
                 }
+            }.background {
+                if (!isOn) {
+                    Image("mainbackground")
+                        .resizable()
+                        .ignoresSafeArea(.all, edges: .all)
+                }
+                else {
+                    Image("mainbackground-black")
+                        .resizable()
+                        .ignoresSafeArea(.all, edges: .all)
+                }
             }
             .onAppear {
                 playersCount = players.players.count
                 checkForAccount(login: nameLogin, password: passwordLogin)
                 playClickSound()
             }
+        }.sheet(isPresented: $showingHowToPlay) {
+            HowToPlayView()
         }
+
         .onAppear {
             loadPlayers()
             //clearData()

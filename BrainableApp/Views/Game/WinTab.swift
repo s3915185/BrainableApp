@@ -86,6 +86,8 @@ struct WinTab: View {
           .background(Color.white)
           .cornerRadius(10.0)
           .onAppear {
+              totalClicked = 0
+              saveTotalClicked()
               updatePlayerInfo(players: players, player: playerLoggin, level: level, time: time, isWin: true)
               for i in 0..<players.players.count {
                   if (players.players[i].id == playerLoggin.id) {
