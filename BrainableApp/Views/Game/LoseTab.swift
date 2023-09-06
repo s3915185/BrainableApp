@@ -33,7 +33,8 @@ struct LoseTab: View {
             Text("game-over")
                 .font(.title).bold()
                 .foregroundColor(.black)
-            Text("play-again?")
+            Text("play-again?")                .foregroundColor(.black)
+
             Spacer()
             HStack {
                 Button(action: {

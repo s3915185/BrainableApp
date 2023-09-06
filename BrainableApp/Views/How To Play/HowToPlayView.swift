@@ -16,14 +16,13 @@ struct HowToPlayView: View {
                         HStack {
                             HStack {
                                 HStack {
-                                    Spacer()
                                     VStack {
+                                        Spacer()
                                         Text("instruction-0")
                                             .frame(width: 260)
-                                            .offset(y: 31)
                                         Image("instruction0")
                                             .resizable()
-                                            .frame(width: 300, height: 600)
+                                            .frame(width: 300, height: 700)
                                             .zIndex(-1)
                                     }
                                 }
@@ -31,103 +30,60 @@ struct HowToPlayView: View {
                             }
                             HStack {
                                 HStack {
-                                    Spacer()
                                     VStack {
+                                        Spacer()
+
                                         Text("instruction-1")
                                             .frame(width: 260)
                                         Image("instruction1")
                                             .resizable()
-                                            .frame(width: 320, height: 540)
+                                            .frame(width: 300, height: 700)
+                                            .zIndex(-1)
                                     }
                                 }
                                 Spacer(minLength: 40)
                             }
                             HStack {
                                 HStack {
-                                    Spacer()
                                     VStack {
+                                        Spacer()
+
                                         Text("instruction-2")
                                             .frame(width: 260)
-                                            .offset(y: -23)
                                         Image("instruction2")
                                             .resizable()
-                                            .frame(width: 320, height: 540)
-                                            .offset(y: 22)
+                                            .frame(width: 300, height: 700)
+                                            .zIndex(-1)
                                     }
                                 }
                                 Spacer(minLength: 40)
                             }
                             HStack {
                                 HStack {
-                                    Spacer()
                                     VStack {
+                                        Spacer()
+
                                         Text("instruction-3")
                                             .frame(width: 260)
                                         Image("instruction3")
                                             .resizable()
-                                            .frame(width: 320, height: 540)
+                                            .frame(width: 300, height: 700)
+                                            .zIndex(-1)
                                     }
                                 }
                                 Spacer(minLength: 40)
                             }
                             HStack {
                                 HStack {
-                                    Spacer()
                                     VStack {
+                                        Spacer()
+
                                         Text("instruction-4")
                                             .frame(width: 260)
                                         Image("instruction4")
                                             .resizable()
-                                            .frame(width: 320, height: 540)
-                                    }
-                                }
-                                Spacer(minLength: 40)
-                            }
-                            HStack {
-                                HStack {
-                                    Spacer()
-                                    VStack {
-                                        Text("instruction-5")
-                                            .frame(width: 260)
-                                            .offset(y: -23)
-                                        Image("instruction5")
-                                            .resizable()
-                                            .frame(width: 320, height: 540)
-                                            .offset(y: 22)
-                                    }
-                                }
-                                Spacer(minLength: 40)
-                            }
-                            HStack {
-                                HStack {
-                                    Spacer()
-                                    VStack {
-                                        Text("instruction-6")
-                                            .frame(width: 260)
-                                            .offset(y: -10)
-                                        Image("instruction6")
-                                            .resizable()
-                                            .frame(width: 320, height: 540)
-                                            .offset(y: 10)
-                                    }
-                                }
-                                Spacer(minLength: 40)
-                            }
-                            HStack {
-                                HStack {
-                                    Spacer()
-                                    VStack {
-                                        HStack {
-                                            Text("instruction-7")
-                                                .frame(width: 260)
-                                                .offset(y: -33)
-                                            Spacer()
-                                        }
-                                        
-                                        Image("instruction7")
-                                            .resizable()
-                                            .frame(width: 960, height: 540)
-                                            .offset(y: 32)
+                                            .frame(width: 300, height: 700)
+                                            .zIndex(-1)
                                     }
                                 }
                                 Spacer(minLength: 40)

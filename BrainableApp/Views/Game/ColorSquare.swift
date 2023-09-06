@@ -71,37 +71,22 @@ struct ColorSquare: View {
                     
                 }
                 isCorrect = choice
-                if (level == 0) {
-                    if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
-                        life -= 1
-                    }
-                    else {
-                        rightValue = true
-                        
-                    }
-                }else if (level == 1) {
-                    if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
-                        life -= 1
-                    }
-                    else {
-                        rightValue = true
-                        
-                    }
+                if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
+                    life -= 1
                 }
-                else if (level == 2) {
-                    if (answerGrid[xCoordinate][yCoordinate] != isCorrect) {
-                        life -= 1
-                    }
-                    else {
-                        rightValue = true
-                        
-                    }
+                else {
+                    rightValue = true
+                    
                 }
                 if (rightValue) {
                     if (!valueAdded) {
                         totalClicked+=1
                         valueAdded = true
                     }}
+                if (valueAdded && !rightValue) {
+                    totalClicked -= 1
+                    valueAdded = false
+                }
                 saveLife()
                 saveTotalClicked()
                 tapAnimate = true

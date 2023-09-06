@@ -35,16 +35,20 @@ struct WinTab: View {
                 .foregroundColor(.black)
             if (achievementFound.id != 100) {
                 Text("You've got an achievement!")
+                    .foregroundColor(.black)
+
                 Image(achievementFound.image)
                     .resizable()
                     .frame(width: 50, height: 50)
                 HStack {Text("level")
-                    Text(LocalizedStringKey(achievementFound.mode))
-                    Text(":")
+                    Text(LocalizedStringKey(achievementFound.mode))                .foregroundColor(.black)
+
+                    Text(":").foregroundColor(.black)
                     Text(LocalizedStringKey(achievementFound.achieveName))
                     .foregroundColor(.red)}
             }
-            Text("play-again?")
+            Text("play-again?")                .foregroundColor(.black)
+
             Spacer()
             HStack {
                 Button(action: {
