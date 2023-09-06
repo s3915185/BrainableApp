@@ -25,7 +25,7 @@
 "achievements" = "Achievements";
 "exit" = "Exit";
 "instructions" = "Instructions";
-"instruction-0" = "The numbers to the left of the grid indicate the placement and number of blue squares that you will draw in each column and row.";
+"instruction-0" = "The numbers to the left and above of the grid indicate the placement and number of blue squares that you will draw in each column and row.";
 "instruction-1" = "Start with easy one, 5 blue squares to fill the row.";
 "instruction-2" = "Next, the 1 3 will have to be gapped in the middle by gray square.";
 "instruction-3" = "Then apply goes for the 1 3 in a row.";

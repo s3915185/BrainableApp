@@ -1,9 +1,15 @@
-//
-//  GameView.swift
-//  BrainableApp
-//
-//  Created by Vu Tran Hoang on 19/08/2023.
-//
+
+/*
+ RMIT University Vietnam
+ Course: COSC2659 IOS Development
+ Semester: 2022B
+ Assessment: Assignment 2
+ Author: Tran Hoang Vu
+ ID: 3915185
+ Created date: 15/8/2023
+ Last modified: 6/9/2023
+ Acknowledgement: Your lectures, tutorials, information linked in the report
+ */
 
 import Foundation
 import SwiftUI
@@ -195,9 +201,9 @@ struct GameView: View {
                         Spacer()
                     }
                     HStack {
-                        Text("Time: ")
+                        Text("time")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
-                            .frame(width: 60)
+                            .frame(width: 80)
                         Text("\(minute) ")
                             .font(.system(size: 16, weight: .regular, design: .monospaced))
                             .frame(width: 20)

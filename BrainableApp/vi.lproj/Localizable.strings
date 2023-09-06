@@ -1,3 +1,4 @@
+
 "swipe-left" = "Lướt qua trái";
 "clear-data" = "Xoá thông tin";
 "has-account?" = "Có tài khoản?";
@@ -14,7 +15,7 @@
 "level" = "Cấp độ";
 "language" = "Ngôn ngữ";
 "log-out" = "Đăng xuất";
-"time" = "Thời gian:";
+"time" = "T.gian:";
 "min" = "ph";
 "s" = "giây";
 "minutes" = "phút";
@@ -25,7 +26,7 @@
 "achievements" = "Danh hiệu";
 "exit" = "Thoát";
 "instructions" = "Hướng dẫn";
-"instruction-0" = "Các số ở bên trái của lưới cho biết vị trí và số lượng ô vuông màu xanh mà bạn sẽ vẽ trong mỗi cột và hàng.";
+"instruction-0" = "Các số ở bên trái và ở trên của lưới cho biết vị trí và số lượng ô vuông màu xanh mà bạn sẽ vẽ trong mỗi cột và hàng.";
 "instruction-1" = "Bắt đầu với một câu dễ, 5 ô vuông màu xanh lam để điền vào hàng.";
 "instruction-2" = "Tiếp theo, số 1 3 sẽ phải được khoét ở giữa bằng hình vuông màu xám.";
 "instruction-3" = "Sau đó áp dụng cho 1 3 liên tiếp ở hàng ngang";

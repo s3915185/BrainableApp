@@ -1,9 +1,15 @@
-//
-//  WinTab.swift
-//  BrainableApp
-//
-//  Created by Lê Ngọc Trâm on 02/09/2023.
-//
+
+/*
+ RMIT University Vietnam
+ Course: COSC2659 IOS Development
+ Semester: 2022B
+ Assessment: Assignment 2
+ Author: Tran Hoang Vu
+ ID: 3915185
+ Created date: 15/8/2023
+ Last modified: 6/9/2023
+ Acknowledgement: Your lectures, tutorials, information linked in the report
+ */
 
 import SwiftUI
 
@@ -40,7 +46,7 @@ struct WinTab: View {
                 Image(achievementFound.image)
                     .resizable()
                     .frame(width: 50, height: 50)
-                HStack {Text("level")
+                HStack {Text("level").foregroundColor(.black)
                     Text(LocalizedStringKey(achievementFound.mode))                .foregroundColor(.black)
 
                     Text(":").foregroundColor(.black)

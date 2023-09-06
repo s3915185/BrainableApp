@@ -9,7 +9,7 @@
     },
     {
         "id": 2,
-        "achieveName" : "less-than-minute-30-seconds",
+        "achieveName" : "less-than-1-minute-30-seconds",
         "timeCount": 90,
         "mode": "Intermediate",
         "image": "intermediate90",
