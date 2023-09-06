@@ -14,11 +14,11 @@
 import Foundation
 import AVFoundation
 
-var audio: AVAudioPlayer!
-var background: AVAudioPlayer!
+var audio: AVAudioPlayer! // this variable is for real time sound
+var background: AVAudioPlayer! //default this variable for background sound
 
 func playClickSound() {
-    let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+    let url = Bundle.main.url(forResource: "click", withExtension: "mp3") // this is the click sound whenever user click anything
     
     guard url != nil else {
         return
@@ -34,7 +34,7 @@ func playClickSound() {
 }
 
 func playWinnerSound() {
-    let url = Bundle.main.url(forResource: "winner", withExtension: "mp3")
+    let url = Bundle.main.url(forResource: "winner", withExtension: "mp3") // this sound will be played when user wins
     
     guard url != nil else {
         return
@@ -50,7 +50,7 @@ func playWinnerSound() {
 }
 
 func playBackgroundSound() {
-    let url = Bundle.main.url(forResource: "background", withExtension: "mp3")
+    let url = Bundle.main.url(forResource: "background", withExtension: "mp3") // this is the background sound while playing the game
     
     guard url != nil else {
         return
@@ -67,7 +67,7 @@ func playBackgroundSound() {
 }
 
 func playMainbackgroundSound() {
-    let url = Bundle.main.url(forResource: "mainbackground", withExtension: "mp3")
+    let url = Bundle.main.url(forResource: "mainbackground", withExtension: "mp3")// this is the background sound in the menu app
     
     guard url != nil else {
         return
@@ -84,7 +84,8 @@ func playMainbackgroundSound() {
 }
 
 func playLoserSound() {
-    let url = Bundle.main.url(forResource: "loser", withExtension: "mp3")
+    let url = Bundle.main.url(forResource: "loser", withExtension: "mp3") // this sound will be played when user loses
+
     
     guard url != nil else {
         return
@@ -99,7 +100,8 @@ func playLoserSound() {
     }
 }
 func playOuchSound() {
-    let url = Bundle.main.url(forResource: "ouch", withExtension: "mp3")
+    let url = Bundle.main.url(forResource: "ouch", withExtension: "mp3") // this sound will be played when user loses a life
+
     
     guard url != nil else {
         return

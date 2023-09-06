@@ -12,6 +12,9 @@
  */
 import Foundation
 
+/*
+ This is stored in a PlayerModel, this will kepe track all of the players in global
+ */
 class PlayerModel: ObservableObject {
     @Published var players: [Player] = []
 }

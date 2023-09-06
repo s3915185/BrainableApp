@@ -13,6 +13,9 @@
 import Foundation
 import CoreLocation
 
+/*
+ HARD ACHIEVEMENTS DECODING
+ */
 var hardAchieves = decodeJsonFromHardAchievesJsonFile(jsonFileName: "hardAchieves.json")
 
 // How to decode a json file into a struct

@@ -12,10 +12,13 @@
  */
 import Foundation
 import CoreLocation
-
+ 
+/*
+ FOR EASY ACHIEVEMENTS
+ */
 var easyAchieves = decodeJsonFromEasyAchievesJsonFile(jsonFileName: "easyAchieves.json")
 
-// How to decode a json file into a struct
+// How to decode a json file into a struct for the EasyAchieves
 func decodeJsonFromEasyAchievesJsonFile(jsonFileName: String) -> [Achievement] {
     if let file = Bundle.main.url(forResource: jsonFileName, withExtension: nil){
         if let data = try? Data(contentsOf: file) {

@@ -14,6 +14,9 @@
 import Foundation
 import CoreLocation
 
+/*
+ INTERMEDIATE ACHIVEMENTS
+ */
 var intermediateAchieves = decodeJsonFromIntermediateAchievesJsonFile(jsonFileName: "intermediateAchieves.json")
 
 // How to decode a json file into a struct

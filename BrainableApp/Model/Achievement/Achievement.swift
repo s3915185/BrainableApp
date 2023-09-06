@@ -12,12 +12,15 @@
  */
 import Foundation
 
+/*
+ Achievement: This is datatype for achievement
+ */
 struct Achievement:Codable, Hashable, Identifiable, Equatable {
-    let id: Int
-    let achieveName: String
-    let timeCount: Int
-    let mode: String
-    let image: String
-    let modeID: Int
+    let id: Int // id
+    let achieveName: String // name of the achievement
+    let timeCount: Int // the time requirement to get the achievement
+    let mode: String // mode of the achievement: Easy, Intermediate, Hard
+    let image: String // image name of the badge
+    let modeID: Int // the id of the achievement
     
 }
